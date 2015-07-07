@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#1d459e"
+    tools:context="example.com.demoapp.subCategory.PopupActivity">
+
+    <TextView
+        android:id="@+id/tvDisplay_Vi"
+        android:layout_width="fill_parent"
+        android:layout_height="200px"
+        android:gravity="center"
+        android:textColor="#FFFFFF"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#FFFFFF"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:layout_width="fill_parent"
+            android:layout_height="150px"
+            android:layout_weight="1"
+            android:id="@+id/bt_cancel"
+            android:src="@mipmap/ic_action_cancel"
+            android:background="#1d459e"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:background="#FFFFFF"/>
+        <ImageButton
+            android:layout_width="fill_parent"
+            android:layout_height="150px"
+            android:layout_weight="1"
+            android:id="@+id/bt_replay"
+            android:src="@mipmap/ic_action_replay"
+            android:background="#1d459e"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">TTS</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="search">Search</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Sliding Menu items -->
+    <string-array name="nav_drawer_items">
+        <item>会話集</item>
+        <item>タグ</item>
+        <item>お気に入り</item>
+        <item>ヒストリー</item>
+        <item>通訳</item>
+        <item>私の文書</item>
+    </string-array>
+
+    <!-- Sliding Menu item icons -->
+    <array name="nav_drawer_icons">
+        <item>@mipmap/ic_action_home</item>
+        <item>@mipmap/ic_action_tag</item>
+        <item>@mipmap/ic_action_favorite</item>
+        <item>@mipmap/ic_action_history</item>
+        <item>@mipmap/ic_action_interpreter</item>
+        <item>@mipmap/ic_action_mysentences</item>
+    </array>
+
+    <string name="title_activity_conversation">会話集</string>
+    <string name="title_activity_search">検察</string>
+    <string name="title_activity_tag">タグ</string>
+    <string name="title_activity_favorite">お気に入り</string>
+    <string name="title_activity_history">ヒストリー</string>
+    <string name="title_activity_interpreter">通訳</string>
+    <string name="title_activity_mysentences">私の文書</string>
+
+    <string name="title_activity_conversation_sub">会話</string>
+    <string name="title_activity_shopping">ショッピング</string>
+    <string name="title_activity_display">リスト</string>
+    <string name="title_activity_popup">PopupActivity</string>
+    <string name="PopUp_title">ベトナム語に訳す</string>
+
+</resources>

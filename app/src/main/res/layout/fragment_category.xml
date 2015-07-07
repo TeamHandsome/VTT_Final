@@ -1,0 +1,21 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="example.com.demoapp.activity.CategoryFragment"
+    android:id="@+id/container">
+
+    <GridView
+        android:id="@+id/gridViewCategory"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:columnWidth="160px"
+        android:drawSelectorOnTop="true"
+        android:gravity="center"
+        android:numColumns="2"
+        android:stretchMode="columnWidth"
+        android:focusable="true"
+        android:clickable="true">
+    </GridView>
+
+</RelativeLayout>
