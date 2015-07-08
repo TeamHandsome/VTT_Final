@@ -18,7 +18,8 @@ import java.util.ArrayList;
 
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.SubCategoriesAdapter;
-import example.com.demoapp.common.DbHelper;
+import example.com.demoapp.utility.Consts;
+import example.com.demoapp.utility.DbHelper;
 import example.com.demoapp.model.DAO.SubCategoriesDAO;
 import example.com.demoapp.model.SubCategoriesItem;
 
@@ -36,7 +37,7 @@ public class DisplaySubActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subcategories);
-        position = getIntent().getIntExtra("category_id",-1);
+        position = getIntent().getIntExtra(Consts.CATEGORY_ID, Consts.NOT_FOUND);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -66,7 +67,7 @@ public class DisplaySubActivity extends ActionBarActivity {
                 int itemPosition = position;    //item index
                 Intent intent = new Intent(getBaseContext(), DisplaySentencesActivity.class);
                 int subCategory_id = listSubcategories.get(position).getId();
-                intent.putExtra("subCategory_id", subCategory_id);  //gui position len Sentences
+                intent.putExtra(Consts.SUBCATEGORY_ID, subCategory_id);  //gui position len Sentences
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 

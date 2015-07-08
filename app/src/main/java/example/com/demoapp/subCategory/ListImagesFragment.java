@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.ImageAdapter;
-import example.com.demoapp.common.DbHelper;
+import example.com.demoapp.utility.DbHelper;
 import example.com.demoapp.model.DAO.SentencesDAO;
 import example.com.demoapp.model.DisplaySentencesItem;
 

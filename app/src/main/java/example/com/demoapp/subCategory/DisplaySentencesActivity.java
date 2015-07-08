@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.ViewPagerSentenceAdapter;
 import example.com.demoapp.tabs.SlidingTabLayout;
+import example.com.demoapp.utility.Consts;
 
 public class DisplaySentencesActivity extends ActionBarActivity {
     private ViewPager pager;
@@ -19,7 +20,7 @@ public class DisplaySentencesActivity extends ActionBarActivity {
     CharSequence Titles[]={"文章","画像"};
     int Numboftabs =2;
 
-    public static int subCategory_id = -1;
+    public static int subCategory_id = Consts.NOT_FOUND;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +29,11 @@ public class DisplaySentencesActivity extends ActionBarActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        SlidingTab();
+        this.slidingTab();
         pager.setCurrentItem(0);
         Bundle extras = getIntent().getExtras();
-        subCategory_id = getIntent().getIntExtra("subCategory_id",-1);
-        if (subCategory_id != -1) {
+        subCategory_id = getIntent().getIntExtra(Consts.SUBCATEGORY_ID, Consts.NOT_FOUND);
+        if (subCategory_id != Consts.NOT_FOUND) {
             ListSentencesFragment objfrag = ListSentencesFragment.newInstance();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.pager, objfrag);
@@ -61,7 +62,7 @@ public class DisplaySentencesActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public void SlidingTab(){
+    public void slidingTab(){
         // // Creating The ViewPagerSentenceAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
         adapter =  new ViewPagerSentenceAdapter(getSupportFragmentManager(),Titles,Numboftabs);
 

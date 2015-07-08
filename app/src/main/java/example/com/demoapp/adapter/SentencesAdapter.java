@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import example.com.demoapp.R;
 import example.com.demoapp.model.DisplaySentencesItem;
 import example.com.demoapp.subCategory.PopupActivity;
+import example.com.demoapp.utility.Consts;
 
 /**
  * Created by Long on 6/21/2015.
@@ -84,7 +85,7 @@ public class SentencesAdapter extends ArraySwipeAdapter<DisplaySentencesItem> {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, PopupActivity.class);
-                i.putExtra("position", soundPath);
+                i.putExtra(Consts.POSITION, soundPath);
                 context.startActivity(i);
             }
         });

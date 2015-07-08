@@ -2,7 +2,7 @@ package example.com.demoapp.model.DAO;
 
 import java.util.ArrayList;
 
-import example.com.demoapp.common.DbHelper;
+import example.com.demoapp.utility.DbHelper;
 import example.com.demoapp.model.SubCategoriesItem;
 
 /**

@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import example.com.demoapp.R;
+import example.com.demoapp.utility.Consts;
 
 public class PopupActivity extends ActionBarActivity {
 
@@ -19,7 +20,7 @@ public class PopupActivity extends ActionBarActivity {
         MediaPlayer mPlayer = new MediaPlayer();
         Bundle extras = getIntent().getExtras();
         if(extras!=null){
-            String soundPath = extras.getString("position");
+            String soundPath = extras.getString(Consts.POSITION);
             Log.i("Sound path: ", soundPath+"");
             Uri uri=Uri.parse("android.resource://" + getPackageName() + "/" +
                     "raw" + "/" + soundPath);

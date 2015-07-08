@@ -12,6 +12,7 @@ import android.widget.GridView;
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.CategoriesAdapter;
 import example.com.demoapp.subCategory.DisplaySubActivity;
+import example.com.demoapp.utility.Consts;
 
 public class CategoryFragment extends Fragment {
 
@@ -26,7 +27,7 @@ public class CategoryFragment extends Fragment {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Intent i = new Intent(getActivity(),DisplaySubActivity.class);
-                i.putExtra("category_id",position+1);
+                i.putExtra(Consts.CATEGORY_ID,position+1);
                 startActivity(i);
             }
         });
