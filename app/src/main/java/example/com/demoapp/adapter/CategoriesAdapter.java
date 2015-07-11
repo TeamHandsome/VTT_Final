@@ -1,8 +1,11 @@
 package example.com.demoapp.adapter;
 
 import android.content.Context;
+import android.graphics.Point;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -37,12 +40,18 @@ public class CategoriesAdapter extends BaseAdapter{
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
+        WindowManager wm = (WindowManager)mContext.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int y = width/2;
         if (convertView == null) {
             // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-            //imageView.setLayoutParams(new GridView.LayoutParams(360, 360));
+            imageView.setLayoutParams(new GridView.LayoutParams(y, y));
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            imageView.setPadding(1, 1, 1, 1);
+            imageView.setPadding(2, 2, 2, 2);
         } else {
             imageView = (ImageView) convertView;
         }
