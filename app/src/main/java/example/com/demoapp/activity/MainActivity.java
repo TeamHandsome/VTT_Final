@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private ViewPager pager;
     private ViewPagerMainAdapter adapter;
     private SlidingTabLayout tabs;
-    CharSequence Titles[]={"おすすめ","会話集"};
+    CharSequence Titles[]={"お す す め","会 話 集"};
     int Numboftabs =2;
 
     @Override
