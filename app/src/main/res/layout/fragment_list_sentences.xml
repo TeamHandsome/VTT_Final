@@ -4,6 +4,7 @@
     android:id="@+id/fragment_sentences"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context="example.com.demoapp.subCategory.ListSentencesFragment">
 
     <LinearLayout

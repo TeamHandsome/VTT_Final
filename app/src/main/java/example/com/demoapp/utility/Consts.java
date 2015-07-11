@@ -10,6 +10,7 @@ public final class Consts {
     public static final String POSITION = "position";
     public static final String CATEGORY_ID = "category_id";
     public static final String SUBCATEGORY_ID ="subCategory_id";
+    public static final String SENTENCE_ID = "sentence_id";
 
     /**
      * Opposite of {@link #FAILS}.

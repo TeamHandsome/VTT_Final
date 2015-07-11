@@ -2,8 +2,10 @@ package example.com.demoapp.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -15,6 +17,7 @@ import com.daimajia.swipe.adapters.ArraySwipeAdapter;
 import java.util.ArrayList;
 
 import example.com.demoapp.R;
+import example.com.demoapp.activity.AddEditTagActivity;
 import example.com.demoapp.model.DisplaySentencesItem;
 import example.com.demoapp.subCategory.PopupActivity;
 import example.com.demoapp.utility.Consts;
@@ -28,9 +31,11 @@ public class SentencesAdapter extends ArraySwipeAdapter<DisplaySentencesItem> {
     int idLayoutResource;
     ArrayList<DisplaySentencesItem> listSentences;
 
+    public static final int REQUEST_CODE_TAG = 113;
+
     private static class ViewHolder {
         TextView tvDisplayID, tvDisplayName;
-        ImageButton btDelete, btFavorite, btSound;
+        ImageButton btDelete, btFavorite, btTag;
         SwipeLayout swipeLayout;
 
     }
@@ -54,42 +59,47 @@ public class SentencesAdapter extends ArraySwipeAdapter<DisplaySentencesItem> {
             holder.swipeLayout = (SwipeLayout) convertView.findViewById(R.id.swipe);
             holder.tvDisplayID = (TextView) convertView.findViewById(R.id.tvDisplayId);
             holder.tvDisplayName = (TextView) convertView.findViewById(R.id.tvDisplayName);
-            holder.btDelete = (ImageButton) convertView.findViewById(R.id.btDelete);
-            //holder.btFavorite = (ImageButton) convertView.findViewById(R.id.btFavorite);
 
             holder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);        //set kiểu swipe
             holder.swipeLayout.addDrag(SwipeLayout.DragEdge.Left, holder.swipeLayout.findViewById(R.id.drag_left)); //add swipe left
             holder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, holder.swipeLayout.findViewById(R.id.drag_right));
 
             final ViewHolder finalHolder = holder;  // final
-            holder.btDelete.setOnClickListener(new View.OnClickListener() {
+            holder.btDelete = (ImageButton) convertView.findViewById(R.id.btDelete);
+            holder.btDelete.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     Toast.makeText(v.getContext(), "Deleted " + finalHolder.tvDisplayName.getText().toString() + "!", Toast.LENGTH_SHORT).show();
                 }
             });
-//            holder.btFavorite.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Toast.makeText(v.getContext(), "Favorite " + finalHolder.tvDisplayName.getText().toString()+"!", Toast.LENGTH_SHORT).show();
-//                }
-//            });
+
 
             convertView.setTag(holder);
         } else
             holder = (ViewHolder) convertView.getTag();
+        //click button tag lay position cua sentences, gui len Tag
+        holder.btTag = (ImageButton) convertView.findViewById(R.id.btTag);
+        holder.btTag.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, AddEditTagActivity.class);
+                int sentences_id =  listSentences.get(position).getId(); // lay Id cua sentence trong db
+                intent.putExtra(Consts.SENTENCE_ID, sentences_id);
+                context.startActivity(intent);
+            }
+        });
         // gán soundPath lên PopUp, setText cho row ListView
         final String soundPath = listSentences.get(position).getSound();
-        holder.swipeLayout.getSurfaceView().setOnClickListener(new View.OnClickListener() {
+        holder.swipeLayout.getSurfaceView().setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, PopupActivity.class);
-                i.putExtra(Consts.POSITION, soundPath);
+                i.putExtra("position", soundPath);
                 context.startActivity(i);
             }
         });
-        holder.tvDisplayID.setText(""+(position+1));
+        holder.tvDisplayID.setText("" + (position+1));
         holder.tvDisplayName.setText(listSentences.get(position).getNameJp());
 
         return convertView;
@@ -115,5 +125,7 @@ public class SentencesAdapter extends ArraySwipeAdapter<DisplaySentencesItem> {
     public long getItemId(int i) {
         return listSentences.get(i).hashCode();
     }
+
+
 
 }

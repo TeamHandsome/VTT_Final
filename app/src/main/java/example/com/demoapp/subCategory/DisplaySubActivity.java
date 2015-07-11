@@ -50,7 +50,7 @@ public class DisplaySubActivity extends ActionBarActivity {
         ////
         try {
             db = new DbHelper(this);
-            db.createdatabase();
+            db.copydatabase();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,7 +64,6 @@ public class DisplaySubActivity extends ActionBarActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int itemPosition = position;    //item index
                 Intent intent = new Intent(getBaseContext(), DisplaySentencesActivity.class);
                 int subCategory_id = listSubcategories.get(position).getId();
                 intent.putExtra(Consts.SUBCATEGORY_ID, subCategory_id);  //gui position len Sentences

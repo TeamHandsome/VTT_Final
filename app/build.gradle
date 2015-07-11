@@ -25,5 +25,5 @@ dependencies {
     compile 'com.daimajia.swipelayout:library:1.2.0@aar'
     compile 'com.daimajia.androidanimations:library:1.1.3@aar'
     compile "com.squareup.picasso:picasso:2.4.0"
-
+    compile project(':taglibrary')
 }

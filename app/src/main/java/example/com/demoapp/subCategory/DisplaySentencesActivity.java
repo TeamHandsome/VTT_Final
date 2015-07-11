@@ -31,7 +31,7 @@ public class DisplaySentencesActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         this.slidingTab();
         pager.setCurrentItem(0);
-        Bundle extras = getIntent().getExtras();
+
         subCategory_id = getIntent().getIntExtra(Consts.SUBCATEGORY_ID, Consts.NOT_FOUND);
         if (subCategory_id != Consts.NOT_FOUND) {
             ListSentencesFragment objfrag = ListSentencesFragment.newInstance();

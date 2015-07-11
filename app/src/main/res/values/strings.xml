@@ -43,5 +43,5 @@
     <string name="title_activity_display">リスト</string>
     <string name="title_activity_popup">PopupActivity</string>
     <string name="PopUp_title">ベトナム語に訳す</string>
-
+    <string name="title_activity_add_edit_tag">タグを変更</string>
 </resources>

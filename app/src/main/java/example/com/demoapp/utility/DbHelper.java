@@ -21,11 +21,17 @@ public class DbHelper extends SQLiteOpenHelper{
     public static String DB_NAME = "dbtts.sqlite";
     public static String DB_SUBCATEGORIES_ID = "_id";
     public static String DB_SUBCATEGORIES_NAME = "name";
-    public static String DB_SENTENCES_ID = "_id";
+    public static String DB_SENTENCES_ID = "_ids";
     public static String DB_SENTENCES_JP = "jp";
     public static String DB_SENTENCES_SOUND = "audio";
     public static String DB_SENTENCES_IMAGE = "image_d";
     public static String DB_SENTENCES_VN = "vn";
+    public static String DB_TAGS_NAME ="name";
+    public static String DB_TAGS_ID = "_id";
+    public static String DB_TABLE_TAGS = "tags";
+    public static String DB_TABLE_TAGGING = "tagging";
+    public static String DB_TAGGING_TAG_ID = "tag_id";
+    public static String DB_TAGGING_SENTENCES_ID = "sentences_id";
 
     private Context context;
     private SQLiteDatabase myDataBase;

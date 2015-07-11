@@ -81,6 +81,14 @@
             android:label="@string/PopUp_title"
             android:theme="@style/Theme.AppCompat.Dialog">
         </activity>
+        <activity
+            android:name=".activity.AddEditTagActivity"
+            android:label="@string/title_activity_add_edit_tag"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
