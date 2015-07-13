@@ -1,6 +1,7 @@
 package example.com.demoapp.model.DAO;
 
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
@@ -13,47 +14,58 @@ public class BaseDAO {
     protected SQLiteDatabase database = null;
     protected Cursor cursor = null;
     protected SQLiteStatement statement = null;
+    protected String myPath = DbHelper.DB_PATH + DbHelper.DB_NAME;
 
-    public SQLiteDatabase getDatabase() {
+    protected SQLiteDatabase getDatabase() {
         return database;
     }
 
-    public void setDatabase(SQLiteDatabase database) {
+    protected void setDatabase(SQLiteDatabase database) {
         this.database = database;
     }
 
-    public Cursor getCursor() {
+    protected Cursor getCursor() {
         return cursor;
     }
 
-    public void setCursor(Cursor cursor) {
+    protected void setCursor(Cursor cursor) {
         this.cursor = cursor;
     }
 
-    public SQLiteStatement getStatement() {
+    protected SQLiteStatement getStatement() {
         return statement;
     }
 
-    public void setStatement(SQLiteStatement statement) {
+    protected void setStatement(SQLiteStatement statement) {
         this.statement = statement;
     }
 
     /*Run a sql query on readonly mode of database
         @query String The sql query will be execute
          */
-    public void rawQueryReadonly(String query){
-        database = SQLiteDatabase.openDatabase(DbHelper.DB_PATH + DbHelper.DB_NAME, null, SQLiteDatabase.OPEN_READONLY);
+    protected void rawQueryReadonly(String query){
+        this.opendatabase(0);
         cursor = database.rawQuery(query, null);
     }
 
     /*Run a sql query on readwrite mode of database
     @query String The sql query will be execute
      */
-    public void rawQueryReadwrite(String query){
-        database = SQLiteDatabase.openDatabase(DbHelper.DB_PATH + DbHelper.DB_NAME, null, SQLiteDatabase.OPEN_READWRITE);
+    protected void rawQueryReadwrite(String query){
+        this.opendatabase(1);
         cursor = database.rawQuery(query, null);
     }
 
+    //Open the database
+    protected void opendatabase(int type) throws SQLException {
+        //Open the database
+        switch (type) {
+            case 1://READWRITE
+                database= SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+            default://READONLY
+                database = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+        }
+    }
     /*Close database and cursor
     */
     public void close(){

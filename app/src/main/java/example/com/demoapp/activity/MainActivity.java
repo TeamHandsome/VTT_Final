@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import example.com.demoapp.adapter.DrawerMenuItemAdapter;
 import example.com.demoapp.adapter.ViewPagerMainAdapter;
 import example.com.demoapp.model.DrawerMenuItem;
 import example.com.demoapp.tabs.SlidingTabLayout;
+import example.com.demoapp.utility.DbHelper;
 
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.buildDB();
         // Creating The Toolbar and setting it as the Toolbar for the activity
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -194,4 +197,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         tabs.setViewPager(pager);
     }
 
+    private void buildDB(){
+        try {
+            DbHelper db = new DbHelper(this.getApplicationContext());
+            db.createdatabase();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

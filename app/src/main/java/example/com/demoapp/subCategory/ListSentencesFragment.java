@@ -42,14 +42,6 @@ public class ListSentencesFragment extends Fragment {
     }
 
     private void initView(View v) {
-
-        try {
-            db = new DbHelper(getActivity());
-            db.createdatabase();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         SentencesDAO senDao = new SentencesDAO();
         listSentences = senDao.getAllSentenceBySub(DisplaySentencesActivity.subCategory_id);   //gán dữ liệu từ database vào mảng ArrayList
         mSentencesAdapter = new SentencesAdapter(getActivity(), R.layout.custom_row, listSentences); //gán qua Adapter

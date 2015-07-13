@@ -37,18 +37,6 @@ public class ListImagesFragment extends Fragment {
         return view;
     }
     private void initView(View v) {
-
-        try {
-            db = new DbHelper(getActivity());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            db.createdatabase();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         SentencesDAO senDao = new SentencesDAO();
         listSentences = senDao.getAllSentenceBySub(DisplaySentencesActivity.subCategory_id);   //gán dữ liệu từ database vào mảng ArrayList
         mImageAdapter = new ImageAdapter(getActivity(), R.layout.custom_image, listSentences); //gán qua Adapter

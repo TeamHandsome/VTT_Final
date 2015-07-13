@@ -47,13 +47,6 @@ public class DisplaySubActivity extends ActionBarActivity {
     }
     public void initView (){
         listView = (ListView) findViewById(R.id.lvSubCategories);
-        ////
-        try {
-            db = new DbHelper(this);
-            db.copydatabase();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         SubCategoriesDAO sub = new SubCategoriesDAO();
         listSubcategories = sub.getAllSubCategories(position);
