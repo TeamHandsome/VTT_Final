@@ -5,4 +5,7 @@ package example.com.demoapp.utility;
  */
 public final class Message {
     public static final String MESSAGE_NO_DATA = "No data";
+
+    //item's name
+    public static final String TAG_NAME = "タグ名";
 }

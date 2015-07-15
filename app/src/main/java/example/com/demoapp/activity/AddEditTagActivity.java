@@ -1,5 +1,6 @@
 package example.com.demoapp.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,10 +20,14 @@ import java.util.List;
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.SentencesAdapter;
 import example.com.demoapp.adapter.TagAdapter;
+import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Consts;
 import example.com.demoapp.utility.DbHelper;
 import example.com.demoapp.model.DAO.TagDAO;
 import example.com.demoapp.model.TagItem;
+import example.com.demoapp.utility.Message;
+import example.com.demoapp.utility.StringUtils;
+
 import com.example.tony.taglibrary.OnTagDeleteListener;
 import com.example.tony.taglibrary.Tag;
 import com.example.tony.taglibrary.TagView;
@@ -66,28 +71,21 @@ public class AddEditTagActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 String textTag = autoComplete.getText().toString();
-                if (!textTag.isEmpty()) {
                     //arrayDynamicTag.add(textTag);  //add text Tag tu autoCompleteTextView vao tag Dynamic
 
-                    if (isNotTagged(textTag)) {
-                        addNewTagToTagView(tagView, textTag);
-                        arrayTagging.add(textTag);
-                        reloadArrayTagForAutocompleteBox();
-                    } else {
-                        //write some code here
-                        Log.i("aaaaa", "duplicate");
-                    }
-
-                    autoComplete.setText("");
+                if (validate(textTag)) {
+                    addNewTagToTagView(tagView, textTag);
+                    arrayTagging.add(textTag);
+                    reloadArrayTagForAutocompleteBox();
                 }
 
-                Log.d("Array Tagging:", arrayTagging + "");
+                autoComplete.setText("");
             }
         });
         tagView.setOnTagDeleteListener(new OnTagDeleteListener() {
             @Override
             public void onTagDeleted(Tag tag, int position) {
-                Toast.makeText(AddEditTagActivity.this, "delete tag id=" + tag.id + " position=" + position, Toast.LENGTH_SHORT).show();
+                Common.showToastMessage(AddEditTagActivity.this,"delete tag id=" + tag.id + " position=" + position);
                 arrayTagging.remove(position);
             }
         });
@@ -181,5 +179,25 @@ public class AddEditTagActivity extends ActionBarActivity {
         return true;
     }
 
+    private boolean validate(String tag_name){
+        String message = "";
+        Context con = AddEditTagActivity.this;
+        if(!isNotTagged(tag_name)){
+            message = StringUtils.TEXT_EXISTED(tag_name);
+            Common.showToastMessage(con,message);
+            return false;
+        };
+        if(tag_name.length() > 6){
+            message = StringUtils.TEXT_TOO_LONG(Message.TAG_NAME, 6);
+            Common.showToastMessage(con, message);
+            return false;
+        }
+        if (tag_name == null || tag_name.trim().isEmpty()){
+            message = StringUtils.TEXT_EMPTY(Message.TAG_NAME);
+            Common.showToastMessage(con, message);
+            return false;
+        }
+        return true;
+    }
 
 }
