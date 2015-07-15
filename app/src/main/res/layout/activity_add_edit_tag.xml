@@ -35,7 +35,7 @@
             android:layout_weight="1.5"
             android:background="@drawable/autocomplete_dropdown"
             android:ems="10"
-            android:hint="Search..."
+            android:hint="@string/search_hint_tag"
             android:popupBackground="@drawable/autocomplete_popup" />
 
         <Button
