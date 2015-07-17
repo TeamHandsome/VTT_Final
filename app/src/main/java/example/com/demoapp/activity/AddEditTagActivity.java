@@ -1,6 +1,7 @@
 package example.com.demoapp.activity;
 
 import android.content.Context;
+
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -101,8 +102,7 @@ public class AddEditTagActivity extends ActionBarActivity {
             switch (v.getId()) {
                 case R.id.bt_accept:
                     Log.d("Count all tags: ", tag.countTags() + "");
-                    tag.addTagToTags(sentences_id,arrayTagging);
-
+                    tag.addTagToTags(sentences_id, arrayTagging);
                     // tag.addTagToTagging(arrayDynamicTag);
                     finish();
                     break;
@@ -112,7 +112,6 @@ public class AddEditTagActivity extends ActionBarActivity {
             }
         }
     };
-
 
     public void initView() {
         autoComplete = (AutoCompleteTextView) findViewById(R.id.autoComplete);
@@ -149,8 +148,8 @@ public class AddEditTagActivity extends ActionBarActivity {
         Tag tag = new Tag(tagName);
         tag.layoutBorderSize = 1f;
         tag.layoutBorderColor = getResources().getColor(R.color.colorAccent);
-        tag.tagTextSize = 20f;
-        tag.radius = 20f;
+        tag.tagTextSize = 25f;
+        tag.radius = 0f;
         tag.isDeletable = true;
 
         tagView.addTag(tag);
