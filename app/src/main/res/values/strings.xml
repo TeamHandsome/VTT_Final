@@ -45,5 +45,16 @@
     <string name="PopUp_title">ベトナム語に訳す</string>
     <string name="title_activity_add_edit_tag">タグを変更</string>
 
+    <string name="title_activity_add_new_my_sentences">Add New</string>
+    <string name="record">レコーダー</string>
+    <string name="tag">タグ</string>
+    <string name="vietnamese">ベトナムー語</string>
+    <string name="japanese">日本語</string>
+    <string name="photo">写真</string>
+    <string name="Add_Tag">加算</string>
+    <string name="title_activity_add_tag_my_sentences">AddTagMySentencesActivity</string>
+    <string name="title_activity_record">RecordActivity</string>
+
     <string name="search_hint_tag">タグ名</string>
+
 </resources>
