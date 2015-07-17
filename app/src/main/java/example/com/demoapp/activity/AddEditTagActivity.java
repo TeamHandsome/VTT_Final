@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.tony.taglibrary.TagView;
@@ -67,7 +68,7 @@ public class AddEditTagActivity extends ActionBarActivity {
         initView();
 
         //Event for Button Add Tag
-        Button bt_addTag = (Button) findViewById(R.id.bt_addtag1);
+        ImageButton bt_addTag = (ImageButton) findViewById(R.id.bt_addtag1);
         bt_addTag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,7 +150,7 @@ public class AddEditTagActivity extends ActionBarActivity {
         tag.layoutBorderSize = 1f;
         tag.layoutBorderColor = getResources().getColor(R.color.colorAccent);
         tag.tagTextSize = 25f;
-        tag.radius = 0f;
+//        tag.radius = 0f;
         tag.isDeletable = true;
 
         tagView.addTag(tag);

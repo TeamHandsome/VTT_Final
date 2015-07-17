@@ -8,9 +8,10 @@
     tools:context="example.com.demoapp.activity.AddEditTagActivity">
 
     <LinearLayout
+        android:id="@+id/header"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/header">
+        android:layout_height="wrap_content">
+
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
@@ -24,33 +25,47 @@
         android:layout_below="@+id/header"
         android:orientation="horizontal">
 
-        <AutoCompleteTextView
-            android:id="@+id/autoComplete"
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_weight="1.5"
-            android:background="@drawable/autocomplete_dropdown"
-            android:ems="10"
-            android:hint="@string/search_hint_tag"
-            android:popupBackground="@drawable/autocomplete_popup" />
+            android:orientation="vertical"
+            android:layout_weight="1"
+            >
 
-        <Button
+            <AutoCompleteTextView
+                android:id="@+id/autoComplete"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/autocomplete_dropdown"
+                android:ems="10"
+                android:hint="@string/search_hint_tag"
+                android:popupBackground="@drawable/autocomplete_popup" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:background="#B6B6B6" />
+        </LinearLayout>
+
+        <ImageButton
             android:id="@+id/bt_addtag1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_weight="4"
+            android:layout_marginTop="10dp"
+            android:padding="15dp"
             android:background="@drawable/bt_addtag"
-            android:ellipsize="marquee"
-            android:gravity="center"
-            android:text="Add Tag"
-            android:textColor="#ffffff" />
+            android:layout_weight="2"
+
+            android:src="@mipmap/ic_addmysen_addtag"
+            android:textColor="#ffffff"
+            />
 
     </LinearLayout>
 
@@ -58,8 +73,8 @@
         android:id="@+id/container_TagView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@+id/body">
+        android:layout_below="@+id/body"
+        android:orientation="vertical">
 
         <com.example.tony.taglibrary.TagView
             android:id="@+id/tagview"
@@ -92,7 +107,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
             android:layout_weight="4"
-            android:background="@drawable/bt_addtag"
+            android:background="@drawable/bt_accept_cancel"
             android:ellipsize="marquee"
             android:gravity="center"
             android:text="Cancel"
@@ -106,7 +121,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="20dp"
             android:layout_weight="4"
-            android:background="@drawable/bt_addtag"
+            android:background="@drawable/bt_accept_cancel"
             android:ellipsize="marquee"
             android:gravity="center"
             android:text="Accept"

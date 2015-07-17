@@ -3,9 +3,9 @@
     <solid
         android:color="@color/selector" />
 
-    <stroke
-        android:width="2dip"
-        android:color="@color/colorAccent" />
+    <!--<stroke-->
+        <!--android:width="3dip"-->
+        <!--android:color="@color/colorAccent" />-->
 
     <corners
         android:radius="2dip"/>
