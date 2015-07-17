@@ -11,6 +11,7 @@ public final class Consts {
     public static final String CATEGORY_ID = "category_id";
     public static final String SUBCATEGORY_ID ="subCategory_id";
     public static final String SENTENCE_ID = "sentence_id";
+    public static final String REQUEST_ADD_NEW = "ADD_NEW_MYSEN";
 
     /**
      * Opposite of {@link #FAILS}.

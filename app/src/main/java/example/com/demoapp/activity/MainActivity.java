@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private SlidingTabLayout tabs;
     CharSequence Titles[]={"お す す め","会 話 集"};
     int Numboftabs =2;
+    private DbHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // Tabs
         SlidingTab();
         pager.setCurrentItem(1); // set focus on Category tab when open app
+
+        try {
+            dbHelper = new DbHelper(this);
+            dbHelper.opendatabase();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

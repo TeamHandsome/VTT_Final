@@ -2,6 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="example.com.demoapp" >
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <permission android:name="android.permission.FLASHLIGHT" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -79,15 +90,28 @@
         <activity
             android:name=".subCategory.PopupActivity"
             android:label="@string/PopUp_title"
-            android:theme="@style/Theme.AppCompat.Dialog">
+            android:theme="@style/Theme.AppCompat.Dialog" >
         </activity>
         <activity
             android:name=".activity.AddEditTagActivity"
             android:label="@string/title_activity_add_edit_tag"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activity.AddNewMySentencesActivity"
+            android:label="@string/title_activity_add_new_my_sentences"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".activity.AddTagToMySentences"
+            android:label="@string/title_activity_add_tag_my_sentences" >
+        </activity>
+        <activity
+            android:name=".activity.RecordActivity"
+            android:label="@string/title_activity_record" >
         </activity>
     </application>
 

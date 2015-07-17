@@ -1,0 +1,98 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="example.com.demoapp.activity.RecordActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <EditText
+        android:id="@+id/ed_nameRecord"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_showtime"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ed_nameRecord"
+        android:gravity="center"
+        android:text="00:05"
+        android:textSize="20sp"
+        android:textColor="@color/colorAccent" />
+
+    <at.markushi.ui.CircleButton
+        android:id="@+id/bt_circle"
+        android:layout_below="@+id/tv_showtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/record_activity"
+        app:cb_color="#99CC00"
+        app:cb_pressedRingWidth="80dip"
+        android:layout_above="@+id/bt_play" />
+
+    <at.markushi.ui.CircleButton
+        android:id="@+id/bt_circle_stop"
+        android:layout_below="@+id/tv_showtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/record_stop"
+        app:cb_color="#99CC00"
+        app:cb_pressedRingWidth="80dip"
+        android:layout_above="@+id/bt_play"
+        android:visibility="invisible"/>
+
+    <at.markushi.ui.CircleButton
+        android:id="@+id/bt_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/record_play_bt"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignRight="@+id/bt_circle"
+        android:layout_alignEnd="@+id/bt_circle"
+        android:layout_marginBottom="10dp"
+        app:cb_color="#99CC00"
+        app:cb_pressedRingWidth="80dip"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout">
+
+        <ImageButton
+            android:id="@+id/bt_cancel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bt_accept_cancel"
+            android:src="@mipmap/ic_addmysen_cancel"
+            android:gravity="center" />
+
+        <ImageButton
+            android:id="@+id/bt_accept"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bt_accept_cancel"
+            android:src="@mipmap/ic_addmysen_accept"
+            android:ellipsize="marquee"
+            android:gravity="center" />
+    </LinearLayout>
+
+
+</RelativeLayout>

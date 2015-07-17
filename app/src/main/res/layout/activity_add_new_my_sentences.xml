@@ -1,0 +1,272 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="example.com.demoapp.activity.AddNewMySentencesActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/toolbar">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/japanese"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/layout_addmysentences"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/japanese"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="20sp"/>
+
+                <EditText
+                    android:id="@+id/ed_japanese"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorSecond" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/vietnamese"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/japanese"
+                android:layout_margin="10dp"
+                android:background="@drawable/layout_addmysentences"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vietnamese"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="20sp"/>
+
+                <EditText
+                    android:id="@+id/ed_vietnamese"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorSecond" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tag"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/vietnamese"
+                android:layout_margin="10dp"
+                android:background="@drawable/layout_addmysentences"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tag"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="20sp"/>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/bt_addTagMySentences"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/imgbt_addtag"
+                        android:src="@mipmap/ic_addmysen_addtag"
+                        android:layout_margin="5dp"/>
+
+                    <com.example.tony.taglibrary.TagView
+                        android:id="@+id/tagView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        app:tagMargin="3dp"
+                        app:textPaddingBottom="3dp"
+                        app:textPaddingLeft="10dp"
+                        app:textPaddingRight="10dp"
+                        app:textPaddingTop="3dp"></com.example.tony.taglibrary.TagView>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/record"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tag"
+                android:layout_margin="10dp"
+                android:background="@drawable/layout_addmysentences"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/record"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="20sp"/>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                    android:id="@+id/bt_record"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/imgbt_addtag"
+                    android:src="@mipmap/ic_addmysen_record" />
+
+                    <!--<ImageButton-->
+                        <!--android:id="@+id/bt_recordStop"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_margin="5dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:background="@drawable/imgbt_addtag"-->
+                        <!--android:src="@mipmap/ic_addmysen_stop"-->
+                        <!--android:visibility="gone"/>-->
+
+                    <ImageButton
+                        android:id="@+id/bt_recordPlay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/imgbt_addtag"
+                        android:src="@mipmap/ic_addmysen_play" />
+
+                    <ImageButton
+                        android:id="@+id/bt_recordDelete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/imgbt_addtag"
+                        android:src="@mipmap/ic_addmysen_delete" />
+
+                    <ImageButton
+                        android:id="@+id/bt_recordPath"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/imgbt_addtag"
+                        android:src="@mipmap/ic_addmysen_recordpath" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/photo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/record"
+                android:layout_margin="10dp"
+                android:background="@drawable/layout_addmysentences"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/photo"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="20sp"/>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/bt_takephoto"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/imgbt_addtag"
+                        android:src="@mipmap/ic_addmysen_camera" />
+
+                    <ImageButton
+                        android:id="@+id/bt_gallery"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/imgbt_addtag"
+                        android:src="@mipmap/ic_addmysen_gallery" />
+
+                    <ImageButton
+                        android:id="@+id/bt_photodelete"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/imgbt_addtag"
+                        android:src="@mipmap/ic_addmysen_delete" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/img_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="100dp"
+                    android:src="@drawable/ccccc" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/bt_cancel2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bt_accept_cancel"
+            android:src="@mipmap/ic_addmysen_cancel"
+            android:gravity="center" />
+
+        <ImageButton
+            android:id="@+id/bt_accept2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bt_accept_cancel"
+            android:src="@mipmap/ic_addmysen_accept"
+            android:ellipsize="marquee"
+            android:gravity="center" />
+    </LinearLayout>
+
+</RelativeLayout>
+
+
+
+
