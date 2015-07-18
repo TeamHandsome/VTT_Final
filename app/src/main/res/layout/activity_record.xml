@@ -29,7 +29,7 @@
         android:textColor="@color/colorAccent" />
 
     <at.markushi.ui.CircleButton
-        android:id="@+id/bt_circle"
+        android:id="@+id/bt_circle_record"
         android:layout_below="@+id/tv_showtime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,8 +61,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/record_play_bt"
         android:layout_above="@+id/linearLayout"
-        android:layout_alignRight="@+id/bt_circle"
-        android:layout_alignEnd="@+id/bt_circle"
+        android:layout_alignRight="@+id/bt_circle_record"
+        android:layout_alignEnd="@+id/bt_circle_record"
         android:layout_marginBottom="10dp"
         app:cb_color="#99CC00"
         app:cb_pressedRingWidth="80dip"/>
@@ -75,7 +75,7 @@
         android:id="@+id/linearLayout">
 
         <ImageButton
-            android:id="@+id/bt_cancel"
+            android:id="@+id/bt_cancel_record"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -84,7 +84,7 @@
             android:gravity="center" />
 
         <ImageButton
-            android:id="@+id/bt_accept"
+            android:id="@+id/bt_accept_record"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

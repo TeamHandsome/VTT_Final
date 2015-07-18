@@ -138,16 +138,6 @@
                     android:background="@drawable/imgbt_addtag"
                     android:src="@mipmap/ic_addmysen_record" />
 
-                    <!--<ImageButton-->
-                        <!--android:id="@+id/bt_recordStop"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_margin="5dp"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:background="@drawable/imgbt_addtag"-->
-                        <!--android:src="@mipmap/ic_addmysen_stop"-->
-                        <!--android:visibility="gone"/>-->
-
                     <ImageButton
                         android:id="@+id/bt_recordPlay"
                         android:layout_width="wrap_content"

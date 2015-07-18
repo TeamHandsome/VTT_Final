@@ -1,6 +1,9 @@
 package example.com.demoapp.model.DAO;
 
+import android.net.Uri;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import example.com.demoapp.utility.DbHelper;
 import example.com.demoapp.model.DisplaySentencesItem;
@@ -37,5 +40,9 @@ public class SentencesDAO extends BaseDAO {
         }
         close();
         return arrayList;
+    }
+
+    public void addUri(List<Uri> arrayNewSen){
+
     }
 }

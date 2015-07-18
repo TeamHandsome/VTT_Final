@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -45,34 +46,40 @@ import java.util.Random;
 
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.ImageAdapter;
+import example.com.demoapp.model.DAO.SentencesDAO;
+import example.com.demoapp.model.DAO.TagDAO;
 
 public class AddNewMySentencesActivity extends ActionBarActivity {
+    Context context;
     public static final int REQUEST_CODE_ADD_TAG = 10;
     public static final int RESULT_CODE_ADD_TAG = 20;
     public static final int REQUEST_IMAGE_SELECTOR = 30;
     public static final int REQUEST_IMAGE_CAPTURE = 40;
     public static final int RESULT_IMAGE_CAPTURE = 41;
     public static final int REQUEST_CODE_RECORD = 50;
+    public static final int RESULT_CODE_RECORD = 51;
+    SentencesDAO addNewSenDAO = new SentencesDAO();
+    TagDAO addtagMySenDAO = new TagDAO(context);
 
-    private MediaRecorder myAudioRecorder;
-    private String outputFile;
-    private String db_path = "/sdcard/Android/data/com.demoapp.app/";
-    private String recording_namefile;      //save random name Record
     private String image_namefile;     //save random name Image
-    private File mCurrentPhoto;
+    private String db_path = "/sdcard/Android/data/com.demoapp.app/";
 
     public static Uri uri;
-    public static Uri takingPhoto;   //save String path image load from Camera
-    public static Uri selectedImage;
-    File photo;
-    String folder_main = "NewFolder/";
+    public static Uri takingPhoto;   //save Uri path image load from Camera
+    public static Uri selectedImage;  //save Uri path image load from gallery
+    List<Uri> saveUri = new ArrayList<>();
+    public String uri_record;         //save Uri path record
+    ArrayList<String> resultTag = new ArrayList<>();      // result Tag tra ve tu AddTagToMySentences
 
+
+
+    File file;
+    String folder_main = "NewFolder/";
     TagView tagView;
     ImageButton bt_record, bt_recordPlay, bt_recordStop, bt_recordDelete, bt_recordPath,
-            bt_takephoto, bt_gallery, bt_photodelete;
+            bt_takephoto, bt_gallery, bt_photodelete, bt_cancel2 , bt_accept2;
     ImageView img_photo;
-    ArrayList<String> resultTag = new ArrayList<>();      // result Tag tra ve tu AddTagToMySentences
-    ArrayList<String> availableTag = new ArrayList<>();   // save Tag truoc khi gui di
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +101,8 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
         bt_takephoto = (ImageButton) findViewById(R.id.bt_takephoto);
         bt_gallery = (ImageButton) findViewById(R.id.bt_gallery);
         bt_photodelete = (ImageButton) findViewById(R.id.bt_photodelete);
+        bt_accept2 = (ImageButton) findViewById(R.id.bt_accept2);
+        bt_cancel2 = (ImageButton) findViewById(R.id.bt_cancel2);
         bt_record.setOnClickListener(listener);
         bt_recordPlay.setOnClickListener(listener);
         bt_recordDelete.setOnClickListener(listener);
@@ -101,15 +110,15 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
         bt_takephoto.setOnClickListener(listener);
         bt_gallery.setOnClickListener(listener);
         bt_photodelete.setOnClickListener(listener);
+        bt_accept2.setOnClickListener(listener);
+        bt_cancel2.setOnClickListener(listener);
 
         bt_recordPlay.setClickable(false);
         bt_recordDelete.setClickable(false);
 
         //  bt_record.setVisibility(View.GONE);
         randomStringImage();
-        randomStringRecord();
-        File mydir = new File(db_path);
-        mydir.mkdir();
+
 
     }
 
@@ -123,50 +132,14 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
                     startActivityForResult(i, REQUEST_CODE_ADD_TAG);
                     break;
                 case R.id.bt_record:
+
                     Intent intent = new Intent(getApplicationContext(), RecordActivity.class);
                     startActivityForResult(intent, REQUEST_CODE_RECORD);
-
-                    PackageManager pmanager = getApplicationContext().getPackageManager();
-                    if (pmanager.hasSystemFeature(PackageManager.FEATURE_MICROPHONE)) {
-                        try {
-                            outputFile = db_path + "/" + recording_namefile;
-                            myAudioRecorder = new MediaRecorder();
-                            myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                            myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-                            myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-                            myAudioRecorder.setOutputFile(outputFile);
-
-                            myAudioRecorder.prepare();
-                            myAudioRecorder.start();
-                        } catch (IllegalStateException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                        bt_record.setVisibility(View.GONE);
-                        bt_recordStop.setVisibility(View.VISIBLE);
-
-                        Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "This device doesn't have a mic!", Toast.LENGTH_LONG).show();
-                    }
                     break;
-//                case R.id.bt_recordStop:
-//                    myAudioRecorder.stop();
-//                    myAudioRecorder.release();
-//                    myAudioRecorder = null;
-//
-//                    bt_recordStop.setClickable(false);
-//                    bt_recordPlay.setClickable(true);
-//                    bt_recordDelete.setClickable(true);
-//                    Toast.makeText(getApplicationContext(), "Audio recorded successfully", Toast.LENGTH_LONG).show();
-//                    break;
                 case R.id.bt_recordPlay:
                     MediaPlayer m = new MediaPlayer();
                     try {
-                        m.setDataSource(outputFile);
+                        m.setDataSource(uri_record);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -178,30 +151,46 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
                     m.start();
                     Toast.makeText(getApplicationContext(), "Playing audio", Toast.LENGTH_LONG).show();
                     break;
-                case R.id.bt_recordDelete:
-                    File file = new File(outputFile);
-                    file.delete();
-                    bt_record.setVisibility(View.VISIBLE);
-                    bt_recordStop.setVisibility(View.GONE);
-                    bt_recordPlay.setClickable(false);
-                    Toast.makeText(getApplicationContext(), "Audio deleted in storage", Toast.LENGTH_LONG).show();
-                    break;
                 case R.id.bt_recordPath:
                     openFolderRecord();
                     break;
+                case R.id.bt_recordDelete:
+                    file = new File(uri_record);
+                    file.delete();
+                    bt_recordDelete.setClickable(false);
+                    bt_recordPlay.setClickable(false);
+                    bt_record.setClickable(true);
+                    bt_recordPath.setClickable(true);
+                    Toast.makeText(getApplicationContext(), "Audio deleted in storage!", Toast.LENGTH_LONG).show();
+                    break;
                 case R.id.bt_takephoto:
-                    // Toast.makeText(getApplicationContext(), "picture : " + selectedImage, Toast.LENGTH_LONG).show();
                     dispatchTakePictureIntent();
                     break;
                 case R.id.bt_gallery:
                     dispatchPhotoSelectionIntent();
                     break;
                 case R.id.bt_photodelete:
-                    Toast.makeText(getApplicationContext(), "picture : " + takingPhoto, Toast.LENGTH_LONG).show();
-//                    takingPhoto = null;
-//                    selectedImage = null;
-//                    img_photo.setImageResource(android.R.color.transparent);
+                    Toast.makeText(getApplicationContext(), "Picture deleted!", Toast.LENGTH_LONG).show();
+                    takingPhoto = null;
+                    selectedImage = null;
+                    img_photo.setImageResource(android.R.color.transparent);
                     break;
+                case R.id.bt_cancel2:
+                    if (uri_record!=null){
+                        file = new File(uri_record);
+                        file.delete();
+                    }
+                    if (takingPhoto!=null){
+                        file = new File(Environment.getExternalStorageDirectory() + File.separator + folder_main+ image_namefile);
+                        file.delete();
+                    }
+                    finish();
+                    break;
+//                case R.id.bt_accept2:
+//                    addNewSenDAO.addUri(saveUri);
+//                    addtagMySenDAO.addTagToTags(1,resultTag);
+//
+//                    break;
 
             }
         }
@@ -266,6 +255,7 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
             if (extras2 != null) {
                 Bitmap photo = extras2.getParcelable("data");
                 selectedImage = getImageUri(this,photo);      //save file image path
+                saveUri.add(selectedImage);
 
                 Picasso.with(this).load(selectedImage).config(Bitmap.Config.RGB_565).fit().centerInside().into(img_photo);
             }
@@ -287,10 +277,23 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
         if(requestCode==RESULT_IMAGE_CAPTURE){
             //get the cropped bitmap from extras
             Bundle extras = data.getExtras();
-            Bitmap bitmap= extras.getParcelable("data");
-            takingPhoto = getImageUri(this,bitmap);
+            if (extras!=null){
+                Bitmap bitmap= extras.getParcelable("data");
+                takingPhoto = getImageUri(this,bitmap);
+                saveUri.add(takingPhoto);
 
-            Picasso.with(this).load(takingPhoto).config(Bitmap.Config.RGB_565).fit().centerInside().into(img_photo);
+                Picasso.with(this).load(takingPhoto).config(Bitmap.Config.RGB_565).fit().centerInside().into(img_photo);
+            }
+
+        }
+        if (requestCode==REQUEST_CODE_RECORD && resultCode==RESULT_CODE_RECORD){
+            uri_record = data.getStringExtra("data");
+            if (uri_record!=null){
+                bt_record.setClickable(false);
+                bt_recordPath.setClickable(false);
+                bt_recordPlay.setClickable(true);
+                bt_recordDelete.setClickable(true);
+            }
         }
 
     }
@@ -330,16 +333,7 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
         tagView.addTag(t);
     }
 
-    public void randomStringRecord() {
-        char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-        StringBuilder sb = new StringBuilder();
-        Random random = new Random();
-        for (int i = 0; i < 20; i++) {
-            char c = chars[random.nextInt(chars.length)];
-            sb.append(c);
-        }
-        recording_namefile = sb.toString() + ".mp3";
-    }
+
     public void randomStringImage(){
         char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
         StringBuilder sb = new StringBuilder();
