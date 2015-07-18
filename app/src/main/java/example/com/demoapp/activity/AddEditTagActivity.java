@@ -183,17 +183,17 @@ public class AddEditTagActivity extends ActionBarActivity {
         String message = "";
         Context con = AddEditTagActivity.this;
         if(!isNotTagged(tag_name)){
-            message = StringUtils.TEXT_EXISTED(tag_name);
+            message = Message.ITEM_IS_DUPLICATED(tag_name);
             Common.showToastMessage(con,message);
             return false;
         };
-        if(tag_name.length() > 6){
-            message = StringUtils.TEXT_TOO_LONG(Message.TAG_NAME, 6);
+        if(tag_name.length() > Consts.MAX_TAGNAME_LENGTH){
+            message = Message.MAX_CHARACTER_LENGTH(Consts.TAG_NAME, Consts.MAX_TAGNAME_LENGTH);
             Common.showToastMessage(con, message);
             return false;
         }
         if (tag_name == null || tag_name.trim().isEmpty()){
-            message = StringUtils.TEXT_EMPTY(Message.TAG_NAME);
+            message = Message.MUST_NOT_EMPTY(Consts.TAG_NAME);
             Common.showToastMessage(con, message);
             return false;
         }
