@@ -13,6 +13,24 @@ public final class Consts {
     public static final String SENTENCE_ID = "sentence_id";
     public static final String REQUEST_ADD_NEW = "ADD_NEW_MYSEN";
 
+    //item's name
+    public static final String TAG_NAME = "タグ名";
+    public static final String JAPANESE = "日本語";
+    public static final String VIETNAMESE = "ベトナム語";
+    public static final String IMAGE = "イメージ";
+    public static final String AUDIO = "オーディオ";
+
+    //item's length
+    public static final int MAX_TAGNAME_LENGTH = 6;
+    public static final int MAX_JAP_CHAR_LENGTH = 13;
+    public static final int MAX_VIE_CHAR_LENGTH = 17;
+    public static final int MAX_IMAGE_LENGTH = 2;
+
+    //type
+    public static final String MByte = "MB";
+    public static final String JPG = "jpeg";
+    public static final String PNG = "png";
+
     /**
      * Opposite of {@link #FAILS}.
      */
@@ -77,7 +95,7 @@ public final class Consts {
      */
     private Consts() {
         //this prevents even the native class from
-        //calling this ctor as well :
+        //calling this constructor as well :
         throw new AssertionError();
     }
 }
