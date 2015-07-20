@@ -148,9 +148,9 @@ public class AddEditTagActivity extends ActionBarActivity {
     private void addNewTagToTagView(TagView tagView, String tagName) {
         Tag tag = new Tag(tagName);
         tag.layoutBorderSize = 1f;
-        tag.layoutBorderColor = getResources().getColor(R.color.colorAccent);
-        tag.tagTextSize = 25f;
-//        tag.radius = 0f;
+        tag.layoutBorderColor = getResources().getColor(R.color.colorPrimary);
+        tag.tagTextSize = 23f;
+        tag.radius = 5f;
         tag.isDeletable = true;
 
         tagView.addTag(tag);
