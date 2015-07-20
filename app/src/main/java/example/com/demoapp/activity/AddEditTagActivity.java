@@ -150,7 +150,7 @@ public class AddEditTagActivity extends ActionBarActivity {
         tag.layoutBorderSize = 1f;
         tag.layoutBorderColor = getResources().getColor(R.color.colorPrimary);
         tag.tagTextSize = 23f;
-        tag.radius = 5f;
+        tag.radiusSet = new float[]{30,30,0,0,0,0,30,30};
         tag.isDeletable = true;
 
         tagView.addTag(tag);

@@ -272,13 +272,18 @@ public class TagView extends RelativeLayout {
 		StateListDrawable states = new StateListDrawable();
 		GradientDrawable gd_normal = new GradientDrawable();
 		gd_normal.setColor(tag.layoutColor);
-		gd_normal.setCornerRadius(tag.radius);
+		GradientDrawable gd_press = new GradientDrawable();
+		gd_press.setColor(tag.layoutColorPress);
+		if (tag.radius==-1){
+			gd_normal.setCornerRadii(tag.radiusSet);
+			gd_press.setCornerRadii(tag.radiusSet);
+		}else {
+			gd_normal.setCornerRadius(tag.radius);
+			gd_press.setCornerRadius(tag.radius);
+		}
 		if (tag.layoutBorderSize > 0) {
 			gd_normal.setStroke(Utils.dpToPx(getContext(), tag.layoutBorderSize), tag.layoutBorderColor);
 		}
-		GradientDrawable gd_press = new GradientDrawable();
-		gd_press.setColor(tag.layoutColorPress);
-		gd_press.setCornerRadius(tag.radius);
 		states.addState(new int[]{android.R.attr.state_pressed}, gd_press);
 		//must add state_pressed first，or state_pressed will not take effect
 		states.addState(new int[]{}, gd_normal);
