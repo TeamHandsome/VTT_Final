@@ -208,7 +208,7 @@ public class TagView extends RelativeLayout {
 			if (tag.isDeletable) {
 				deletableView.setVisibility(View.VISIBLE);
 				deletableView.setText(tag.deleteIcon);
-				int offset = Utils.dpToPx(getContext(), 2f);
+				int offset = Utils.dpToPx(getContext(), 8f);
 				deletableView.setPadding(offset, textPaddingTop, textPaddingRight + offset, texPaddingBottom);
 				/*params = (LinearLayout.LayoutParams) deletableView.getLayoutParams();
 				params.setMargins(offset, textPaddingTop, textPaddingRight+offset, texPaddingBottom);
