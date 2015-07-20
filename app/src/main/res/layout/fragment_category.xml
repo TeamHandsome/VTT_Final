@@ -1,21 +1,59 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="example.com.demoapp.activity.CategoryFragment"
-    android:id="@+id/container">
+    tools:context="example.com.demoapp.activity.CategoryFragment">
 
     <GridView
         android:id="@+id/gridViewCategory"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:clickable="true"
         android:columnWidth="160px"
         android:drawSelectorOnTop="true"
+        android:focusable="true"
         android:gravity="center"
         android:numColumns="2"
-        android:stretchMode="columnWidth"
-        android:focusable="true"
-        android:clickable="true">
+        android:stretchMode="columnWidth">
     </GridView>
 
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/menu_fab"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        fab:menu_labels_ellipsize="end"
+        fab:menu_labels_singleLine="false"
+        fab:menu_backgroundColor="#ccffffff">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_addmysen_camera"
+            fab:fab_size="mini"
+            fab:fab_label="撮影" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_addmysen_record"
+            fab:fab_size="mini"
+            fab:fab_label="レコーダー" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_addnew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_image_edit"
+            fab:fab_size="mini"
+            fab:fab_label="新しい文章" />
+
+    </com.github.clans.fab.FloatingActionMenu>
 </RelativeLayout>

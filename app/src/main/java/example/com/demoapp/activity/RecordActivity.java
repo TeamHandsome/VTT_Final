@@ -39,7 +39,7 @@ public class RecordActivity extends ActionBarActivity {
     private MediaRecorder myAudioRecorder;
     private String outputFile;
     private String db_path = "/sdcard/Android/data/com.demoapp.app/";
-    private String recording_namefile;      //save random name Record
+    private String recording_namefile = System.currentTimeMillis()+"";      //save random name Record
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class RecordActivity extends ActionBarActivity {
         //create folder  to save name record
         File mydir = new File(db_path);
         mydir.mkdir();
-        randomStringRecord();
+//        randomStringRecord();
 
         tv_showtime = (TextView) findViewById(R.id.tv_showtime);
         ed_nameRecord = (EditText) findViewById(R.id.ed_nameRecord);
@@ -81,7 +81,7 @@ public class RecordActivity extends ActionBarActivity {
                     PackageManager pmanager = getApplicationContext().getPackageManager();
                     if (pmanager.hasSystemFeature(PackageManager.FEATURE_MICROPHONE)) {
                         try {
-                            outputFile = db_path  + recording_namefile;
+                            outputFile = db_path  + recording_namefile+".mp3";
                             myAudioRecorder = new MediaRecorder();
                             myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
                             myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -175,17 +175,6 @@ public class RecordActivity extends ActionBarActivity {
             System.out.println(hms);
             tv_showtime.setText(hms);
         }
-    }
-
-    public void randomStringRecord() {
-        char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-        StringBuilder sb = new StringBuilder();
-        Random random = new Random();
-        for (int i = 0; i < 20; i++) {
-            char c = chars[random.nextInt(chars.length)];
-            sb.append(c);
-        }
-        recording_namefile = sb.toString() + ".mp3";
     }
 
     @Override

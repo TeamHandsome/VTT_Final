@@ -12,20 +12,20 @@
         android:id="@+id/drag_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#FF5534"
+        android:background="#FF4444"
         android:gravity="center">
         <ImageButton
             android:id="@+id/btTag"
             android:layout_width="70dp"
             android:layout_height="64dp"
-            android:background="#2E2EFE"
-            android:src="@mipmap/ic_action_tag"/>
+            android:background="#7abeff"
+            android:src="@mipmap/ic_senten_tag"/>
 
         <ImageButton
             android:id="@+id/btDelete"
             android:layout_width="70dp"
             android:layout_height="64dp"
-            android:background="#FF5534"
+            android:background="#FF4444"
             android:src="@mipmap/ic_action_delete" />
     </LinearLayout>
 
@@ -33,15 +33,15 @@
         android:id="@+id/drag_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#008000"
+        android:background="#ff96ca"
         android:gravity="center">
 
         <ImageButton
             android:id="@+id/btFavorite"
             android:layout_width="70dp"
             android:layout_height="64dp"
-            android:background="#008000"
-            android:src="@mipmap/ic_action_favorite" />
+            android:background="#ff96ca"
+            android:src="@mipmap/ic_senten_favorite" />
     </LinearLayout>
 
     <LinearLayout

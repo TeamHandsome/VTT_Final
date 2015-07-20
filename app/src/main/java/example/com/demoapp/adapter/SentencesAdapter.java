@@ -64,21 +64,19 @@ public class SentencesAdapter extends ArraySwipeAdapter<DisplaySentencesItem> {
             holder.swipeLayout.addDrag(SwipeLayout.DragEdge.Left, holder.swipeLayout.findViewById(R.id.drag_left)); //add swipe left
             holder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, holder.swipeLayout.findViewById(R.id.drag_right));
 
-            final ViewHolder finalHolder = holder;  // final
-            holder.btDelete = (ImageButton) convertView.findViewById(R.id.btDelete);
-            holder.btDelete.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Toast.makeText(v.getContext(), "Deleted " + finalHolder.tvDisplayName.getText().toString() + "!", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-
             convertView.setTag(holder);
         } else
             holder = (ViewHolder) convertView.getTag();
         //click button tag lay position cua sentences, gui len Tag
+        holder.btDelete = (ImageButton) convertView.findViewById(R.id.btDelete);
+        final ViewHolder finalHolder = holder;
+        holder.btDelete.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(v.getContext(), "Deleted " + finalHolder.tvDisplayName.getText().toString() + "!", Toast.LENGTH_SHORT).show();
+            }
+        });
         holder.btTag = (ImageButton) convertView.findViewById(R.id.btTag);
         holder.btTag.setOnClickListener(new OnClickListener() {
             @Override

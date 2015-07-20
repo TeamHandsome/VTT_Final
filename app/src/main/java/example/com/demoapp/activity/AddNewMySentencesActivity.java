@@ -61,23 +61,22 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
     SentencesDAO addNewSenDAO = new SentencesDAO();
     TagDAO addtagMySenDAO = new TagDAO(context);
 
-    private String image_namefile;     //save random name Image
+    static String folder_main = "NewFolder/";
+    String image_namefile = System.currentTimeMillis() + ".jpg";     //save random name Image
     private String db_path = "/sdcard/Android/data/com.demoapp.app/";
 
-    public static Uri uri;
+    public static Uri uri_fabbutton;
     public static Uri takingPhoto;   //save Uri path image load from Camera
     public static Uri selectedImage;  //save Uri path image load from gallery
     List<Uri> saveUri = new ArrayList<>();
     public String uri_record;         //save Uri path record
     ArrayList<String> resultTag = new ArrayList<>();      // result Tag tra ve tu AddTagToMySentences
 
-
-
     File file;
-    String folder_main = "NewFolder/";
+    String fab_record;
     TagView tagView;
     ImageButton bt_record, bt_recordPlay, bt_recordStop, bt_recordDelete, bt_recordPath,
-            bt_takephoto, bt_gallery, bt_photodelete, bt_cancel2 , bt_accept2;
+            bt_takephoto, bt_gallery, bt_photodelete, bt_cancel2, bt_accept2;
     ImageView img_photo;
 
 
@@ -116,9 +115,22 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
         bt_recordPlay.setClickable(false);
         bt_recordDelete.setClickable(false);
 
-        //  bt_record.setVisibility(View.GONE);
-        randomStringImage();
-
+        //hanlde for Float Button Record from main
+        Intent intent1 = getIntent();
+        fab_record = intent1.getStringExtra("data1");
+        if (fab_record != null) {
+            uri_record = fab_record;
+//            Toast.makeText(getApplicationContext(), "Uri record: "+ uri_record, Toast.LENGTH_SHORT).show();
+            bt_recordPlay.setClickable(true);
+        }
+        ;
+        //handle  for Float Button Camera from main
+        uri_fabbutton = getIntent().getData();
+        Log.d("aaaaaaaaaaaaa", uri_fabbutton + "");
+        if (uri_fabbutton != null) {
+            takingPhoto = uri_fabbutton;
+            Picasso.with(this).load(takingPhoto).config(Bitmap.Config.RGB_565).resize(600, 600).centerInside().into(img_photo);
+        }
 
     }
 
@@ -170,18 +182,22 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
                     dispatchPhotoSelectionIntent();
                     break;
                 case R.id.bt_photodelete:
-                    Toast.makeText(getApplicationContext(), "Picture deleted!", Toast.LENGTH_LONG).show();
-                    takingPhoto = null;
-                    selectedImage = null;
-                    img_photo.setImageResource(android.R.color.transparent);
+                    if (takingPhoto != null || selectedImage != null) {
+                        file = new File(Environment.getExternalStorageDirectory() + File.separator + folder_main + image_namefile);
+                        file.delete();
+                        Toast.makeText(getApplicationContext(), "Picture deleted!", Toast.LENGTH_LONG).show();
+                        takingPhoto = null;
+                        selectedImage = null;
+                        img_photo.setImageResource(android.R.color.transparent);
+                    }
                     break;
                 case R.id.bt_cancel2:
-                    if (uri_record!=null){
+                    if (uri_record != null) {
                         file = new File(uri_record);
                         file.delete();
                     }
-                    if (takingPhoto!=null){
-                        file = new File(Environment.getExternalStorageDirectory() + File.separator + folder_main+ image_namefile);
+                    if (takingPhoto != null) {
+                        file = new File(Environment.getExternalStorageDirectory() + File.separator + folder_main + image_namefile);
                         file.delete();
                     }
                     finish();
@@ -195,6 +211,73 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
             }
         }
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_ADD_TAG && resultCode == RESULT_CODE_ADD_TAG) {
+            resultTag = data.getStringArrayListExtra("data");
+//                    resultTag.removeAll(availableTag);    //delete duplicate
+            tagView.removeAllTags();
+            for (String tag : resultTag) {
+                addNewTagToTagView(tagView, tag);
+            }
+            tagView.setOnTagDeleteListener(new OnTagDeleteListener() {
+                @Override
+                public void onTagDeleted(Tag tag, int position) {
+                    Toast.makeText(getApplicationContext(), "delete tag id=" + tag.id + " position=" + position, Toast.LENGTH_SHORT).show();
+                    resultTag.remove(position);
+                }
+            });
+        }
+
+        if (requestCode == REQUEST_IMAGE_SELECTOR && resultCode == RESULT_OK && null != data) {
+            Bundle extras2 = data.getExtras();
+            if (extras2 != null) {
+                Bitmap photo = extras2.getParcelable("data");
+                selectedImage = getImageUri(this, photo);      //save file image path
+              //  saveUri.add(selectedImage);
+
+                Picasso.with(this).load(selectedImage).config(Bitmap.Config.RGB_565).fit().centerInside().into(img_photo);
+            }
+        }
+
+        if (requestCode == REQUEST_IMAGE_CAPTURE) {
+
+            File photo = new File(Environment.getExternalStorageDirectory() + File.separator + folder_main + image_namefile);
+
+            try {
+                cropCapturedImage(Uri.fromFile(photo));
+            } catch (ActivityNotFoundException aNFE) {
+                String errorMessage = "Sorry - your device doesn't support the crop action!";
+                Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }
+        if (requestCode == RESULT_IMAGE_CAPTURE) {
+            //get the cropped bitmap from extras
+            Bundle extras = data.getExtras();
+            if (extras != null) {
+                Bitmap bitmap = extras.getParcelable("data");
+                saveBitmap(bitmap);
+                takingPhoto = getImageUri(this, bitmap);
+            //    saveUri.add(takingPhoto);
+
+                Picasso.with(this).load(takingPhoto).config(Bitmap.Config.RGB_565).fit().centerInside().into(img_photo);
+            }
+
+        }
+        if (requestCode == REQUEST_CODE_RECORD && resultCode == RESULT_CODE_RECORD) {
+            uri_record = data.getStringExtra("data");
+            if (uri_record != null) {
+                bt_record.setClickable(false);
+                bt_recordPath.setClickable(false);
+                bt_recordPlay.setClickable(true);
+                bt_recordDelete.setClickable(true);
+            }
+        }
+
+    }
 
     public void openFolderRecord() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -226,98 +309,49 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
 
     private void dispatchTakePictureIntent() {
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        File file = new File(Environment.getExternalStorageDirectory() + File.separator + folder_main+ image_namefile);
+        File file = new File(Environment.getExternalStorageDirectory() + File.separator + folder_main + image_namefile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_ADD_TAG && resultCode == RESULT_CODE_ADD_TAG) {
-            resultTag = data.getStringArrayListExtra("data");
-//                    resultTag.removeAll(availableTag);    //delete duplicate
-            tagView.removeAllTags();
-            for (String tag : resultTag) {
-                addNewTagToTagView(tagView, tag);
-            }
-            tagView.setOnTagDeleteListener(new OnTagDeleteListener() {
-                @Override
-                public void onTagDeleted(Tag tag, int position) {
-                    Toast.makeText(getApplicationContext(), "delete tag id=" + tag.id + " position=" + position, Toast.LENGTH_SHORT).show();
-                    resultTag.remove(position);
-                }
-            });
+    public void saveBitmap(Bitmap bmp) {
+        String file_path = Environment.getExternalStorageDirectory() + File.separator + folder_main;
+        File dir = new File(file_path);
+        if (!dir.exists())
+            dir.mkdirs();
+        File file = new File(dir, image_namefile);
+        FileOutputStream fOut = null;
+        try {
+            fOut = new FileOutputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
 
-        if (requestCode == REQUEST_IMAGE_SELECTOR && resultCode == RESULT_OK && null != data) {
-            Bundle extras2 = data.getExtras();
-            if (extras2 != null) {
-                Bitmap photo = extras2.getParcelable("data");
-                selectedImage = getImageUri(this,photo);      //save file image path
-                saveUri.add(selectedImage);
-
-                Picasso.with(this).load(selectedImage).config(Bitmap.Config.RGB_565).fit().centerInside().into(img_photo);
-            }
-        }
-
-        if(requestCode==REQUEST_IMAGE_CAPTURE){
-
-            File photo = new File(Environment.getExternalStorageDirectory() + File.separator + folder_main+ image_namefile);
-
-            try {
-                cropCapturedImage(Uri.fromFile(photo));
-            }
-            catch(ActivityNotFoundException aNFE){
-                String errorMessage = "Sorry - your device doesn't support the crop action!";
-                Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        }
-        if(requestCode==RESULT_IMAGE_CAPTURE){
-            //get the cropped bitmap from extras
-            Bundle extras = data.getExtras();
-            if (extras!=null){
-                Bitmap bitmap= extras.getParcelable("data");
-                takingPhoto = getImageUri(this,bitmap);
-                saveUri.add(takingPhoto);
-
-                Picasso.with(this).load(takingPhoto).config(Bitmap.Config.RGB_565).fit().centerInside().into(img_photo);
-            }
-
-        }
-        if (requestCode==REQUEST_CODE_RECORD && resultCode==RESULT_CODE_RECORD){
-            uri_record = data.getStringExtra("data");
-            if (uri_record!=null){
-                bt_record.setClickable(false);
-                bt_recordPath.setClickable(false);
-                bt_recordPlay.setClickable(true);
-                bt_recordDelete.setClickable(true);
-            }
+        bmp.compress(Bitmap.CompressFormat.PNG, 85, fOut);
+        try {
+            fOut.flush();
+            fOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
-    public Uri getImageUri(Context inContext, Bitmap inImage) {
+
+    public static Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
 
-    public void cropCapturedImage(Uri picUri){
-        //call the standard crop action intent
+    private void cropCapturedImage(Uri picUri) {
         Intent cropIntent = new Intent("com.android.camera.action.CROP");
-        //indicate image type and Uri of image
         cropIntent.setDataAndType(picUri, "image/*");
-        //set crop properties
         cropIntent.putExtra("crop", "true");
-        //indicate aspect of desired crop
         cropIntent.putExtra("aspectX", 1);
         cropIntent.putExtra("aspectY", 1);
-        //indicate output X and Y
         cropIntent.putExtra("outputX", 256);
         cropIntent.putExtra("outputY", 256);
-        //retrieve data on return
         cropIntent.putExtra("return-data", true);
         //start the activity - we handle returning in onActivityResult
         startActivityForResult(cropIntent, RESULT_IMAGE_CAPTURE);
@@ -333,18 +367,6 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
         tagView.addTag(t);
     }
 
-
-    public void randomStringImage(){
-        char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-        StringBuilder sb = new StringBuilder();
-        Random random = new Random();
-        for (int i = 0; i < 20; i++) {
-            char c = chars[random.nextInt(chars.length)];
-            sb.append(c);
-        }
-        image_namefile = sb.toString() + ".jpg";
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -357,13 +379,15 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.action_addNew:
+                Intent intent = new Intent(getApplicationContext(), AddNewMySentencesActivity.class);
+                startActivity(intent);
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 }

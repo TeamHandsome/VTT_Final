@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,11 +38,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private ListView mLvDrawerMenu;
     private DrawerMenuItemAdapter mDrawerMenuAdapter;
     //Declare Tabs
-    private ViewPager pager;
-    private ViewPagerMainAdapter adapter;
-    private SlidingTabLayout tabs;
-    CharSequence Titles[]={"お す す め","会 話 集"};
-    int Numboftabs =2;
+
     private DbHelper dbHelper;
 
     @Override
@@ -71,9 +70,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-        // Tabs
-        SlidingTab();
-        pager.setCurrentItem(1); // set focus on Category tab when open app
+        if(savedInstanceState == null){
+            setFragment(0, ConversationFragment.class);
+        }
 
         try {
             dbHelper = new DbHelper(this);
@@ -111,36 +110,27 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        ((DrawerMenuItemAdapter)parent.getAdapter()).selectedItem(position);
         switch (position){
             case 0:
-                Intent intent = new Intent(MainActivity.this, ConversationActivity.class);
-                startActivity(intent);
+                setFragment(0,ConversationFragment.class);
                 break;
             case 1:
-                Intent intent1 = new Intent(MainActivity.this, TagActivity.class);
-                startActivity(intent1);
+                setFragment(1,TagFragment.class);
                 break;
             case 2:
-                Intent intent2 = new Intent(MainActivity.this, FavoriteActivity.class);
-                startActivity(intent2);
+                setFragment(2,FavoriteFragment.class);
                 break;
             case 3:
-                Intent intent3 = new Intent(MainActivity.this, HistoryActivity.class);
-                startActivity(intent3);
+                setFragment(3,HistoryFragment.class);
                 break;
             case 4:
-                Intent intent4 = new Intent(MainActivity.this, InterpreterActivity.class);
-                startActivity(intent4);
+                setFragment(4,InterpreterFragment.class);
                 break;
             case 5:
-                Intent intent5 = new Intent(MainActivity.this, MysentencesActivity.class);
-                startActivity(intent5);
+                setFragment(5,MysentencesFragment.class);
                 break;
         }
-
-//        mLvDrawerMenu.setItemChecked(position, true);
-//        mDrawerLayout.closeDrawer(mLvDrawerMenu);
-//        mLvDrawerMenu.invalidateViews();
     }
 
     @Override
@@ -152,10 +142,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     }
 
-    /**
-     * When using the ActionBarDrawerToggle, you must call it during
-     * onPostCreate() and onConfigurationChanged()...
-     */
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -167,6 +153,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+    public void setFragment(int position, Class<? extends Fragment> fragmentClass) {
+        try {
+            Fragment fragment = fragmentClass.newInstance();
+            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frame_container, fragment, fragmentClass.getSimpleName());
+            fragmentTransaction.commit();
+
+            mLvDrawerMenu.setItemChecked(position, true);
+            mDrawerLayout.closeDrawer(mLvDrawerMenu);
+            mLvDrawerMenu.invalidateViews();
+        }
+        catch (Exception ex){
+            Log.e("setFragment", ex.getMessage());
+        }
     }
 
     private List<DrawerMenuItem> generateDrawerMenuItems() {
@@ -180,30 +182,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             result.add(item);
         }
         return result;
-    }
-
-    public void SlidingTab(){
-        // // Creating The ViewPagerMainAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
-        adapter =  new ViewPagerMainAdapter(getSupportFragmentManager(),Titles,Numboftabs);
-
-        // Assigning ViewPager View and setting the adapter
-        pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(adapter);
-
-        // Assiging the Sliding Tab Layout View
-        tabs = (SlidingTabLayout) findViewById(R.id.tabs);
-        tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
-
-        // Setting Custom Color for the Scroll bar indicator of the Tab View
-        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
-            @Override
-            public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.tabsScrollColor);
-            }
-        });
-
-        // Setting the ViewPager For the SlidingTabsLayout
-        tabs.setViewPager(pager);
     }
 
     private void buildDB(){

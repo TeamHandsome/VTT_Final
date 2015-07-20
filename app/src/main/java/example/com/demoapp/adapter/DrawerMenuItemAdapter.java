@@ -5,6 +5,9 @@ package example.com.demoapp.adapter;
  */
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.AvoidXfermode;
+import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +24,12 @@ public class DrawerMenuItemAdapter extends BaseAdapter{
 
     List<DrawerMenuItem> mItems;
     Context mContext;
+    private int mSelectedItem;
+
+    public void selectedItem(int selectedItem){
+        this.mSelectedItem = selectedItem;
+        notifyDataSetChanged();
+    }
 
     public DrawerMenuItemAdapter(Context context,List<DrawerMenuItem> mItems) {
         this.mItems = mItems;
@@ -58,7 +67,20 @@ public class DrawerMenuItemAdapter extends BaseAdapter{
         imgIcon.setImageResource(item.getIcon());
         tvTitle.setText(item.getText());
 
+        if (position == mSelectedItem){
+            int newColor = mContext.getResources().getColor(R.color.colorPrimary);
+            imgIcon.setColorFilter(newColor, PorterDuff.Mode.SRC_ATOP);
+            tvTitle.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
+            tvTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        }else {
+            tvTitle.setTextColor(mContext.getResources().getColor(R.color.colorSecondText));
+            int oldColor = mContext.getResources().getColor(R.color.colorSecondText);
+            imgIcon.setColorFilter(oldColor, PorterDuff.Mode.SRC_ATOP);
+        }
+
         return convertView;
     }
+
+
 }
 
