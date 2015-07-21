@@ -48,6 +48,7 @@ import example.com.demoapp.R;
 import example.com.demoapp.adapter.ImageAdapter;
 import example.com.demoapp.model.DAO.SentencesDAO;
 import example.com.demoapp.model.DAO.TagDAO;
+import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Consts;
 
 public class AddNewMySentencesActivity extends ActionBarActivity {
@@ -222,7 +223,7 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
 //                    resultTag.removeAll(availableTag);    //delete duplicate
             tagView.removeAllTags();
             for (String tag : resultTag) {
-                addNewTagToTagView(tagView, tag);
+                Common.addNewTagToTagView(AddNewMySentencesActivity.this,tagView, tag);
             }
             tagView.setOnTagDeleteListener(new OnTagDeleteListener() {
                 @Override
@@ -357,16 +358,6 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
         cropIntent.putExtra("return-data", true);
         //start the activity - we handle returning in onActivityResult
         startActivityForResult(cropIntent, RESULT_IMAGE_CAPTURE);
-    }
-
-    public void addNewTagToTagView(TagView tagView, String tag) {
-        Tag t = new Tag(tag);
-        t.layoutBorderSize = 1f;
-        t.layoutBorderColor = getResources().getColor(R.color.colorAccent);
-        t.tagTextSize = 25f;
-        t.radius = 0f;
-        t.isDeletable = true;
-        tagView.addTag(t);
     }
 
     @Override

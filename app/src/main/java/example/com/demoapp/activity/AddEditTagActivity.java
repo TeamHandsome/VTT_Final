@@ -11,29 +11,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.example.tony.taglibrary.TagView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import example.com.demoapp.R;
-import example.com.demoapp.adapter.SentencesAdapter;
 import example.com.demoapp.adapter.TagAdapter;
 import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Consts;
-import example.com.demoapp.utility.DbHelper;
 import example.com.demoapp.model.DAO.TagDAO;
 import example.com.demoapp.model.TagItem;
 import example.com.demoapp.utility.Message;
-import example.com.demoapp.utility.StringUtils;
 
 import com.example.tony.taglibrary.OnTagDeleteListener;
 import com.example.tony.taglibrary.Tag;
-import com.example.tony.taglibrary.TagView;
 
 public class AddEditTagActivity extends ActionBarActivity {
 
@@ -73,7 +66,7 @@ public class AddEditTagActivity extends ActionBarActivity {
                 String textTag = autoComplete.getText().toString();
 
                 if (validate(textTag)) {
-                    addNewTagToTagView(tagView, textTag);
+                    Common.addNewTagToTagView(AddEditTagActivity.this, tagView, textTag);
                     tag_list.add(textTag);
                     reloadArrayTagForAutocompleteBox();
                 }
@@ -97,26 +90,19 @@ public class AddEditTagActivity extends ActionBarActivity {
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(actionType==Consts.EDIT_TAG_NORMAL) {
-                switch (v.getId()) {
-                    case R.id.bt_accept:
+            switch (v.getId()) {
+                case R.id.bt_accept:
+                    if(actionType==Consts.EDIT_TAG_NORMAL) {
                         Log.d("Count all tags: ", tagDAO.countTags() + "");
                         tagDAO.addTagToTags(sentences_id, tag_list);
                         finish();
-                        break;
-                    case R.id.bt_cancel1:
-                        finish();
-                        break;
-                }
-            }else{
-                switch (v.getId()) {
-                    case R.id.bt_accept:
+                    }else{
                         sendToAddNewMySentences(AddNewMySentencesActivity.RESULT_CODE_ADD_TAG);
-                        break;
-                    case R.id.bt_cancel1:
-                        finish();
-                        break;
-                }
+                    }
+                    break;
+                case R.id.bt_cancel1:
+                    finish();
+                    break;
             }
         }
     };
@@ -141,28 +127,14 @@ public class AddEditTagActivity extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
-
-    private void addNewTagToTagView(TagView tagView, String tagName) {
-        Tag tag = new Tag(tagName);
-        tag.layoutBorderSize = 1f;
-        tag.layoutBorderColor = getResources().getColor(R.color.colorPrimary);
-        tag.tagTextSize = 23f;
-        tag.radiusSet = new float[]{30,30,0,0,0,0,30,30};
-        tag.isDeletable = true;
-
-        tagView.addTag(tag);
-    }
-
 
     private void reloadArrayTagForAutocompleteBox() {
         ArrayList<TagItem> arrayTag = tagDAO.getAllTagFromTagsIgnoreItems(tag_list);
@@ -170,7 +142,7 @@ public class AddEditTagActivity extends ActionBarActivity {
         autoComplete.setAdapter(mTagAdapter);
     }
 
-    private boolean isNotTagged(String tagName) {   //handle exception if duplicate available Tag
+    private boolean isDuplicateTag(String tagName) {   //handle exception if duplicate available Tag
         for (String i : tag_list) {
             if (i.equalsIgnoreCase(tagName))
                 return false;
@@ -181,7 +153,7 @@ public class AddEditTagActivity extends ActionBarActivity {
     private boolean validate(String tag_name){
         String message = "";
         Context con = AddEditTagActivity.this;
-        if(!isNotTagged(tag_name)){
+        if(!isDuplicateTag(tag_name)){
             message = Message.ITEM_IS_DUPLICATED(tag_name);
             Common.showToastMessage(con,message);
             return false;
@@ -211,15 +183,15 @@ public class AddEditTagActivity extends ActionBarActivity {
             Log.e("action type","can not find action type");
         }
         //show tag
-        for (String i : tag_list) {
-            this.addNewTagToTagView(tagView, i);
+        for (String tag : tag_list) {
+            Common.addNewTagToTagView(AddEditTagActivity.this, tagView, tag);
         }
     }
 
-    public void sendToAddNewMySentences(int resultcode) {
+    private void sendToAddNewMySentences(int result_code) {
         Intent intent = getIntent();
         intent.putStringArrayListExtra(Consts.DATA, tag_list);
-        setResult(resultcode, intent);
+        setResult(result_code, intent);
         finish();
     }
 }
