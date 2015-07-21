@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
+import com.example.tony.taglibrary.Tag;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -137,6 +139,58 @@ public class TagDAO extends BaseDAO {
             } while (cursor.moveToNext());
         }
         close();
+        return arrayList;
+    }
+    //////////LIST TAGS HERE!!!!!!!!!
+    public ArrayList<TagItem> getAllTagFromTags(){
+        ArrayList<TagItem> arrayTag = null;
+        String query = "SELECT * FROM tags";
+        this.rawQueryReadonly(query);
+        if (cursor.moveToFirst()){
+            arrayTag = new ArrayList<TagItem>();
+            do
+            {
+                TagItem item = new TagItem();
+                item.setId(cursor.getString(cursor.getColumnIndex(DbHelper.DB_TAGS_ID)));
+                item.setNameTag(cursor.getString(cursor.getColumnIndex(DbHelper.DB_TAGS_NAME)));
+
+                arrayTag.add(item);
+            }while(cursor.moveToNext());
+        }
+        return arrayTag;
+    }
+    public ArrayList<String> getIdFromTags(){
+        ArrayList<String> arrayList = new ArrayList<>();
+        String query = "SELECT * FROM tags";
+        this.rawQueryReadonly(query);
+        while (cursor.moveToNext()) {
+            String tag = cursor.getString(cursor.getColumnIndex(DbHelper.DB_TAGS_ID));
+            arrayList.add(tag);
+        }
+        cursor.close();
+        return arrayList;
+
+    }
+    public ArrayList<String> getIdFromTagging(){
+        ArrayList<String> arrayList = new ArrayList<>();
+        String query = "SELECT * FROM tagging";
+        this.rawQueryReadonly(query);
+        while (cursor.moveToNext()) {
+            String tag = cursor.getString(cursor.getColumnIndex(DbHelper.DB_TAGGING_TAG_ID));
+            arrayList.add(tag);
+        }
+        cursor.close();
+        return arrayList;
+    }
+    public ArrayList<String> listSentencesFollowTagId(String tagId){
+        ArrayList<String> arrayList = new ArrayList<>();
+        String query = "SELECT * FROM tagging WHERE tag_id ='"+tagId+"'";
+        this.rawQueryReadonly(query);
+        while (cursor.moveToNext()) {
+            String tag = cursor.getString(cursor.getColumnIndex(DbHelper.DB_TAGGING_SENTENCES_ID));
+            arrayList.add(tag);
+        }
+        cursor.close();
         return arrayList;
     }
 }

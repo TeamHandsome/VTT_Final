@@ -17,7 +17,7 @@ import example.com.demoapp.model.TagItem;
 /**
  * Created by Long on 7/8/2015.
  */
-public class TagAdapter extends ArrayAdapter<TagItem>{
+public class CompleteTagAdapter extends ArrayAdapter<TagItem>{
     Context mContext;
     int idLayoutResource;
     private ArrayList<TagItem> items;
@@ -25,8 +25,8 @@ public class TagAdapter extends ArrayAdapter<TagItem>{
     private ArrayList<TagItem> suggestions;
     private LayoutInflater layoutInflater;
 
-    public TagAdapter(Context mContext, int idLayoutResource,
-                      ArrayList<TagItem> items) {
+    public CompleteTagAdapter(Context mContext, int idLayoutResource,
+                              ArrayList<TagItem> items) {
         super(mContext, idLayoutResource, items);
         this.items = items;
         this.itemsAll = (ArrayList<TagItem>) items.clone();
@@ -45,7 +45,7 @@ public class TagAdapter extends ArrayAdapter<TagItem>{
         if (convertView == null) {
             holder = new ViewHolder();
 
-            convertView = layoutInflater.inflate(R.layout.activity_add_edit_tag_item, null);
+            convertView = layoutInflater.inflate(R.layout.activity_add_edit_tag_item_complete, null);
             holder.tvTag = (TextView) convertView.findViewById(R.id.tvTag);
 
             convertView.setTag(holder);

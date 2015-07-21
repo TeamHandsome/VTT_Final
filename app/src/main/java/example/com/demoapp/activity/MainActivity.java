@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private void buildDB(){
         try {
             DbHelper db = new DbHelper(this.getApplicationContext());
-            db.copydatabase();
+            db.createdatabase();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -18,7 +18,7 @@ import com.example.tony.taglibrary.TagView;
 import java.util.ArrayList;
 
 import example.com.demoapp.R;
-import example.com.demoapp.adapter.TagAdapter;
+import example.com.demoapp.adapter.CompleteTagAdapter;
 import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Consts;
 import example.com.demoapp.model.DAO.TagDAO;
@@ -32,7 +32,7 @@ public class AddEditTagActivity extends ActionBarActivity {
 
     private AutoCompleteTextView autoComplete;
     private ArrayList<String> tag_list;    //to handle tag available
-    private TagAdapter mTagAdapter;
+    private CompleteTagAdapter mCompleteTagAdapter;
     String sentences_id;
     final TagDAO tagDAO = new TagDAO(this);
     private int actionType= -1;
@@ -140,8 +140,8 @@ public class AddEditTagActivity extends ActionBarActivity {
 
     private void reloadArrayTagForAutocompleteBox() {
         ArrayList<TagItem> arrayTag = tagDAO.getAllTagFromTagsIgnoreItems(tag_list);
-        mTagAdapter = new TagAdapter(this, R.layout.activity_add_edit_tag_item, arrayTag);
-        autoComplete.setAdapter(mTagAdapter);
+        mCompleteTagAdapter = new CompleteTagAdapter(this, R.layout.activity_add_edit_tag_item_complete, arrayTag);
+        autoComplete.setAdapter(mCompleteTagAdapter);
     }
 
     private boolean isDuplicateTag(String tagName) {   //handle exception if duplicate available Tag
