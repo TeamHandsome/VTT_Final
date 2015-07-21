@@ -33,7 +33,7 @@ public class AddEditTagActivity extends ActionBarActivity {
     private AutoCompleteTextView autoComplete;
     private ArrayList<String> tag_list;    //to handle tag available
     private TagAdapter mTagAdapter;
-    int sentences_id;
+    String sentences_id;
     final TagDAO tagDAO = new TagDAO(this);
     private int actionType= -1;
 
@@ -52,7 +52,7 @@ public class AddEditTagActivity extends ActionBarActivity {
         tagView = (TagView) findViewById(R.id.tagview);
 
         this.actionType = getIntent().getIntExtra(Consts.ACTION_TYPE, Consts.NOT_FOUND);
-        sentences_id = getIntent().getIntExtra(Consts.SENTENCE_ID, Consts.NOT_FOUND);
+        sentences_id = getIntent().getStringExtra(Consts.SENTENCE_ID);
         //load available tag and show
         this.loadTagsAtFirst();
 

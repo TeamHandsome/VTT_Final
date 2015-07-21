@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by Long on 6/22/2015.
  */
 public class SentenceItem {
-    int id;
+    String id;
     private String nameJp;
     private String nameVn;
     private String sound;
@@ -45,11 +45,11 @@ public class SentenceItem {
         this.sound = sound;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -61,7 +61,7 @@ public class SentenceItem {
         this.tag_list = tag_list;
     }
 
-    public SentenceItem(int id, String nameJp, String nameVn, String sound, String image) {
+    public SentenceItem(String id, String nameJp, String nameVn, String sound, String image) {
         this.id = id;
         this.nameJp = nameJp;
         this.nameVn = nameVn;
@@ -69,7 +69,7 @@ public class SentenceItem {
         this.image = image;
     }
 
-    public SentenceItem(int id, String nameJp, String nameVn, String sound, String image,
+    public SentenceItem(String id, String nameJp, String nameVn, String sound, String image,
                         ArrayList tag_list) {
         this.id = id;
         this.nameJp = nameJp;

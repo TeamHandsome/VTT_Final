@@ -81,7 +81,7 @@ public class SentencesAdapter extends ArraySwipeAdapter<SentenceItem> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, AddEditTagActivity.class);
-                int sentences_id =  listSentences.get(position).getId(); // lay Id cua sentence trong db
+                String sentences_id =  listSentences.get(position).getId(); // lay Id cua sentence trong db
                 intent.putExtra(Consts.ACTION_TYPE,Consts.EDIT_TAG_NORMAL);
                 intent.putExtra(Consts.SENTENCE_ID, sentences_id);
                 context.startActivity(intent);

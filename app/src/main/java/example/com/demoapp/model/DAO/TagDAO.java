@@ -37,7 +37,7 @@ public class TagDAO extends BaseDAO {
         return count;
     }
 
-    public void addTagToTags(int sentences_id, List<String> tag) {
+    public void addTagToTags(String sentences_id, List<String> tag) {
         database = mDbHelper.getWritableDatabase();
         List<Integer> arrayList = new ArrayList<>();
 
@@ -75,13 +75,13 @@ public class TagDAO extends BaseDAO {
         close();
     }
 
-    public void clearTags(int i) {
+    public void clearTags(String i) {
         database = mDbHelper.getWritableDatabase();
         statement = database.compileStatement("delete from tagging where sentences_id='"+ i + "'");
         statement.execute();
     }
 
-    public ArrayList<String> getTagsFromTagging(int sentences_id) {
+    public ArrayList<String> getTagsFromTagging(String sentences_id) {
         ArrayList<String> tagList = new ArrayList<>();
 
         String query = "select * from tagging,tags " +
