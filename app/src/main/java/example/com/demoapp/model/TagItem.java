@@ -4,14 +4,14 @@ package example.com.demoapp.model;
  * Created by Long on 7/8/2015.
  */
 public class TagItem {
-    int id;
+    String id;
     String nameTag;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -23,7 +23,7 @@ public class TagItem {
         this.nameTag = nameTag;
     }
 
-    public TagItem(int id, String nameTag) {
+    public TagItem(String id, String nameTag) {
         this.id = id;
         this.nameTag = nameTag;
     }

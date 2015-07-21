@@ -39,7 +39,7 @@ public class TagDAO extends BaseDAO {
 
     public void addTagToTags(String sentences_id, List<String> tag) {
         database = mDbHelper.getWritableDatabase();
-        List<Integer> arrayList = new ArrayList<>();
+        List<String> arrayList = new ArrayList<>();
 
         long countId = countTags() + 1;
         ContentValues values = new ContentValues();
@@ -48,14 +48,14 @@ public class TagDAO extends BaseDAO {
             Cursor cursor = database.rawQuery(sql, null);
             Log.d("Cursor Count : ", cursor.getCount() + "");
             if (cursor.getCount() == 0) {
-                values.put(DbHelper.DB_TAGS_ID, countId++);
-                arrayList.add((int) countId - 1);
+                values.put(DbHelper.DB_TAGS_ID, "t"+(countId++));
+                arrayList.add("t"+(countId-1));
                 values.put(DbHelper.DB_TAGS_NAME, i);
                 database.insert(DbHelper.DB_TABLE_TAGS, null, values);
 
             } else {
                 while (cursor.moveToNext()) {
-                    int tag_id = cursor.getInt((cursor.getColumnIndex(DbHelper.DB_TAGS_ID)));
+                    String tag_id = cursor.getString((cursor.getColumnIndex(DbHelper.DB_TAGS_ID)));
                     arrayList.add(tag_id);
                 }
             }
@@ -65,7 +65,7 @@ public class TagDAO extends BaseDAO {
         this.clearTags(sentences_id);
         Log.d("Number of Tag : ", arrayList + "");
         ContentValues values1 = new ContentValues();
-        for (int i : arrayList) {
+        for (String i : arrayList) {
             values1.put(DbHelper.DB_TAGGING_TAG_ID, i);
             values1.put(DbHelper.DB_TAGGING_SENTENCES_ID, sentences_id);
             database.insert(DbHelper.DB_TABLE_TAGGING, null, values1);
