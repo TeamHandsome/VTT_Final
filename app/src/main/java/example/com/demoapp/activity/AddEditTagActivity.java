@@ -2,6 +2,7 @@ package example.com.demoapp.activity;
 
 import android.content.Context;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -37,13 +38,12 @@ import com.example.tony.taglibrary.TagView;
 public class AddEditTagActivity extends ActionBarActivity {
 
     private AutoCompleteTextView autoComplete;
-    private ArrayList<TagItem> arrayTag;   //to handles AutoCompleteTextView
-    private List<String> arrayTagging;    //to handle tag available
+    private ArrayList<String> tag_list;    //to handle tag available
     private TagAdapter mTagAdapter;
     int sentences_id;
-    final TagDAO tag = new TagDAO(this);
+    final TagDAO tagDAO = new TagDAO(this);
+    private int actionType= -1;
 
-    List<String> arrayDynamicTag = new ArrayList();  //to handle dynamic user add tag
     TagView tagView;
 
 
@@ -58,12 +58,10 @@ public class AddEditTagActivity extends ActionBarActivity {
 
         tagView = (TagView) findViewById(R.id.tagview);
 
+        this.actionType = getIntent().getIntExtra(Consts.ACTION_TYPE, Consts.NOT_FOUND);
         sentences_id = getIntent().getIntExtra(Consts.SENTENCE_ID, Consts.NOT_FOUND);
-        //list tag available from DB
-        arrayTagging = tag.getTagsFromTagging(sentences_id);
-        for (String i : arrayTagging) {
-            this.addNewTagToTagView(tagView, i);
-        }
+        //load available tag and show
+        this.loadTagsAtFirst();
 
         initView();
 
@@ -73,11 +71,10 @@ public class AddEditTagActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 String textTag = autoComplete.getText().toString();
-                    //arrayDynamicTag.add(textTag);  //add text Tag tu autoCompleteTextView vao tag Dynamic
 
                 if (validate(textTag)) {
                     addNewTagToTagView(tagView, textTag);
-                    arrayTagging.add(textTag);
+                    tag_list.add(textTag);
                     reloadArrayTagForAutocompleteBox();
                 }
 
@@ -88,7 +85,7 @@ public class AddEditTagActivity extends ActionBarActivity {
             @Override
             public void onTagDeleted(Tag tag, int position) {
                 Common.showToastMessage(AddEditTagActivity.this,"delete tag id=" + tag.id + " position=" + position);
-                arrayTagging.remove(position);
+                tag_list.remove(position);
             }
         });
         //// Event for Button Accept + Cancel
@@ -100,16 +97,26 @@ public class AddEditTagActivity extends ActionBarActivity {
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.bt_accept:
-                    Log.d("Count all tags: ", tag.countTags() + "");
-                    tag.addTagToTags(sentences_id, arrayTagging);
-                    // tag.addTagToTagging(arrayDynamicTag);
-                    finish();
-                    break;
-                case R.id.bt_cancel1:
-                    finish();
-                    break;
+            if(actionType==Consts.EDIT_TAG_NORMAL) {
+                switch (v.getId()) {
+                    case R.id.bt_accept:
+                        Log.d("Count all tags: ", tagDAO.countTags() + "");
+                        tagDAO.addTagToTags(sentences_id, tag_list);
+                        finish();
+                        break;
+                    case R.id.bt_cancel1:
+                        finish();
+                        break;
+                }
+            }else{
+                switch (v.getId()) {
+                    case R.id.bt_accept:
+                        sendToAddNewMySentences(AddNewMySentencesActivity.RESULT_CODE_ADD_TAG);
+                        break;
+                    case R.id.bt_cancel1:
+                        finish();
+                        break;
+                }
             }
         }
     };
@@ -158,21 +165,13 @@ public class AddEditTagActivity extends ActionBarActivity {
 
 
     private void reloadArrayTagForAutocompleteBox() {
-        arrayTag = tag.getAllTagFromTagsIgnoreItems(arrayTagging);
+        ArrayList<TagItem> arrayTag = tagDAO.getAllTagFromTagsIgnoreItems(tag_list);
         mTagAdapter = new TagAdapter(this, R.layout.activity_add_edit_tag_item, arrayTag);
         autoComplete.setAdapter(mTagAdapter);
     }
 
     private boolean isNotTagged(String tagName) {   //handle exception if duplicate available Tag
-        for (String i : arrayTagging) {
-            if (i.equalsIgnoreCase(tagName))
-                return false;
-        }
-        return true;
-    }
-
-    private boolean isNotUserAdd(String tagName) {  //handle exception if duplicate dynamic Tag
-        for (String i : arrayDynamicTag) {
+        for (String i : tag_list) {
             if (i.equalsIgnoreCase(tagName))
                 return false;
         }
@@ -200,4 +199,27 @@ public class AddEditTagActivity extends ActionBarActivity {
         return true;
     }
 
+    private void loadTagsAtFirst(){
+        if(actionType==Consts.EDIT_TAG_NORMAL){
+            //list tag available from DB
+            tag_list = tagDAO.getTagsFromTagging(sentences_id);
+        }else if (actionType==Consts.EDIT_TAG_ADD_SEN){
+            tag_list = getIntent().getStringArrayListExtra(Consts.AVAILABLE_TAG);
+        }else if (actionType==Consts.EDIT_TAG_MOD_SEN){
+            tag_list = getIntent().getStringArrayListExtra(Consts.AVAILABLE_TAG);
+        }else{
+            Log.e("action type","can not find action type");
+        }
+        //show tag
+        for (String i : tag_list) {
+            this.addNewTagToTagView(tagView, i);
+        }
+    }
+
+    public void sendToAddNewMySentences(int resultcode) {
+        Intent intent = getIntent();
+        intent.putStringArrayListExtra(Consts.DATA, tag_list);
+        setResult(resultcode, intent);
+        finish();
+    }
 }

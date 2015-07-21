@@ -81,8 +81,8 @@ public class TagDAO extends BaseDAO {
         statement.execute();
     }
 
-    public List<String> getTagsFromTagging(int sentences_id) {
-        List<String> tagList = new ArrayList<>();
+    public ArrayList<String> getTagsFromTagging(int sentences_id) {
+        ArrayList<String> tagList = new ArrayList<>();
 
         String query = "select * from tagging,tags " +
                 "where tagging.sentences_id='" + sentences_id + "' and tags._id = tagging.tag_id";

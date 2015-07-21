@@ -61,9 +61,6 @@
             android:label="@string/title_activity_add_new_my_sentences"
             android:windowSoftInputMode="stateHidden"></activity>
         <activity
-            android:name=".activity.AddTagToMySentences"
-            android:label="@string/title_activity_add_tag_my_sentences"></activity>
-        <activity
             android:name=".activity.RecordActivity"
             android:label="@string/title_activity_record"></activity>
     </application>

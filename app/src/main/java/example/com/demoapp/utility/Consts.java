@@ -4,14 +4,21 @@ package example.com.demoapp.utility;
  * Created by Tony on 8/7/2015.
  */
 public final class Consts {
-    /**
-     * Common variable name when put in Intent
-     */
+
+    //Common variable name when put in Intent
     public static final String POSITION = "position";
     public static final String CATEGORY_ID = "category_id";
     public static final String SUBCATEGORY_ID ="subCategory_id";
     public static final String SENTENCE_ID = "sentence_id";
     public static final String REQUEST_ADD_NEW = "ADD_NEW_MYSEN";
+    public static final String ACTION_TYPE = "action_type";
+    public static final String AVAILABLE_TAG = "available_tag";
+    public static final String DATA = "data";
+
+    //action type
+    public static final int EDIT_TAG_NORMAL = 1;
+    public static final int EDIT_TAG_ADD_SEN = 2;
+    public static final int EDIT_TAG_MOD_SEN = 3;
 
     //item's name
     public static final String TAG_NAME = "タグ名";

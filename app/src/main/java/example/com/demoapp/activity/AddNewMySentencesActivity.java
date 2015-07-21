@@ -48,6 +48,7 @@ import example.com.demoapp.R;
 import example.com.demoapp.adapter.ImageAdapter;
 import example.com.demoapp.model.DAO.SentencesDAO;
 import example.com.demoapp.model.DAO.TagDAO;
+import example.com.demoapp.utility.Consts;
 
 public class AddNewMySentencesActivity extends ActionBarActivity {
     Context context;
@@ -70,7 +71,7 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
     public static Uri selectedImage;  //save Uri path image load from gallery
     List<Uri> saveUri = new ArrayList<>();
     public String uri_record;         //save Uri path record
-    ArrayList<String> resultTag = new ArrayList<>();      // result Tag tra ve tu AddTagToMySentences
+    ArrayList<String> resultTag = new ArrayList<>();      // result Tag tra ve tu AddEditTagActivity
 
     File file;
     String fab_record;
@@ -139,8 +140,9 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.bt_addTagMySentences:
-                    Intent i = new Intent(getApplicationContext(), AddTagToMySentences.class);
-                    i.putStringArrayListExtra("availableTag", resultTag);
+                    Intent i = new Intent(getApplicationContext(), AddEditTagActivity.class);
+                    i.putExtra(Consts.ACTION_TYPE,Consts.EDIT_TAG_ADD_SEN);
+                    i.putStringArrayListExtra(Consts.AVAILABLE_TAG, resultTag);
                     startActivityForResult(i, REQUEST_CODE_ADD_TAG);
                     break;
                 case R.id.bt_record:
@@ -216,7 +218,7 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_ADD_TAG && resultCode == RESULT_CODE_ADD_TAG) {
-            resultTag = data.getStringArrayListExtra("data");
+            resultTag = data.getStringArrayListExtra(Consts.DATA);
 //                    resultTag.removeAll(availableTag);    //delete duplicate
             tagView.removeAllTags();
             for (String tag : resultTag) {
