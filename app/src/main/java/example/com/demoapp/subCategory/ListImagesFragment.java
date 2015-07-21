@@ -9,19 +9,18 @@ import android.widget.GridView;
 
 import com.daimajia.swipe.util.Attributes;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.ImageAdapter;
 import example.com.demoapp.utility.DbHelper;
 import example.com.demoapp.model.DAO.SentencesDAO;
-import example.com.demoapp.model.DisplaySentencesItem;
+import example.com.demoapp.model.SentenceItem;
 
 
 public class ListImagesFragment extends Fragment {
     GridView gridView;
-    ArrayList<DisplaySentencesItem> listSentences;
+    ArrayList<SentenceItem> listSentences;
     ImageAdapter mImageAdapter;
 
     private DbHelper db ;

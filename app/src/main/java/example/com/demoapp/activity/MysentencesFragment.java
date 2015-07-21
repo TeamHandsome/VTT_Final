@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import example.com.demoapp.R;
+import example.com.demoapp.utility.Consts;
 
 public class MysentencesFragment extends Fragment {
     Context context;
@@ -43,7 +44,8 @@ public class MysentencesFragment extends Fragment {
                 getActivity().onBackPressed();
                 return true;
             case R.id.action_addNew:
-                Intent intent = new Intent(getActivity(), AddNewMySentencesActivity.class);
+                Intent intent = new Intent(getActivity(), AddEditMySentencesActivity.class);
+                intent.putExtra(Consts.ACTION_TYPE,Consts.ADD_MY_SEN);
                 startActivity(intent);
             default:
                 return super.onOptionsItemSelected(item);

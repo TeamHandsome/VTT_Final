@@ -1,17 +1,10 @@
 package example.com.demoapp.activity;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -22,7 +15,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -34,24 +26,21 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import example.com.demoapp.R;
-import example.com.demoapp.adapter.ImageAdapter;
 import example.com.demoapp.model.DAO.SentencesDAO;
 import example.com.demoapp.model.DAO.TagDAO;
+import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Consts;
+import example.com.demoapp.utility.Message;
 
-public class AddNewMySentencesActivity extends ActionBarActivity {
+public class AddEditMySentencesActivity extends ActionBarActivity {
     Context context;
     public static final int REQUEST_CODE_ADD_TAG = 10;
     public static final int RESULT_CODE_ADD_TAG = 20;
@@ -74,6 +63,7 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
     public String uri_record;         //save Uri path record
     ArrayList<String> resultTag = new ArrayList<>();      // result Tag tra ve tu AddEditTagActivity
 
+    private int action_type = -1;
     File file;
     String fab_record;
     TagView tagView;
@@ -176,7 +166,7 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
                     bt_recordPlay.setClickable(false);
                     bt_record.setClickable(true);
                     bt_recordPath.setClickable(true);
-                    Toast.makeText(getApplicationContext(), "Audio deleted in storage!", Toast.LENGTH_LONG).show();
+                    Common.showToastMessage(getApplicationContext(), Message.ITEM_IS_DELETED(Consts.AUDIO));
                     break;
                 case R.id.bt_takephoto:
                     dispatchTakePictureIntent();
@@ -188,7 +178,7 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
                     if (takingPhoto != null || selectedImage != null) {
                         file = new File(Environment.getExternalStorageDirectory() + File.separator + folder_main + image_namefile);
                         file.delete();
-                        Toast.makeText(getApplicationContext(), "Picture deleted!", Toast.LENGTH_LONG).show();
+                        Common.showToastMessage(getApplicationContext(), Message.ITEM_IS_DELETED(Consts.IMAGE));
                         takingPhoto = null;
                         selectedImage = null;
                         img_photo.setImageResource(android.R.color.transparent);
@@ -205,12 +195,16 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
                     }
                     finish();
                     break;
-//                case R.id.bt_accept2:
+                case R.id.bt_accept2:
+                    if(action_type==Consts.ADD_MY_SEN){
+
+                    }else {
+
+                    }
 //                    addNewSenDAO.addUri(saveUri);
 //                    addtagMySenDAO.addTagToTags(1,resultTag);
 //
-//                    break;
-
+                    break;
             }
         }
     };
@@ -223,7 +217,7 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
 //                    resultTag.removeAll(availableTag);    //delete duplicate
             tagView.removeAllTags();
             for (String tag : resultTag) {
-                Common.addNewTagToTagView(AddNewMySentencesActivity.this,tagView, tag);
+                Common.addNewTagToTagView(AddEditMySentencesActivity.this, tagView, tag);
             }
             tagView.setOnTagDeleteListener(new OnTagDeleteListener() {
                 @Override
@@ -377,10 +371,31 @@ public class AddNewMySentencesActivity extends ActionBarActivity {
                 onBackPressed();
                 return true;
             case R.id.action_addNew:
-                Intent intent = new Intent(getApplicationContext(), AddNewMySentencesActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AddEditMySentencesActivity.class);
                 startActivity(intent);
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private boolean validateSentence(SentenceItem sen){
+        String message = "";
+        Context con = AddEditMySentencesActivity.this;
+        if (sen.getNameJp() == null || sen.getNameJp().trim().isEmpty()){
+            message = Message.MUST_NOT_EMPTY(Consts.JAPANESE);
+            Common.showToastMessage(con, message);
+            return false;
+        }
+        if(sen.getNameVn().length() > Consts.MAX_VIE_CHAR_LENGTH){
+            message = Message.MAX_CHARACTER_LENGTH(sen.getNameVn(), Consts.MAX_VIE_CHAR_LENGTH);
+            Common.showToastMessage(con, message);
+            return false;
+        }
+        if(sen.getNameJp().length() > Consts.MAX_JAP_CHAR_LENGTH){
+            message = Message.MAX_CHARACTER_LENGTH(sen.getNameJp(), Consts.MAX_JAP_CHAR_LENGTH);
+            Common.showToastMessage(con, message);
+            return false;
+        }
+        return true;
     }
 }

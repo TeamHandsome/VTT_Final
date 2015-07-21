@@ -1,20 +1,13 @@
 package example.com.demoapp.adapter;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.ArraySwipeAdapter;
@@ -23,16 +16,15 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import example.com.demoapp.R;
-import example.com.demoapp.model.DisplaySentencesItem;
-import example.com.demoapp.subCategory.PopupActivity;
+import example.com.demoapp.model.SentenceItem;
 
 /**
  * Created by Long on 7/7/2015.
  */
-public class ImageAdapter extends ArraySwipeAdapter<DisplaySentencesItem> {
+public class ImageAdapter extends ArraySwipeAdapter<SentenceItem> {
     Activity context;
     int idLayoutResource;
-    ArrayList<DisplaySentencesItem> listSentences;
+    ArrayList<SentenceItem> listSentences;
 
     private static class ViewHolder {
         ImageView imageView;
@@ -42,7 +34,7 @@ public class ImageAdapter extends ArraySwipeAdapter<DisplaySentencesItem> {
 
     }
 
-    public ImageAdapter(Activity context, int idLayoutResource, ArrayList<DisplaySentencesItem> listSentences) {
+    public ImageAdapter(Activity context, int idLayoutResource, ArrayList<SentenceItem> listSentences) {
         super(context, idLayoutResource, listSentences);
         this.context = context;
         this.idLayoutResource = idLayoutResource;

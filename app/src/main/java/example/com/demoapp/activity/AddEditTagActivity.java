@@ -77,7 +77,9 @@ public class AddEditTagActivity extends ActionBarActivity {
         tagView.setOnTagDeleteListener(new OnTagDeleteListener() {
             @Override
             public void onTagDeleted(Tag tag, int position) {
-                Common.showToastMessage(AddEditTagActivity.this,"delete tag id=" + tag.id + " position=" + position);
+                String tag_name = tag_list.get(position);
+                String mess = Message.ITEM_IS_DELETED(tag_name+Consts.TAG);
+                Common.showToastMessage(AddEditTagActivity.this,mess);
                 tag_list.remove(position);
             }
         });
@@ -97,7 +99,7 @@ public class AddEditTagActivity extends ActionBarActivity {
                         tagDAO.addTagToTags(sentences_id, tag_list);
                         finish();
                     }else{
-                        sendToAddNewMySentences(AddNewMySentencesActivity.RESULT_CODE_ADD_TAG);
+                        sendToAddNewMySentences(AddEditMySentencesActivity.RESULT_CODE_ADD_TAG);
                     }
                     break;
                 case R.id.bt_cancel1:
@@ -153,6 +155,11 @@ public class AddEditTagActivity extends ActionBarActivity {
     private boolean validate(String tag_name){
         String message = "";
         Context con = AddEditTagActivity.this;
+        if (tag_name == null || tag_name.trim().isEmpty()){
+            message = Message.MUST_NOT_EMPTY(Consts.TAG_NAME);
+            Common.showToastMessage(con, message);
+            return false;
+        }
         if(!isDuplicateTag(tag_name)){
             message = Message.ITEM_IS_DUPLICATED(tag_name);
             Common.showToastMessage(con,message);
@@ -160,11 +167,6 @@ public class AddEditTagActivity extends ActionBarActivity {
         };
         if(tag_name.length() > Consts.MAX_TAGNAME_LENGTH){
             message = Message.MAX_CHARACTER_LENGTH(Consts.TAG_NAME, Consts.MAX_TAGNAME_LENGTH);
-            Common.showToastMessage(con, message);
-            return false;
-        }
-        if (tag_name == null || tag_name.trim().isEmpty()){
-            message = Message.MUST_NOT_EMPTY(Consts.TAG_NAME);
             Common.showToastMessage(con, message);
             return false;
         }

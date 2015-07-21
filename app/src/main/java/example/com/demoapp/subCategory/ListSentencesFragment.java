@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import com.daimajia.swipe.util.Attributes;
@@ -16,12 +15,12 @@ import example.com.demoapp.R;
 import example.com.demoapp.adapter.SentencesAdapter;
 import example.com.demoapp.utility.DbHelper;
 import example.com.demoapp.model.DAO.SentencesDAO;
-import example.com.demoapp.model.DisplaySentencesItem;
+import example.com.demoapp.model.SentenceItem;
 
 
 public class ListSentencesFragment extends Fragment {
     ListView listView;
-    ArrayList<DisplaySentencesItem> listSentences;
+    ArrayList<SentenceItem> listSentences;
     SentencesAdapter mSentencesAdapter;
 
     private DbHelper db ;

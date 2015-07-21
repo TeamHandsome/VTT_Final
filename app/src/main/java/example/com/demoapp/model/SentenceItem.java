@@ -1,14 +1,17 @@
 package example.com.demoapp.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by Long on 6/22/2015.
  */
-public class DisplaySentencesItem {
+public class SentenceItem {
     int id;
-    String nameJp;
-    String nameVn;
-    String sound;
-    String image;
+    private String nameJp;
+    private String nameVn;
+    private String sound;
+    private String image;
+    private ArrayList tag_list;
 
     public String getNameJp() {
         return nameJp;
@@ -50,15 +53,33 @@ public class DisplaySentencesItem {
         this.id = id;
     }
 
+    public ArrayList getTag_list() {
+        return tag_list;
+    }
 
-    public DisplaySentencesItem(int id, String nameJp, String nameVn, String sound,String image) {
+    public void setTag_list(ArrayList tag_list) {
+        this.tag_list = tag_list;
+    }
+
+    public SentenceItem(int id, String nameJp, String nameVn, String sound, String image) {
         this.id = id;
         this.nameJp = nameJp;
         this.nameVn = nameVn;
         this.sound = sound;
         this.image = image;
     }
-    public DisplaySentencesItem() {
+
+    public SentenceItem(int id, String nameJp, String nameVn, String sound, String image,
+                        ArrayList tag_list) {
+        this.id = id;
+        this.nameJp = nameJp;
+        this.nameVn = nameVn;
+        this.sound = sound;
+        this.image = image;
+        this.tag_list = tag_list;
+    }
+
+    public SentenceItem() {
         this.id = id;
         this.nameJp = "";
         this.nameJp = "";

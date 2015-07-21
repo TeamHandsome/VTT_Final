@@ -57,7 +57,7 @@
                 android:value=".activity.MainActivity" />
         </activity>
         <activity
-            android:name=".activity.AddNewMySentencesActivity"
+            android:name=".activity.AddEditMySentencesActivity"
             android:label="@string/title_activity_add_new_my_sentences"
             android:windowSoftInputMode="stateHidden"></activity>
         <activity

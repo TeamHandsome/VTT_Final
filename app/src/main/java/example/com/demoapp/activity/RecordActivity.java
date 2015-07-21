@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.media.Image;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.AsyncTask;
@@ -18,13 +17,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import at.markushi.ui.CircleButton;
@@ -128,7 +125,7 @@ public class RecordActivity extends ActionBarActivity {
                 case R.id.bt_accept_record:
                     Intent intent = new Intent();
                     intent.putExtra("data", outputFile);
-                    setResult(AddNewMySentencesActivity.RESULT_CODE_RECORD, intent);
+                    setResult(AddEditMySentencesActivity.RESULT_CODE_RECORD, intent);
                     finish();
                     break;
 

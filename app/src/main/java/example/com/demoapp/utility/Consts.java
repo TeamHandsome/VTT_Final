@@ -16,12 +16,16 @@ public final class Consts {
     public static final String DATA = "data";
 
     //action type
-    public static final int EDIT_TAG_NORMAL = 1;
-    public static final int EDIT_TAG_ADD_SEN = 2;
-    public static final int EDIT_TAG_MOD_SEN = 3;
+    public static final int EDIT_TAG_NORMAL = 10;
+    public static final int EDIT_TAG_ADD_SEN = 21;
+    public static final int EDIT_TAG_MOD_SEN = 22;
+    public static final int ADD_MY_SEN = 31;
+    public static final int EDIT_MY_SEN = 32;
+
 
     //item's name
     public static final String TAG_NAME = "タグ名";
+    public static final String TAG = "タグ";
     public static final String JAPANESE = "日本語";
     public static final String VIETNAMESE = "ベトナム語";
     public static final String IMAGE = "イメージ";

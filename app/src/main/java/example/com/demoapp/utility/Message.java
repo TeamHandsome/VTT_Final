@@ -17,6 +17,10 @@ public final class Message {
     public static final String ERROR_REQUIRED_NUMBER = "有効な数字を入力してください。";
     public static final String ERROR_REQUIRED_INTEGER = "整数で入力してください。";
 
+    //Message info
+    public static final String ITEM_IS_DELETED(String name){
+        return String.format("%sが削除されました。",name);
+    }
     //Message error
     public static final String MAX_CHARACTER_LENGTH (String name, int length){
         return String.format("%sは%d文字以内で入力してください。", name, length);

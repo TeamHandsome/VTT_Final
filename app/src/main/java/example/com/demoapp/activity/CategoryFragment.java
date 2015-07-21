@@ -16,13 +16,11 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Random;
 
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.CategoriesAdapter;
@@ -62,7 +60,8 @@ public class CategoryFragment extends Fragment {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.fab_addnew:
-                    Intent intent = new Intent(getActivity().getApplicationContext(), AddNewMySentencesActivity.class);
+                    Intent intent = new Intent(getActivity().getApplicationContext(), AddEditMySentencesActivity.class);
+                    intent.putExtra(Consts.ACTION_TYPE,Consts.ADD_MY_SEN);
                     startActivity(intent);
                     break;
                 case R.id.fab_record:
@@ -80,16 +79,16 @@ public class CategoryFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==1 && resultCode==AddNewMySentencesActivity.RESULT_CODE_RECORD && data!=null){
+        if (requestCode==1 && resultCode== AddEditMySentencesActivity.RESULT_CODE_RECORD && data!=null){
             String uri_record = data.getStringExtra("data");
 
-            Intent intent = new Intent(getActivity().getApplicationContext(),AddNewMySentencesActivity.class);
+            Intent intent = new Intent(getActivity().getApplicationContext(),AddEditMySentencesActivity.class);
             intent.putExtra("data1",uri_record);
             startActivity(intent);
         }
-        if(requestCode==AddNewMySentencesActivity.REQUEST_IMAGE_CAPTURE){
+        if(requestCode== AddEditMySentencesActivity.REQUEST_IMAGE_CAPTURE){
             File photo = new File(Environment.getExternalStorageDirectory() + File.separator
-                    + AddNewMySentencesActivity.folder_main
+                    + AddEditMySentencesActivity.folder_main
                     + image_namefile);
             try {
                 cropCapturedImage(Uri.fromFile(photo));
@@ -100,15 +99,15 @@ public class CategoryFragment extends Fragment {
                 toast.show();
             }
         }
-        if(requestCode==AddNewMySentencesActivity.RESULT_IMAGE_CAPTURE){
+        if(requestCode== AddEditMySentencesActivity.RESULT_IMAGE_CAPTURE){
             //get the cropped bitmap from extras
             Bundle extras = data.getExtras();
             if (extras!=null){
                 Bitmap bitmap= extras.getParcelable("data");
                 saveBitmap(bitmap);
-                uri_fabbutton = AddNewMySentencesActivity.getImageUri(getActivity().getApplicationContext(),bitmap);
+                uri_fabbutton = AddEditMySentencesActivity.getImageUri(getActivity().getApplicationContext(), bitmap);
 
-                Intent intent = new Intent(getActivity().getApplicationContext(),AddNewMySentencesActivity.class);
+                Intent intent = new Intent(getActivity().getApplicationContext(),AddEditMySentencesActivity.class);
                 intent.setData(uri_fabbutton);
                 startActivity(intent);
             }
@@ -118,10 +117,10 @@ public class CategoryFragment extends Fragment {
     private void dispatchTakePictureIntent() {
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
         File file = new File(Environment.getExternalStorageDirectory() + File.separator
-                + AddNewMySentencesActivity.folder_main
+                + AddEditMySentencesActivity.folder_main
                 + image_namefile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-        startActivityForResult(intent, AddNewMySentencesActivity.REQUEST_IMAGE_CAPTURE);
+        startActivityForResult(intent, AddEditMySentencesActivity.REQUEST_IMAGE_CAPTURE);
     }
     private void cropCapturedImage(Uri picUri){
         //call the standard crop action intent
@@ -138,11 +137,11 @@ public class CategoryFragment extends Fragment {
         cropIntent.putExtra("outputY", 256);
         //retrieve data on return
         cropIntent.putExtra("return-data", true);
-        startActivityForResult(cropIntent, AddNewMySentencesActivity.RESULT_IMAGE_CAPTURE);
+        startActivityForResult(cropIntent, AddEditMySentencesActivity.RESULT_IMAGE_CAPTURE);
     }
     public void saveBitmap(Bitmap bmp)
     {
-        String file_path = Environment.getExternalStorageDirectory() + File.separator + AddNewMySentencesActivity.folder_main;
+        String file_path = Environment.getExternalStorageDirectory() + File.separator + AddEditMySentencesActivity.folder_main;
         File dir = new File(file_path);
         if(!dir.exists())
             dir.mkdirs();

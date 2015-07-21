@@ -2,7 +2,6 @@ package example.com.demoapp.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,18 +17,18 @@ import java.util.ArrayList;
 
 import example.com.demoapp.R;
 import example.com.demoapp.activity.AddEditTagActivity;
-import example.com.demoapp.model.DisplaySentencesItem;
+import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.subCategory.PopupActivity;
 import example.com.demoapp.utility.Consts;
 
 /**
  * Created by Long on 6/21/2015.
  */
-public class SentencesAdapter extends ArraySwipeAdapter<DisplaySentencesItem> {
+public class SentencesAdapter extends ArraySwipeAdapter<SentenceItem> {
 
     Activity context;
     int idLayoutResource;
-    ArrayList<DisplaySentencesItem> listSentences;
+    ArrayList<SentenceItem> listSentences;
 
     public static final int REQUEST_CODE_TAG = 113;
 
@@ -40,7 +39,7 @@ public class SentencesAdapter extends ArraySwipeAdapter<DisplaySentencesItem> {
 
     }
 
-    public SentencesAdapter(Activity context, int idLayoutResource, ArrayList<DisplaySentencesItem> listSentences) {
+    public SentencesAdapter(Activity context, int idLayoutResource, ArrayList<SentenceItem> listSentences) {
         super(context, idLayoutResource, listSentences);
         this.context = context;
         this.idLayoutResource = idLayoutResource;

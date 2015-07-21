@@ -6,15 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import example.com.demoapp.utility.DbHelper;
-import example.com.demoapp.model.DisplaySentencesItem;
+import example.com.demoapp.model.SentenceItem;
 
 /**
  * Created by Tony on 6/7/2015.
  */
 public class SentencesDAO extends BaseDAO {
 
-    public ArrayList<DisplaySentencesItem> getAllSentenceBySub(int subcategories_id){
-        ArrayList<DisplaySentencesItem> arrayList = null;
+    public ArrayList<SentenceItem> getAllSentenceBySub(int subcategories_id){
+        ArrayList<SentenceItem> arrayList = null;
         String query ="SELECT * FROM sentences INNER JOIN subcategories" +
                 " ON sentences.subcategories_id = subcategories._id" +
                 " WHERE sentences.subcategories_id='"+subcategories_id+"'";
@@ -22,10 +22,10 @@ public class SentencesDAO extends BaseDAO {
 
         if(cursor.moveToFirst())
         {
-            arrayList = new ArrayList<DisplaySentencesItem>();
+            arrayList = new ArrayList<SentenceItem>();
             do
             {
-                DisplaySentencesItem item = new DisplaySentencesItem();
+                SentenceItem item = new SentenceItem();
                 item.setId(cursor.getInt((cursor.getColumnIndex(DbHelper.DB_SENTENCES_ID))));
                 item.setNameJp(cursor.getString(cursor.getColumnIndex(DbHelper.DB_SENTENCES_JP)));
                 item.setNameVn(cursor.getString(cursor.getColumnIndex(DbHelper.DB_SENTENCES_VN)));
