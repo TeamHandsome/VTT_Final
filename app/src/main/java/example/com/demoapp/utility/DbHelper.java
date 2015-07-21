@@ -33,6 +33,7 @@ public class DbHelper extends SQLiteOpenHelper{
     public static String DB_TABLE_TAGGING = "tagging";
     public static String DB_TAGGING_TAG_ID = "tag_id";
     public static String DB_TAGGING_SENTENCES_ID = "sentences_id";
+    public static String LAST_ID_NUM = "last_id_num";
 
     private Context context;
     private SQLiteDatabase myDataBase;

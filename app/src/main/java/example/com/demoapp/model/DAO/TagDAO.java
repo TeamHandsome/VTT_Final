@@ -37,35 +37,49 @@ public class TagDAO extends BaseDAO {
         return count;
     }
 
-    public void addTagToTags(String sentences_id, List<String> tag) {
-        database = mDbHelper.getWritableDatabase();
-        List<String> arrayList = new ArrayList<>();
+    public int findLastIDTagNumber(){
+        int number = 0;
+        String query = "SELECT substr(_id,2) as last_id_num \n" +
+                "FROM tags where tags._id like \"t%\" \n" +
+                "ORDER By cast(last_id_num as unsigned) DESC \n" +
+                "LIMIT 1";
+        this.rawQueryReadonly(query);
+        if (cursor.moveToFirst()) {
+            String id = cursor.getString(cursor.getColumnIndex(DbHelper.LAST_ID_NUM));
+            number = Integer.parseInt(id);
+        }
+        return number;
+    }
 
-        long countId = countTags() + 1;
+    public void addTagToTags(String sentences_id, List<String> tagNamelist) {
+        SQLiteDatabase dbWriteAble = mDbHelper.getWritableDatabase();
+        List<String> tagIdList = new ArrayList<>();
+
+        int countId = this.findLastIDTagNumber() + 1;
         ContentValues values = new ContentValues();
-        for (String i : tag) {
-            String sql = "SELECT * FROM tags WHERE name ='" + i + "'";
-            Cursor cursor = database.rawQuery(sql, null);
+        for (String tag_name : tagNamelist) {
+            String query = "SELECT * FROM tags WHERE name ='" + tag_name + "'";
+            this.rawQueryReadonly(query);
             Log.d("Cursor Count : ", cursor.getCount() + "");
             if (cursor.getCount() == 0) {
-                values.put(DbHelper.DB_TAGS_ID, "t"+(countId++));
-                arrayList.add("t"+(countId-1));
-                values.put(DbHelper.DB_TAGS_NAME, i);
-                database.insert(DbHelper.DB_TABLE_TAGS, null, values);
-
+                String tag_id = "t"+(countId++);
+                values.put(DbHelper.DB_TAGS_ID, tag_id);
+                tagIdList.add(tag_id);
+                values.put(DbHelper.DB_TAGS_NAME, tag_name);
+                dbWriteAble.insert(DbHelper.DB_TABLE_TAGS, null, values);
             } else {
                 while (cursor.moveToNext()) {
                     String tag_id = cursor.getString((cursor.getColumnIndex(DbHelper.DB_TAGS_ID)));
-                    arrayList.add(tag_id);
+                    tagIdList.add(tag_id);
                 }
             }
         }
 
 
         this.clearTags(sentences_id);
-        Log.d("Number of Tag : ", arrayList + "");
+        Log.d("Number of Tag : ", tagIdList + "");
         ContentValues values1 = new ContentValues();
-        for (String i : arrayList) {
+        for (String i : tagIdList) {
             values1.put(DbHelper.DB_TAGGING_TAG_ID, i);
             values1.put(DbHelper.DB_TAGGING_SENTENCES_ID, sentences_id);
             database.insert(DbHelper.DB_TABLE_TAGGING, null, values1);
