@@ -20,6 +20,8 @@ public class DbHelper extends SQLiteOpenHelper{
 
     public static String DB_PATH = "/data/data/example.com.demoapp/databases/";
     public static String DB_NAME = "dbtts.sqlite";
+    public static String DB_CATEGORIES_ID = "_id";
+    public static String DB_CATEGORIES_NAME = "name";
     public static String DB_SUBCATEGORIES_ID = "_id";
     public static String DB_SUBCATEGORIES_NAME = "name";
     public static String DB_SENTENCES_ID = "_ids";

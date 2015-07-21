@@ -21,9 +21,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.CategoriesAdapter;
+import example.com.demoapp.model.CategoryItem;
+import example.com.demoapp.model.DAO.CategoryDAO;
 import example.com.demoapp.subCategory.DisplaySubActivity;
 import example.com.demoapp.utility.Consts;
 
@@ -32,18 +35,25 @@ public class CategoryFragment extends Fragment {
     FloatingActionButton fab_addnew, fab_record, fab_camera;
     public Uri uri_fabbutton;
     String image_namefile = System.currentTimeMillis()+".jpg";
+    ArrayList<CategoryItem> categoryList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_category, container, false);
+
+        CategoryDAO dao = new CategoryDAO();
+        categoryList = dao.getAllCategories();
         // Inflate the layout for this fragment
         GridView gridview = (GridView) view.findViewById(R.id.gridViewCategory);
         gridview.setAdapter(new CategoriesAdapter(getActivity()));
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Intent i = new Intent(getActivity(), DisplaySubActivity.class);
-                i.putExtra(Consts.CATEGORY_ID, position + 1);
+                int category_id = categoryList.get(position).getId();
+                String category_name = categoryList.get(position).getName();
+                i.putExtra(Consts.CATEGORY_ID, category_id);
+                i.putExtra(Consts.CATEGORY_NAME, category_name);
                 startActivity(i);
             }
         });

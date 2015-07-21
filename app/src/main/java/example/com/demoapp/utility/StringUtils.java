@@ -5,6 +5,10 @@ package example.com.demoapp.utility;
  */
 public final class StringUtils {
 
+    //Insert Space after every Character of an existing String
+    public static String addSpaceBetweenChar(String string){
+        return string.replaceAll(".(?!$)", "$0 ");
+    }
 
     public StringUtils() {
         //this prevents even the native class from

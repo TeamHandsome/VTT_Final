@@ -8,6 +8,7 @@ public final class Consts {
     //Common variable name when put in Intent
     public static final String POSITION = "position";
     public static final String CATEGORY_ID = "category_id";
+    public static final String CATEGORY_NAME = "category_name";
     public static final String SUBCATEGORY_ID ="subCategory_id";
     public static final String SENTENCE_ID = "sentence_id";
     public static final String REQUEST_ADD_NEW = "ADD_NEW_MYSEN";
@@ -22,7 +23,6 @@ public final class Consts {
     public static final int ADD_MY_SEN = 31;
     public static final int EDIT_MY_SEN = 32;
 
-
     //item's name
     public static final String TAG_NAME = "タグ名";
     public static final String TAG = "タグ";
@@ -30,6 +30,7 @@ public final class Consts {
     public static final String VIETNAMESE = "ベトナム語";
     public static final String IMAGE = "イメージ";
     public static final String AUDIO = "オーディオ";
+    public static final String CONVERSATION = "会話集";
 
     //item's length
     public static final int MAX_TAGNAME_LENGTH = 6;

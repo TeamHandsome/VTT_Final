@@ -2,11 +2,39 @@
 <items version="2" >
 
     <item
+        jar="F:\VTT_Final\app\build\intermediates\exploded-aar\com.github.markushi\circlebutton\1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ebe3b1f14fa79ba3cd1588acda4e6517ee9fe611">
+        <dex dex="F:\VTT_Final\app\build\intermediates\pre-dexed\debug\classes-b102384956d4f8a7ebeea413c0eb11af93fffb33.jar" />
+    </item>
+    <item
+        jar="F:\VTT_Final\app\build\intermediates\exploded-aar\com.daimajia.androidanimations\library\1.1.3\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="8cec50fc9cc847bad0d6ed7d93814f4b34744521">
+        <dex dex="F:\VTT_Final\app\build\intermediates\pre-dexed\debug\classes-ee0206f25a33971d2240e01e7f998fb86fe70858.jar" />
+    </item>
+    <item
         jar="F:\VTT_Final\app\build\intermediates\exploded-aar\VTT_Final\taglibrary\unspecified\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="3da000a7237db88305d7cf71b9b8923241abbc8b">
+        sha1="4dfb27b4807eb838b098923e9e226267f6add85b">
         <dex dex="F:\VTT_Final\app\build\intermediates\pre-dexed\debug\classes-5843e8c1d75cd8e64fba41a50c67f70209e9df29.jar" />
+    </item>
+    <item
+        jar="F:\VTT_Final\app\build\intermediates\exploded-aar\com.github.clans\fab\1.5.5\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="aaa2fcc429aaad555dbb17ac914b846ca234a3a5">
+        <dex dex="F:\VTT_Final\app\build\intermediates\pre-dexed\debug\classes-2e8d570c78433d018a4955e064bb3a9a3706c068.jar" />
+    </item>
+    <item
+        jar="F:\VTT_Final\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="F:\VTT_Final\app\build\intermediates\pre-dexed\debug\classes-6bba9e42235309f114d78ceba57d315906a17cb6.jar" />
     </item>
     <item
         jar="F:\VTT_Final\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\jars\classes.jar"
@@ -23,6 +51,13 @@
         <dex dex="F:\VTT_Final\app\build\intermediates\pre-dexed\debug\picasso-2.4.0-46f51cb7554c3dbc2adb86eab9598eb4f9c114ce.jar" />
     </item>
     <item
+        jar="F:\VTT_Final\app\build\intermediates\exploded-aar\com.daimajia.swipelayout\library\1.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="e84b30031d4bab89a2b5c45af4eb9213828524dd">
+        <dex dex="F:\VTT_Final\app\build\intermediates\pre-dexed\debug\classes-8da3aa552c56bb3ba7f2125b9c5354ed7c46ad53.jar" />
+    </item>
+    <item
         jar="C:\Users\Tony\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
         jumboMode="false"
         revision="22.0.1"
@@ -35,41 +70,6 @@
         revision="22.0.1"
         sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
         <dex dex="F:\VTT_Final\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-b3996e6712847344742cbc3e84472a4f1d8adfec.jar" />
-    </item>
-    <item
-        jar="F:\VTT_Final\app\build\intermediates\exploded-aar\com.daimajia.swipelayout\library\1.2.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="e84b30031d4bab89a2b5c45af4eb9213828524dd">
-        <dex dex="F:\VTT_Final\app\build\intermediates\pre-dexed\debug\classes-8da3aa552c56bb3ba7f2125b9c5354ed7c46ad53.jar" />
-    </item>
-    <item
-        jar="F:\VTT_Final\app\build\intermediates\exploded-aar\com.github.clans\fab\1.5.5\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="aaa2fcc429aaad555dbb17ac914b846ca234a3a5">
-        <dex dex="F:\VTT_Final\app\build\intermediates\pre-dexed\debug\classes-2e8d570c78433d018a4955e064bb3a9a3706c068.jar" />
-    </item>
-    <item
-        jar="F:\VTT_Final\app\build\intermediates\exploded-aar\com.daimajia.androidanimations\library\1.1.3\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="8cec50fc9cc847bad0d6ed7d93814f4b34744521">
-        <dex dex="F:\VTT_Final\app\build\intermediates\pre-dexed\debug\classes-ee0206f25a33971d2240e01e7f998fb86fe70858.jar" />
-    </item>
-    <item
-        jar="F:\VTT_Final\app\build\intermediates\exploded-aar\com.github.markushi\circlebutton\1.1\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="ebe3b1f14fa79ba3cd1588acda4e6517ee9fe611">
-        <dex dex="F:\VTT_Final\app\build\intermediates\pre-dexed\debug\classes-b102384956d4f8a7ebeea413c0eb11af93fffb33.jar" />
-    </item>
-    <item
-        jar="F:\VTT_Final\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
-        <dex dex="F:\VTT_Final\app\build\intermediates\pre-dexed\debug\classes-6bba9e42235309f114d78ceba57d315906a17cb6.jar" />
     </item>
 
 </items>

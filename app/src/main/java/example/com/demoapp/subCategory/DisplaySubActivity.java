@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,22 +23,23 @@ import example.com.demoapp.utility.Consts;
 import example.com.demoapp.utility.DbHelper;
 import example.com.demoapp.model.DAO.SubCategoriesDAO;
 import example.com.demoapp.model.SubCategoriesItem;
+import example.com.demoapp.utility.StringUtils;
 
 public class DisplaySubActivity extends ActionBarActivity {
-    SimpleCursorAdapter simpleCursorAdapter;
     ListView listView;
     ArrayList<SubCategoriesItem> listSubcategories;
     SubCategoriesAdapter mSubCategoriesAdapter;
-    Context context;
-    private DbHelper db;
-    private int position;
-    private String queryString = "";
+    private int category_id;
+    private String category_name;
+    private String navigation_text = "-";
+    private String navigation_back_url = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subcategories);
-        position = getIntent().getIntExtra(Consts.CATEGORY_ID, Consts.NOT_FOUND);
+        category_id = getIntent().getIntExtra(Consts.CATEGORY_ID, Consts.NOT_FOUND);
+        category_name = getIntent().getStringExtra(Consts.CATEGORY_NAME);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -49,10 +51,16 @@ public class DisplaySubActivity extends ActionBarActivity {
         listView = (ListView) findViewById(R.id.lvSubCategories);
 
         SubCategoriesDAO sub = new SubCategoriesDAO();
-        listSubcategories = sub.getAllSubCategories(position);
+        listSubcategories = sub.getAllSubCategories(category_id);
         mSubCategoriesAdapter = new SubCategoriesAdapter(this, R.layout.activity_shopping_sub_item, listSubcategories);
         listView.setAdapter(mSubCategoriesAdapter);
         mSubCategoriesAdapter.notifyDataSetChanged();
+
+        //set navigation text
+        TextView textView = (TextView)findViewById(R.id.navigation_text);
+        navigation_text = Consts.CONVERSATION + "-" + category_name;
+        navigation_text = StringUtils.addSpaceBetweenChar(navigation_text);
+        textView.setText(navigation_text);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
