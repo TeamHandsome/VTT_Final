@@ -43,11 +43,12 @@
         </activity>
         <activity
             android:name=".subCategory.DisplaySentencesActivity"
-            android:label="@string/title_activity_display"></activity>
+            android:label="@string/title_activity_display"
+            android:launchMode="singleTask"></activity>
         <activity
             android:name=".subCategory.PopupActivity"
             android:label="@string/PopUp_title"
-            android:theme="@style/Theme.AppCompat.Dialog"></activity>
+            android:theme="@style/AppDialogTheme"></activity>
         <activity
             android:name=".activity.AddEditTagActivity"
             android:label="@string/title_activity_add_edit_tag"

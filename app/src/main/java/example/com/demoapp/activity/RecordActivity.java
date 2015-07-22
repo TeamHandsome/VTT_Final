@@ -9,6 +9,7 @@ import android.media.MediaRecorder;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.CountDownTimer;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -37,6 +38,8 @@ public class RecordActivity extends ActionBarActivity {
     private String outputFile;
     private String db_path = "/sdcard/Android/data/com.demoapp.app/";
     private String recording_namefile = System.currentTimeMillis()+"";      //save random name Record
+
+    long mLastClickTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +105,11 @@ public class RecordActivity extends ActionBarActivity {
 
                     break;
                 case R.id.bt_play:
+                    // Handle prevent click many times
+                    if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+                        return;
+                    }
+                    mLastClickTime = SystemClock.elapsedRealtime();
                     MediaPlayer m = new MediaPlayer();
                     try {
                         m.setDataSource(outputFile);

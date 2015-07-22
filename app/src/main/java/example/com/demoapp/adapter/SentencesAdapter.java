@@ -2,6 +2,7 @@ package example.com.demoapp.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,6 +30,7 @@ public class SentencesAdapter extends ArraySwipeAdapter<SentenceItem> {
     Activity context;
     int idLayoutResource;
     ArrayList<SentenceItem> listSentences;
+    long mLastClickTime = 0;
 
     public static final int REQUEST_CODE_TAG = 113;
 
@@ -89,11 +91,20 @@ public class SentencesAdapter extends ArraySwipeAdapter<SentenceItem> {
         });
         // gán soundPath lên PopUp, setText cho row ListView
         final String soundPath = listSentences.get(position).getSound();
+        final String vn_name = listSentences.get(position).getNameVn();
+        final String img = listSentences.get(position).getImage();
         holder.swipeLayout.getSurfaceView().setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Handle prevent click many times
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 Intent i = new Intent(context, PopupActivity.class);
                 i.putExtra("position", soundPath);
+                i.putExtra("vn_name", vn_name);
+                i.putExtra("img", img);
                 context.startActivity(i);
             }
         });

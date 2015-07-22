@@ -1,5 +1,6 @@
 package example.com.demoapp.subCategory;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -26,9 +27,10 @@ public class DisplaySentencesActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_tab);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.slidingTab();
         pager.setCurrentItem(0);
 
@@ -50,17 +52,13 @@ public class DisplaySentencesActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-//        if (id == R.id.home){
-//            NavUtils.navigateUpFromSameTask(this); // khi click back icon se go back sourceAcitivy
-//        }
-
-        return super.onOptionsItemSelected(item);
     }
     public void slidingTab(){
         // // Creating The ViewPagerSentenceAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
