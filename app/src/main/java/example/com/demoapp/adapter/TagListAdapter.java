@@ -90,9 +90,6 @@ public class TagListAdapter extends ArraySwipeAdapter<TagItem> {
 
         return convertView;
     }
-    public boolean isOddNumer(int num) {
-        return (num & 1) != 0;
-    }
 
     @Override
     public int getSwipeLayoutResourceId(int i) {

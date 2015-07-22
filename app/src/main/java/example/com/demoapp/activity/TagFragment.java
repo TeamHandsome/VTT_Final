@@ -48,8 +48,16 @@ public class TagFragment extends Fragment {
         result.removeAll(IdTagging);
         Log.d("RESULT : ", result+"");
         int sizeNoUse = result.size();
-        tv_noUseTag.setText(sizeNoUse+"");
-        tv_usedTag.setText((IdTags.size()-sizeNoUse)+"");
+        if (sizeNoUse < 10 ){
+            tv_noUseTag.setText("0"+sizeNoUse);
+        }else {
+            tv_noUseTag.setText(sizeNoUse+"");
+        }
+        if (IdTags.size() < 10 ){
+            tv_usedTag.setText("0"+IdTags.size());
+        }else{
+            tv_usedTag.setText(IdTags.size()+"");
+        }
 
         return view;
     }
