@@ -28,7 +28,7 @@ public class FavoriteSentencesAdapter extends BaseSentencesAdapter {
         convertView = super.getView(position, convertView, parent);
 
         this.setUpSound(holder, position);
-//        this.setUpBtnDelete(holder,convertView,position);
+        this.setUpBtnDelete(holder,convertView,position);
 
         return convertView;
     }
