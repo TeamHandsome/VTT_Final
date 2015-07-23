@@ -42,6 +42,8 @@ public class DbHelper extends SQLiteOpenHelper{
     public static String LAST_ID_NUM = "last_id_num";
     public static String DB_TABLE_SENTENCES = "sentences";
     public static String DB_TABLE_SENTENCES_ID = "_ids";
+    public static String DB_TABLE_HISTORY = "history";
+    public static String DB_HISTORY_SENTENCES_ID = "sentences_id";
 
     private Context context;
     private SQLiteDatabase myDataBase;
