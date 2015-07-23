@@ -12,12 +12,14 @@ import example.com.demoapp.R;
 import example.com.demoapp.adapter.ViewPagerAdapter;
 import example.com.demoapp.tabs.SlidingTabLayout;
 import example.com.demoapp.utility.Consts;
+import example.com.demoapp.utility.StringUtils;
 
 public class DisplaySentencesActivity extends ActionBarActivity {
     private ViewPager pager;
     private ViewPagerAdapter adapter;
     private SlidingTabLayout tabs;
-    CharSequence Titles[]={"文章","画像"};
+    CharSequence Titles[]={StringUtils.addSpaceBetweenChar(Consts.SENTENCE_LIST),
+            StringUtils.addSpaceBetweenChar(Consts.IMAGE_LIST)};
     int Numboftabs =2;
 
     public static int subCategory_id = Consts.NOT_FOUND;
@@ -37,13 +39,13 @@ public class DisplaySentencesActivity extends ActionBarActivity {
 
         navigation_text = getIntent().getStringExtra(Consts.NAVIGATION_TEXT);
         navigation_image = getIntent().getStringExtra(Consts.NAVIGATION_IMAGE);
-        initView();
+        initNavigationHeaderView();
 
         subCategory_id = getIntent().getIntExtra(Consts.SUBCATEGORY_ID, Consts.NOT_FOUND);
 
     }
 
-    private void initView() {
+    private void initNavigationHeaderView() {
         TextView textView = (TextView)findViewById(R.id.navigation_text);
         textView.setText(navigation_text);
     }

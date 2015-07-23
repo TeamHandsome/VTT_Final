@@ -1,17 +1,27 @@
 package example.com.demoapp.fragment;
 
 
+import android.content.Context;
+import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.ViewPagerAdapter;
 import example.com.demoapp.tabs.SlidingTabLayout;
+import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Consts;
 import example.com.demoapp.utility.StringUtils;
 
@@ -22,8 +32,8 @@ public class FavoriteFragment extends Fragment {
     CharSequence Titles[] = {StringUtils.addSpaceBetweenChar(Consts.SENTENCE_LIST),
             StringUtils.addSpaceBetweenChar(Consts.IMAGE_LIST)};
     int Numboftabs = 2;
-
-    public static int sentences_id = Consts.NOT_FOUND;
+    private String navigation_text = Consts.FAVORITE_LIST;
+    private String navigation_image = "navi_back_favorite";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,8 +42,7 @@ public class FavoriteFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-//        getActivity().setSupportActionBar(toolbar);
-        //((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        Common.initNavigationHeaderView(view,container.getContext(),navigation_text, navigation_image);
 
         adapter = new ViewPagerAdapter((getActivity()).getSupportFragmentManager(), Titles,
                 Numboftabs,Consts.FAVORITE);

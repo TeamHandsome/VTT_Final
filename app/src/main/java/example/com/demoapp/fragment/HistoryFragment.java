@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.ViewPagerAdapter;
@@ -21,8 +22,8 @@ public class HistoryFragment extends Fragment {
     CharSequence Titles[] = {StringUtils.addSpaceBetweenChar(Consts.SENTENCE_LIST),
             StringUtils.addSpaceBetweenChar(Consts.IMAGE_LIST)};
     int Numboftabs = 2;
-
-    public static int sentences_id = Consts.NOT_FOUND;
+    private String navigation_text = Consts.HISTORY_LIST;
+    private String navigation_image = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,8 +32,7 @@ public class HistoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_history, container, false);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-//        getActivity().setSupportActionBar(toolbar);
-        //((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        initNavigationHeaderView(view);
 
         adapter = new ViewPagerAdapter((getActivity()).getSupportFragmentManager(), Titles,
                 Numboftabs,Consts.HISTORY);
@@ -58,9 +58,13 @@ public class HistoryFragment extends Fragment {
         tabs.setViewPager(pager);
         pager.setCurrentItem(0);
 
-
         return view;
 
+    }
+
+    private void initNavigationHeaderView(final View view) {
+        TextView textView = (TextView)view.findViewById(R.id.navigation_text);
+        textView.setText(StringUtils.addSpaceBetweenChar(navigation_text));
     }
 
     public void slidingTab() {
