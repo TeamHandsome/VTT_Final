@@ -1,5 +1,6 @@
 package example.com.demoapp.subCategory;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -8,6 +9,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.ViewPagerSentenceAdapter;
@@ -22,6 +25,8 @@ public class DisplaySentencesActivity extends ActionBarActivity {
     int Numboftabs =2;
 
     public static int subCategory_id = Consts.NOT_FOUND;
+    public static String navigation_text = "";
+    public static String navigation_image = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,10 @@ public class DisplaySentencesActivity extends ActionBarActivity {
         this.slidingTab();
         pager.setCurrentItem(0);
 
+        navigation_text = getIntent().getStringExtra(Consts.NAVIGATION_TEXT);
+        navigation_image = getIntent().getStringExtra(Consts.NAVIGATION_IMAGE);
+        initView();
+
         subCategory_id = getIntent().getIntExtra(Consts.SUBCATEGORY_ID, Consts.NOT_FOUND);
         if (subCategory_id != Consts.NOT_FOUND) {
             ListSentencesFragment objfrag = ListSentencesFragment.newInstance();
@@ -41,6 +50,13 @@ public class DisplaySentencesActivity extends ActionBarActivity {
             transaction.replace(R.id.pager, objfrag);
             transaction.commit();
         }
+
+
+    }
+
+    private void initView() {
+        TextView textView = (TextView)findViewById(R.id.navigation_text);
+        textView.setText(navigation_text);
     }
 
     @Override

@@ -6,6 +6,7 @@ package example.com.demoapp.model;
 public class SubCategoriesItem {
     int id;
     String name;
+    String image_url;
 
     public int getId() {
         return id;
@@ -26,6 +27,20 @@ public class SubCategoriesItem {
     public SubCategoriesItem(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public SubCategoriesItem(String image_url, int id, String name) {
+        this.image_url = image_url;
+        this.id = id;
+        this.name = name;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 
     public SubCategoriesItem() {

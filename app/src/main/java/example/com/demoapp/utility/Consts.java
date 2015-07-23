@@ -15,6 +15,8 @@ public final class Consts {
     public static final String ACTION_TYPE = "action_type";
     public static final String AVAILABLE_TAG = "available_tag";
     public static final String DATA = "data";
+    public static final String NAVIGATION_TEXT ="navigation_text";
+    public static final String NAVIGATION_IMAGE ="navigation_image";
 
     //action type
     public static final int EDIT_TAG_NORMAL = 10;
@@ -42,6 +44,10 @@ public final class Consts {
     public static final String MByte = "MB";
     public static final String JPG = "jpeg";
     public static final String PNG = "png";
+
+    //checked and unchecked
+    public static final int CHECKED = 1;
+    public static final int UNCHECKED = 0;
 
     /**
      * Opposite of {@link #FAILS}.

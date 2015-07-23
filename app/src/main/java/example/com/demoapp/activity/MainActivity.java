@@ -74,13 +74,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             setFragment(0, ConversationFragment.class);
         }
 
-        try {
-            dbHelper = new DbHelper(this);
-            dbHelper.opendatabase();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     @Override

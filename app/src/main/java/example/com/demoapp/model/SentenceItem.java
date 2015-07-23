@@ -12,6 +12,15 @@ public class SentenceItem {
     private String sound;
     private String image;
     private ArrayList tag_list;
+    private boolean favorite;
+
+    public boolean getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
 
     public String getNameJp() {
         return nameJp;
@@ -77,6 +86,16 @@ public class SentenceItem {
         this.sound = sound;
         this.image = image;
         this.tag_list = tag_list;
+    }
+
+    public SentenceItem(String id, String nameJp, String nameVn, String sound,
+                        String image, boolean favorite) {
+        this.id = id;
+        this.nameJp = nameJp;
+        this.nameVn = nameVn;
+        this.sound = sound;
+        this.image = image;
+        this.favorite = favorite;
     }
 
     public SentenceItem() {

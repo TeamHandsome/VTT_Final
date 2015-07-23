@@ -8,23 +8,44 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
-    <!--<ListView-->
-        <!--android:id="@+id/lvSentences"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:weightSum="4"
+        android:layout_height="match_parent">
 
-    <!--</ListView>-->
-    <example.com.demoapp.tabs.SlidingTabLayout
-        android:id="@+id/tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="2dp"
-        android:background="@color/colorPrimary"/>
-    <example.com.demoapp.tabs.CustomViewPager
-        android:id="@+id/pager"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:layout_weight="1">
-    </example.com.demoapp.tabs.CustomViewPager>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:weightSum="3">
+            <!--<header>-->
+            <example.com.demoapp.tabs.SlidingTabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="2dp"
+                android:background="@color/colorPrimary"/>
+            <include
+                android:id="@+id/navigation_header"
+                layout="@layout/navigation_header" />
+        </LinearLayout>
+
+        <!--</ListView>-->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+            <example.com.demoapp.tabs.CustomViewPager
+                android:id="@+id/pager"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_weight="1">
+            </example.com.demoapp.tabs.CustomViewPager>
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

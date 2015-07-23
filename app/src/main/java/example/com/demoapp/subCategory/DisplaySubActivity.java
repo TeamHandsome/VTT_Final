@@ -66,8 +66,15 @@ public class DisplaySubActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getBaseContext(), DisplaySentencesActivity.class);
-                int subCategory_id = listSubcategories.get(position).getId();
-                intent.putExtra(Consts.SUBCATEGORY_ID, subCategory_id);  //gui position len Sentences
+                SubCategoriesItem item = listSubcategories.get(position);
+                //send subcategory id
+                intent.putExtra(Consts.SUBCATEGORY_ID, item.getId());
+                //send navigation text
+                String text = category_name + "-" + item.getName();
+                text = StringUtils.addSpaceBetweenChar(text);
+                intent.putExtra(Consts.NAVIGATION_TEXT,text);
+                //send navigation image url
+                intent.putExtra(Consts.NAVIGATION_IMAGE,item.getImage_url());
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <com.daimajia.swipe.SwipeLayout
     xmlns:swipe="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,15 +11,9 @@
     <LinearLayout
         android:id="@+id/drag_right"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="48dp"
         android:background="@color/red"
         android:gravity="center">
-        <ImageButton
-            android:id="@+id/btTag"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:background="@color/green"
-            android:src="@mipmap/ic_action_tag"/>
 
         <ImageButton
             android:id="@+id/btDelete"
@@ -27,18 +21,6 @@
             android:layout_height="match_parent"
             android:background="@color/red"
             android:src="@mipmap/ic_action_delete" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/drag_left"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center">
-
-        <ImageButton
-            android:id="@+id/btFavorite"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"/>
     </LinearLayout>
 
     <LinearLayout
@@ -52,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="@color/colorSecond" />
 
         <TextView
@@ -64,6 +46,6 @@
             android:text="TextView"
             android:layout_weight="1"
             android:textColor="@color/colorSecond"
-            android:textSize="20sp"/>
+            android:textSize="22sp"/>
     </LinearLayout>
 </com.daimajia.swipe.SwipeLayout>
