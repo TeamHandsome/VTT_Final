@@ -1,12 +1,17 @@
 package example.com.demoapp.adapter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.SystemClock;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -17,6 +22,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import example.com.demoapp.R;
+import example.com.demoapp.activity.AddEditMySentencesActivity;
 import example.com.demoapp.activity.AddEditTagActivity;
 import example.com.demoapp.model.DAO.FavoriteDAO;
 import example.com.demoapp.model.SentenceItem;
@@ -50,6 +56,13 @@ public abstract class BaseImageAdapter extends ArraySwipeAdapter<SentenceItem> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+        WindowManager wm = (WindowManager)parent.getContext().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int y = width/2;
+
         if (convertView == null) {
             holder = new ViewHolder();
             LayoutInflater inflater = context.getLayoutInflater();
@@ -58,11 +71,16 @@ public abstract class BaseImageAdapter extends ArraySwipeAdapter<SentenceItem> {
             holder.swipeLayout = (SwipeLayout) convertView.findViewById(R.id.swipe);
             holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
 
+//            holder.imageView.setLayoutParams(new GridView.LayoutParams(y, y));
+            holder.imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            holder.imageView.setPadding(2, 2, 2, 2);
+
             holder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);        //set kiểu swipe
             holder.swipeLayout.addDrag(SwipeLayout.DragEdge.Left, holder.swipeLayout.findViewById(R.id.drag_left)); //add swipe left
             holder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, holder.swipeLayout.findViewById(R.id.drag_right));
 
             convertView.setTag(holder);
+
         } else
             holder = (ViewHolder) convertView.getTag();
 
@@ -197,4 +215,18 @@ public abstract class BaseImageAdapter extends ArraySwipeAdapter<SentenceItem> {
 
     protected abstract void onclickDelete(int position);
 
+    //Setting up for Tag button
+    protected void setUpBtnEdit(final ViewHolder holder, View convertView,final int position){
+        holder.btEdit = (ImageButton) convertView.findViewById(R.id.btEdit);
+        holder.btEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, AddEditMySentencesActivity.class);
+                String sentences_id = listSentences.get(position).getId(); // lay Id cua sentence trong db
+                intent.putExtra(Consts.ACTION_TYPE, Consts.EDIT_MY_SEN);
+                intent.putExtra(Consts.SENTENCE_ID, sentences_id);
+                context.startActivity(intent);
+            }
+        });
+    }
 }

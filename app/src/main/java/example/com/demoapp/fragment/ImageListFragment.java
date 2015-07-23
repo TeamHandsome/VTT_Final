@@ -67,8 +67,7 @@ public class ImageListFragment extends Fragment {
     private void initListBySubView(){
         SentencesDAO dao = new SentencesDAO();
         listSentences = dao.getAllSentenceBySub(DisplaySentencesActivity.subCategory_id);
-//        listSentences = dao.getAllSentenceBySub(1);
-        imageAdapter = new ImageAdapter(getActivity(), R.layout.custom_custom_img_f_t, listSentences);
+        imageAdapter = new ImageAdapter(getActivity(), R.layout.custom_row_img_f_t, listSentences);
     }
 
     private void initHistoryView(){
@@ -89,6 +88,6 @@ public class ImageListFragment extends Fragment {
     private void initMySentenceView(){
         SentencesDAO dao = new SentencesDAO(context);
         listSentences = dao.getAllSentenceBySub(DisplaySentencesActivity.subCategory_id);
-        imageAdapter = new ImageAdapter(getActivity(), R.layout.custom_custom_img_f_t, listSentences);
+        imageAdapter = new ImageAdapter(getActivity(), R.layout.custom_row_img_f_t, listSentences);
     }
 }

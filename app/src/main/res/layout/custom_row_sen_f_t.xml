@@ -13,12 +13,11 @@
         android:layout_width="wrap_content"
         android:layout_height="52dp"
         android:gravity="center">
-        <ImageButton
+
+        <include
             android:id="@+id/btTag"
-            android:layout_width="52dp"
-            android:layout_height="match_parent"
-            android:background="@color/green"
-            android:src="@mipmap/ic_action_tag"/>
+            layout="@layout/bt_tag_for_list" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -27,35 +26,12 @@
         android:layout_height="match_parent"
         android:gravity="center">
 
-        <ImageButton
+        <include
             android:id="@+id/btFavorite"
-            android:layout_width="52dp"
-            android:layout_height="match_parent"/>
+            layout="@layout/bt_favorite_for_list" />
     </LinearLayout>
 
-    <LinearLayout
+    <include
         android:id="@+id/top_wrapper"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/tvDisplayId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textSize="20sp"
-            android:textColor="@color/colorSecond" />
-
-        <TextView
-            android:id="@+id/tvDisplayName"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_gravity="center_vertical"
-            android:text="TextView"
-            android:layout_weight="1"
-            android:textColor="@color/colorSecond"
-            android:textSize="20sp"/>
-    </LinearLayout>
+        layout="@layout/text_view_sen_list" />
 </com.daimajia.swipe.SwipeLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageButton
+        android:id="@+id/btTag"
+        android:layout_width="52dp"
+        android:layout_height="match_parent"
+        android:background="@color/green"
+        android:src="@mipmap/ic_action_tag"/>
+</LinearLayout>

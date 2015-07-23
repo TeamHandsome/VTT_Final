@@ -15,6 +15,7 @@ import com.daimajia.swipe.adapters.ArraySwipeAdapter;
 import java.util.ArrayList;
 
 import example.com.demoapp.R;
+import example.com.demoapp.activity.AddEditMySentencesActivity;
 import example.com.demoapp.activity.AddEditTagActivity;
 import example.com.demoapp.model.DAO.FavoriteDAO;
 import example.com.demoapp.model.SentenceItem;
@@ -187,4 +188,19 @@ public abstract class BaseSentencesAdapter extends ArraySwipeAdapter<SentenceIte
     }
 
     protected abstract void onclickDelete(int position);
+
+    //Setting up for Tag button
+    protected void setUpBtnEdit(final ViewHolder holder, View convertView,final int position){
+        holder.btEdit = (ImageButton) convertView.findViewById(R.id.btEdit);
+        holder.btEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, AddEditMySentencesActivity.class);
+                String sentences_id = listSentences.get(position).getId(); // lay Id cua sentence trong db
+                intent.putExtra(Consts.ACTION_TYPE, Consts.EDIT_MY_SEN);
+                intent.putExtra(Consts.SENTENCE_ID, sentences_id);
+                context.startActivity(intent);
+            }
+        });
+    }
 }
