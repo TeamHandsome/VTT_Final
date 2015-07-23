@@ -30,6 +30,8 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.DrawerMenuItemAdapter;
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             setFragment(0, ConversationFragment.class);
         }
 
@@ -117,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         if (id == R.id.action_settings) {
             return true;
         }
-        if (id == R.id.action_search){
+        if (id == R.id.action_search) {
             startActivity(new Intent(MainActivity.this, SearchActivity.class));
         }
 
@@ -125,28 +127,34 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ((DrawerMenuItemAdapter)parent.getAdapter()).selectedItem(position);
-        switch (position){
-            case 0:
-                setFragment(0,ConversationFragment.class);
-                break;
-            case 1:
-                setFragment(1,TagFragment.class);
-                break;
-            case 2:
-                setFragment(2,FavoriteFragment.class);
-                break;
-            case 3:
-                setFragment(3,HistoryFragment.class);
-                break;
-            case 4:
-                setFragment(4,InterpreterFragment.class);
-                break;
-            case 5:
-                setFragment(5,MysentencesFragment.class);
-                break;
-        }
+    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+        ((DrawerMenuItemAdapter) parent.getAdapter()).selectedItem(position);
+        mDrawerLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                switch (position) {
+                    case 0:
+                        setFragment(0, ConversationFragment.class);
+                        break;
+                    case 1:
+                        setFragment(1, TagFragment.class);
+                        break;
+                    case 2:
+                        setFragment(2, FavoriteFragment.class);
+                        break;
+                    case 3:
+                        setFragment(3, HistoryFragment.class);
+                        break;
+                    case 4:
+                        setFragment(4, InterpreterFragment.class);
+                        break;
+                    case 5:
+                        setFragment(5, MysentencesFragment.class);
+                        break;
+                }
+            }
+        }, 0);
+
     }
 
     @Override
@@ -170,7 +178,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-    public void setFragment(int position, Class<? extends Fragment> fragmentClass) {
+
+    public void setFragment(final int position, final Class<? extends Fragment> fragmentClass) {
         try {
             Fragment fragment = fragmentClass.newInstance();
             android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
@@ -181,10 +190,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             mLvDrawerMenu.setItemChecked(position, true);
             mDrawerLayout.closeDrawer(mLvDrawerMenu);
             mLvDrawerMenu.invalidateViews();
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             Log.e("setFragment", ex.getMessage());
         }
+
     }
 
     private List<DrawerMenuItem> generateDrawerMenuItems() {
@@ -200,10 +209,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         return result;
     }
 
-    private void buildDB(){
+    private void buildDB() {
         try {
             DbHelper db = new DbHelper(this.getApplicationContext());
-            db.copydatabase();
+            db.createdatabase();
         } catch (IOException e) {
             e.printStackTrace();
         }
