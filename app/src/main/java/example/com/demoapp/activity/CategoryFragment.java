@@ -27,7 +27,6 @@ import example.com.demoapp.R;
 import example.com.demoapp.adapter.CategoriesAdapter;
 import example.com.demoapp.model.CategoryItem;
 import example.com.demoapp.model.DAO.CategoryDAO;
-import example.com.demoapp.subCategory.DisplaySubActivity;
 import example.com.demoapp.utility.Consts;
 
 public class CategoryFragment extends Fragment {

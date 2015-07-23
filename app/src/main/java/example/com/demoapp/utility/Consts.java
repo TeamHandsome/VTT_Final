@@ -49,6 +49,14 @@ public final class Consts {
     public static final int CHECKED = 1;
     public static final int UNCHECKED = 0;
 
+    //pager parent
+    public static final int HOME = 0;
+    public static final int SENTENCE_LIST_BY_SUB = 1;
+    public static final int FAVORITE = 2;
+    public static final int HISTORY = 3;
+    public static final int MY_SENTENCE_LIST = 4;
+    public static final int SENTENCE_LIST_BY_TAG = 5;
+
     /**
      * Opposite of {@link #FAILS}.
      */

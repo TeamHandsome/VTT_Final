@@ -6,7 +6,6 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,9 +23,7 @@ import java.util.List;
 
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.DrawerMenuItemAdapter;
-import example.com.demoapp.adapter.ViewPagerMainAdapter;
 import example.com.demoapp.model.DrawerMenuItem;
-import example.com.demoapp.tabs.SlidingTabLayout;
 import example.com.demoapp.utility.DbHelper;
 
 

@@ -8,12 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import example.com.demoapp.R;
-import example.com.demoapp.adapter.ViewPagerMainAdapter;
+import example.com.demoapp.adapter.ViewPagerAdapter;
 import example.com.demoapp.tabs.SlidingTabLayout;
+import example.com.demoapp.utility.Consts;
 
 public class ConversationFragment extends Fragment {
     private ViewPager pager;
-    private ViewPagerMainAdapter adapter;
+    private ViewPagerAdapter adapter;
     private SlidingTabLayout tabs;
     CharSequence Titles[]={"お す す め","会 話 集"};
     int Numboftabs =2;
@@ -27,7 +28,8 @@ public class ConversationFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_conversation, container, false);
 
         // Tabs
-        adapter =  new ViewPagerMainAdapter((getActivity()).getSupportFragmentManager(),Titles,Numboftabs);
+        adapter =  new ViewPagerAdapter((getActivity()).getSupportFragmentManager(),Titles,
+                Numboftabs, Consts.HOME);
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) view.findViewById(R.id.pager);
         pager.setAdapter(adapter);

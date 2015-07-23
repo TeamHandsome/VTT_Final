@@ -15,13 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import example.com.demoapp.R;
-import example.com.demoapp.adapter.SentencesAdapter;
 import example.com.demoapp.adapter.TagListAdapter;
-import example.com.demoapp.model.DAO.SentencesDAO;
 import example.com.demoapp.model.DAO.TagDAO;
-import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.model.TagItem;
-import example.com.demoapp.subCategory.DisplaySentencesActivity;
 
 public class TagFragment extends Fragment {
     public TagFragment() {

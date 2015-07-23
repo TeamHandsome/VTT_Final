@@ -4,15 +4,13 @@ package example.com.demoapp.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import example.com.demoapp.R;
-import example.com.demoapp.adapter.ViewPagerSentenceAdapter;
-import example.com.demoapp.favorite.ViewPagerAdapter;
+import example.com.demoapp.adapter.ViewPagerAdapter;
 import example.com.demoapp.tabs.SlidingTabLayout;
 import example.com.demoapp.utility.Consts;
 
@@ -35,11 +33,13 @@ public class FavoriteFragment extends Fragment {
 //        getActivity().setSupportActionBar(toolbar);
         //((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
-        adapter = new ViewPagerAdapter((getActivity()).getSupportFragmentManager(), Titles, Numboftabs);
+        adapter = new ViewPagerAdapter((getActivity()).getSupportFragmentManager(), Titles,
+                Numboftabs,Consts.FAVORITE);
 
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) view.findViewById(R.id.pager1);
         pager.setAdapter(adapter);
+        pager.setTag(Consts.FAVORITE);
 
         // Assiging the Sliding Tab Layout View
         tabs = (SlidingTabLayout) view.findViewById(R.id.tabs1);
@@ -63,7 +63,7 @@ public class FavoriteFragment extends Fragment {
     }
 
     public void slidingTab() {
-        // // Creating The ViewPagerSentenceAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
+        // // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
 
     }
 }
