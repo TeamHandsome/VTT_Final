@@ -14,9 +14,11 @@ import java.util.ArrayList;
 
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.BaseSentencesAdapter;
+import example.com.demoapp.adapter.MySentencesAdapter;
 import example.com.demoapp.adapter.SentencesAdapter;
 import example.com.demoapp.adapter.FavoriteSentencesAdapter;
 import example.com.demoapp.model.DAO.FavoriteDAO;
+import example.com.demoapp.model.DAO.MySentencesDAO;
 import example.com.demoapp.model.DAO.SentencesDAO;
 import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.activity.DisplaySentencesActivity;
@@ -87,6 +89,8 @@ public class SentenceListFragment extends Fragment {
     }
 
     private void initMySentenceView(){
-        SentencesDAO dao = new SentencesDAO(context);
+        MySentencesDAO dao = new MySentencesDAO(context);
+        listSentences = dao.getAllMS();   //get sentence list from DB
+        sentencesAdapter = new MySentencesAdapter(getActivity(), R.layout.custom_row_sen_ms, listSentences); //add to adapter
     }
 }

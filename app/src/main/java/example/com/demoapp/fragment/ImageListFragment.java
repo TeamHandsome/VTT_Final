@@ -16,7 +16,10 @@ import example.com.demoapp.R;
 import example.com.demoapp.adapter.BaseImageAdapter;
 import example.com.demoapp.adapter.FavoriteImageAdapter;
 import example.com.demoapp.adapter.ImageAdapter;
+import example.com.demoapp.adapter.MyImageAdapter;
+import example.com.demoapp.adapter.MySentencesAdapter;
 import example.com.demoapp.model.DAO.FavoriteDAO;
+import example.com.demoapp.model.DAO.MySentencesDAO;
 import example.com.demoapp.model.DAO.SentencesDAO;
 import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.activity.DisplaySentencesActivity;
@@ -86,8 +89,8 @@ public class ImageListFragment extends Fragment {
     }
 
     private void initMySentenceView(){
-        SentencesDAO dao = new SentencesDAO(context);
-        listSentences = dao.getAllSentenceBySub(DisplaySentencesActivity.subCategory_id);
-        imageAdapter = new ImageAdapter(getActivity(), R.layout.custom_row_img_f_t, listSentences);
+        MySentencesDAO dao = new MySentencesDAO(context);
+        listSentences = dao.getAllMS();   //get sentence list from DB
+        imageAdapter = new MyImageAdapter(getActivity(), R.layout.custom_row_img_ms, listSentences);
     }
 }
