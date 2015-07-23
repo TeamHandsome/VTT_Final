@@ -76,7 +76,7 @@ public class ImageListFragment extends Fragment {
     private void initHistoryView(){
         HistoryDAO dao = new HistoryDAO(context);
         listSentences = dao.getAllHistory();
-        imageAdapter = new HistoryImageAdapter(getActivity(), R.layout.custom_row_img_h, listSentences);
+        imageAdapter = new HistoryImageAdapter(getActivity(), R.layout.custom_row_img_d, listSentences);
 
     }
 
@@ -94,6 +94,6 @@ public class ImageListFragment extends Fragment {
     private void initMySentenceView(){
         SentencesDAO dao = new SentencesDAO(context);
         listSentences = dao.getAllMySentence();   //get sentence list from DB
-        imageAdapter = new MyImageAdapter(getActivity(), R.layout.custom_row_img_ms, listSentences);
+        imageAdapter = new MyImageAdapter(getActivity(), R.layout.custom_row_img_f_d_e, listSentences);
     }
 }

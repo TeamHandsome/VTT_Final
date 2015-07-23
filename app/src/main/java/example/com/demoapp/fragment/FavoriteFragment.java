@@ -13,12 +13,14 @@ import example.com.demoapp.R;
 import example.com.demoapp.adapter.ViewPagerAdapter;
 import example.com.demoapp.tabs.SlidingTabLayout;
 import example.com.demoapp.utility.Consts;
+import example.com.demoapp.utility.StringUtils;
 
 public class FavoriteFragment extends Fragment {
     private ViewPager pager;
     private ViewPagerAdapter adapter;
     private SlidingTabLayout tabs;
-    CharSequence Titles[] = {"文章","画像"};
+    CharSequence Titles[] = {StringUtils.addSpaceBetweenChar(Consts.SENTENCE_LIST),
+            StringUtils.addSpaceBetweenChar(Consts.IMAGE_LIST)};
     int Numboftabs = 2;
 
     public static int sentences_id = Consts.NOT_FOUND;

@@ -11,12 +11,14 @@ import example.com.demoapp.R;
 import example.com.demoapp.adapter.ViewPagerAdapter;
 import example.com.demoapp.tabs.SlidingTabLayout;
 import example.com.demoapp.utility.Consts;
+import example.com.demoapp.utility.StringUtils;
 
 public class HomeFragment extends Fragment {
     private ViewPager pager;
     private ViewPagerAdapter adapter;
     private SlidingTabLayout tabs;
-    CharSequence Titles[]={"お す す め","会 話 集"};
+    CharSequence Titles[]={StringUtils.addSpaceBetweenChar(Consts.RECOMMENDATION),
+            StringUtils.addSpaceBetweenChar(Consts.CONVERSATION)};
     int Numboftabs =2;
 
     public HomeFragment(){

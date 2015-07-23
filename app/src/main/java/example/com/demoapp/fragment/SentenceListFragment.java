@@ -77,7 +77,7 @@ public class SentenceListFragment extends Fragment {
     private void initHistoryView(){
         HistoryDAO dao = new HistoryDAO(context);
         listSentences = dao.getAllHistory();   //get sentence list from DB
-        sentencesAdapter = new HistorySentencesAdapter(getActivity(), R.layout.custom_row_sen_h, listSentences); //add to adapter
+        sentencesAdapter = new HistorySentencesAdapter(getActivity(), R.layout.custom_row_sen_d, listSentences); //add to adapter
     }
 
     private void initFavoriteView(){
@@ -94,6 +94,6 @@ public class SentenceListFragment extends Fragment {
     private void initMySentenceView(){
         SentencesDAO dao = new SentencesDAO(context);
         listSentences = dao.getAllMySentence();   //get sentence list from DB
-        sentencesAdapter = new MySentencesAdapter(getActivity(), R.layout.custom_row_sen_ms, listSentences); //add to adapter
+        sentencesAdapter = new MySentencesAdapter(getActivity(), R.layout.custom_row_sen_f_d_e, listSentences); //add to adapter
     }
 }
