@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import example.com.demoapp.model.DAO.FavoriteDAO;
+import example.com.demoapp.model.DAO.HistoryDAO;
 import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Message;
@@ -35,6 +36,10 @@ public class HistoryImageAdapter extends BaseImageAdapter{
 
     @Override
     protected void onclickDelete(int position) {
+        HistoryDAO dao = new HistoryDAO(context);
+        SentenceItem item = listSentences.get(position);
+        dao.removeFromHistory(item.getId());
+        Common.showToastMessage(getContext(), Message.FAVORITE_UN_SIGN);
     }
 }
 
