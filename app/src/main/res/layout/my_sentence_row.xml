@@ -20,6 +20,13 @@
             android:layout_height="match_parent"
             android:background="@color/green"
             android:src="@mipmap/ic_action_tag"/>
+
+        <ImageButton
+            android:id="@+id/btDelete"
+            android:layout_width="52dp"
+            android:layout_height="match_parent"
+            android:background="@color/red"
+            android:src="@mipmap/ic_action_delete" />
     </LinearLayout>
 
     <LinearLayout

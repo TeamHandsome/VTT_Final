@@ -67,7 +67,9 @@ public class FavoriteDAO extends BaseDAO {
         db.close();
     }
 
-    public void removeFromFavorite(String sentences_id){
-
+    public void removeFromFavorite(String id){
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        db.delete(DbHelper.DB_TABLE_FAVORITE,DbHelper.DB_FAVORITE_SENTENCES_ID+"="+id,null);
+        db.close();
     }
 }

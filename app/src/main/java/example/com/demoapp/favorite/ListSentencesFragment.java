@@ -21,7 +21,7 @@ public class ListSentencesFragment extends android.support.v4.app.Fragment{
 
     ListView listView;
     ArrayList<SentenceItem> listSentences;
-    ListSenAdapter mSentencesAdapter;
+    FavoriteSentencesAdapter mSentencesAdapter;
     Context context;
 
     private DbHelper db ;
@@ -35,7 +35,7 @@ public class ListSentencesFragment extends android.support.v4.app.Fragment{
         context = getActivity();
         FavoriteDAO senDao = new FavoriteDAO(context);
         listSentences = senDao.getAllFavorite();   //g�n d? li?u t? database v�o m?ng ArrayList
-        mSentencesAdapter = new ListSenAdapter(getActivity(), R.layout.favorite_row, listSentences); //g�n qua Adapter
+        mSentencesAdapter = new FavoriteSentencesAdapter(getActivity(), R.layout.favorite_row, listSentences); //g�n qua Adapter
         listView.setAdapter(mSentencesAdapter);  //t? Adapter l�n listview
         mSentencesAdapter.setMode(Attributes.Mode.Single);
 
