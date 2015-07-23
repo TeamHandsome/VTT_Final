@@ -15,10 +15,12 @@ import java.util.ArrayList;
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.BaseImageAdapter;
 import example.com.demoapp.adapter.FavoriteImageAdapter;
+import example.com.demoapp.adapter.HistoryImageAdapter;
 import example.com.demoapp.adapter.ImageAdapter;
 import example.com.demoapp.adapter.MyImageAdapter;
 import example.com.demoapp.adapter.MySentencesAdapter;
 import example.com.demoapp.model.DAO.FavoriteDAO;
+import example.com.demoapp.model.DAO.HistoryDAO;
 import example.com.demoapp.model.DAO.MySentencesDAO;
 import example.com.demoapp.model.DAO.SentencesDAO;
 import example.com.demoapp.model.SentenceItem;
@@ -74,6 +76,9 @@ public class ImageListFragment extends Fragment {
     }
 
     private void initHistoryView(){
+        HistoryDAO dao = new HistoryDAO(context);
+        listSentences = dao.getAllHistory();
+        imageAdapter = new HistoryImageAdapter(getActivity(), R.layout.custom_row_img_h, listSentences);
 
     }
 
