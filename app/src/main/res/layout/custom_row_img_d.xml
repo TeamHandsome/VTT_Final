@@ -15,12 +15,10 @@
         android:gravity="center">
 
         <include
-            android:id="@+id/btDelete"
             layout="@layout/bt_delete_for_list" />
 
     </LinearLayout>
 
     <include
-        android:id="@+id/top_wrapper"
         layout="@layout/image_view_sen_list" />
 </com.daimajia.swipe.SwipeLayout>

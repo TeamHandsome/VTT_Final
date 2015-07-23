@@ -27,11 +27,9 @@
         android:gravity="center">
 
         <include
-            android:id="@+id/btFavorite"
             layout="@layout/bt_favorite_for_list" />
     </LinearLayout>
 
     <include
-        android:id="@+id/top_wrapper"
         layout="@layout/text_view_sen_list" />
 </com.daimajia.swipe.SwipeLayout>
