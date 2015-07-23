@@ -12,7 +12,6 @@
         android:id="@+id/drag_right"
         android:layout_width="wrap_content"
         android:layout_height="52dp"
-        android:background="@color/red"
         android:gravity="center">
         <ImageButton
             android:id="@+id/btTag"

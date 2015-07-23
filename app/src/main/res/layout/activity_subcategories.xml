@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ffffff"
-    tools:context="example.com.demoapp.subCategory.DisplaySubActivity">
+    tools:context="example.com.demoapp.activity.DisplaySubActivity">
 
     <include
         android:id="@+id/toolbar"

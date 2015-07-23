@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    tools:context="example.com.demoapp.subCategory.ListSentencesFragment">
+    tools:context="example.com.demoapp.fragment.SentenceListFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

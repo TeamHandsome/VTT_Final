@@ -35,18 +35,18 @@
                 android:value=".activity.MainActivity" />
         </activity>
         <activity
-            android:name=".subCategory.DisplaySubActivity"
+            android:name=".activity.DisplaySubActivity"
             android:label="@string/title_activity_shopping">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
         </activity>
         <activity
-            android:name=".subCategory.DisplaySentencesActivity"
+            android:name=".activity.DisplaySentencesActivity"
             android:label="@string/title_activity_display"
             android:launchMode="singleTask"></activity>
         <activity
-            android:name=".subCategory.PopupActivity"
+            android:name=".activity.PopupActivity"
             android:label="@string/PopUp_title"
             android:theme="@style/AppDialogTheme"></activity>
         <activity

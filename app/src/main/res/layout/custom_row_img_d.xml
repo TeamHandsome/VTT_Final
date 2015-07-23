@@ -10,31 +10,17 @@
 
     <LinearLayout
         android:id="@+id/drag_right"
-        android:layout_width="60dp"
-        android:layout_height="120dp"
-        android:background="#4cff4c"
-        android:gravity="center">
-        <ImageButton
-            android:id="@+id/btTag"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="#4cff4c"
-            android:src="@mipmap/ic_action_tag"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/drag_left"
-        android:layout_width="60dp"
-        android:layout_height="120dp"
-        android:background="#ffff32"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center">
 
         <ImageButton
-            android:id="@+id/btFavorite"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="#ffff32"
-            android:src="@mipmap/ic_action_favorite" />
+            android:id="@+id/btDelete"
+            android:layout_width="52dp"
+            android:layout_height="match_parent"
+            android:background="@color/red"
+            android:src="@mipmap/ic_action_delete" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -43,7 +29,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
