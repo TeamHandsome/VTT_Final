@@ -1,33 +1,108 @@
 package example.com.demoapp.activity;
 
+import android.annotation.TargetApi;
+import android.app.SearchManager;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.TextView;
+
+import com.daimajia.swipe.util.Attributes;
+
+import java.util.ArrayList;
 
 import example.com.demoapp.R;
+import example.com.demoapp.adapter.BaseSentencesAdapter;
+import example.com.demoapp.adapter.SearchAdapter;
+import example.com.demoapp.model.DAO.SentencesDAO;
+import example.com.demoapp.model.SentenceItem;
 
 public class SearchActivity extends AppCompatActivity {
+    SearchView searchView;
+    ListView listView;
+    ArrayList<SentenceItem> listSearch;
+    BaseSentencesAdapter sentencesAdapter;
+    SearchAdapter searchAdapter;
+    SentencesDAO sentencesDAO = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);  //hien thi toolbar
-
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //hien thi icon back
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        listView = (ListView) findViewById(R.id.lv_search);
+        //  searchView = (SearchView) findViewById(R.id.searchView1);
+        sentencesDAO = new SentencesDAO();
+        listSearch = sentencesDAO.getAllSentences();
+        sentencesAdapter = new SearchAdapter(this, R.layout.custom_row_sen_f_t, listSearch);
+        listView.setAdapter(sentencesAdapter);
+        listView.setTextFilterEnabled(true);
+        sentencesAdapter.setMode(Attributes.Mode.Single);
+
+
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_search, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+//        searchView.setIconifiedByDefault(false);
+
+        //change default button close
+        int id = searchView.getContext().getResources().getIdentifier("android:id/search_close_btn", null, null);
+        ImageView imageView = (ImageView) searchView.findViewById(id);
+        imageView.setImageDrawable(getResources().getDrawable(R.mipmap.ic_action_navigation_close));
+        //change default icon search
+        int id1 = searchView.getContext().getResources().getIdentifier("android:id/search_button", null, null);
+        ImageView imageView1 = (ImageView) searchView.findViewById(id1);
+        if (imageView1!=null){
+            imageView1.setImageDrawable(getResources().getDrawable(R.mipmap.ic_action_search));
+        }
+
+        //Set the plate color to White
+        int linlayId = getResources().getIdentifier("android:id/search_plate", null, null);
+        View view = searchView.findViewById(linlayId);
+        Drawable drawColor = getResources().getDrawable(R.drawable.searchcolor);
+        view.setBackground(drawColor);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (TextUtils.isEmpty(newText)) {
+                    listView.clearTextFilter();
+                } else {
+                    listView.setFilterText(newText);
+                }
+                return true;
+            }
+        });
         return true;
     }
 
@@ -42,10 +117,12 @@ public class SearchActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-        if (id == R.id.home){
+        if (id == R.id.home) {
             NavUtils.navigateUpFromSameTask(this); // khi click back icon se go back sourceAcitivy
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

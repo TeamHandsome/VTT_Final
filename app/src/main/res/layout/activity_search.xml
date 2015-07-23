@@ -1,11 +1,23 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="example.com.demoapp.activity.SearchActivity">
+    tools:context="example.com.demoapp.activity.SearchActivity"
+    android:orientation="vertical">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
+    <!--<SearchView-->
+        <!--android:id="@+id/searchView1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
+    <ListView
+        android:id="@+id/lv_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF">
 
-</RelativeLayout>
+    </ListView>
+
+</LinearLayout>

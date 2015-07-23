@@ -26,6 +26,7 @@ public class DbHelper extends SQLiteOpenHelper{
     public static String DB_SUBCATEGORIES_NAME = "name";
     public static String DB_SENTENCES_ID = "_ids";
     public static String DB_SENTENCES_JP = "jp";
+    public static String DB_SENTENCES_JPHIRA = "jp_hiragana";
     public static String DB_SENTENCES_SOUND = "audio";
     public static String DB_SENTENCES_IMAGE = "image_d";
     public static String DB_SENTENCES_VN = "vn";

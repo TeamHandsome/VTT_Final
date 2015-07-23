@@ -8,6 +8,16 @@ import java.util.ArrayList;
 public class SentenceItem {
     String id;
     private String nameJp;
+
+    public String getNameJpHira() {
+        return nameJpHira;
+    }
+
+    public void setNameJpHira(String nameJpHira) {
+        this.nameJpHira = nameJpHira;
+    }
+
+    private String nameJpHira;
     private String nameVn;
     private String sound;
     private String image;
