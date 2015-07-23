@@ -20,7 +20,6 @@ import example.com.demoapp.adapter.SentencesAdapter;
 import example.com.demoapp.adapter.FavoriteSentencesAdapter;
 import example.com.demoapp.model.DAO.FavoriteDAO;
 import example.com.demoapp.model.DAO.HistoryDAO;
-import example.com.demoapp.model.DAO.MySentencesDAO;
 import example.com.demoapp.model.DAO.SentencesDAO;
 import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.activity.DisplaySentencesActivity;
@@ -93,8 +92,8 @@ public class SentenceListFragment extends Fragment {
     }
 
     private void initMySentenceView(){
-        MySentencesDAO dao = new MySentencesDAO(context);
-        listSentences = dao.getAllMS();   //get sentence list from DB
+        SentencesDAO dao = new SentencesDAO(context);
+        listSentences = dao.getAllMySentence();   //get sentence list from DB
         sentencesAdapter = new MySentencesAdapter(getActivity(), R.layout.custom_row_sen_ms, listSentences); //add to adapter
     }
 }

@@ -39,7 +39,7 @@ public class HistorySentencesAdapter extends BaseSentencesAdapter {
         HistoryDAO dao = new HistoryDAO(context);
         SentenceItem item = listSentences.get(position);
         dao.removeFromHistory(item.getId());
-        Common.showToastMessage(getContext(), Message.FAVORITE_UN_SIGN);
+        Common.showToastMessage(getContext(), Message.DELETED_FROM_HISTORY);
     }
 }
 

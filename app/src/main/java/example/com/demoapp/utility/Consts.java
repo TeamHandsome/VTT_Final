@@ -33,6 +33,12 @@ public final class Consts {
     public static final String IMAGE = "イメージ";
     public static final String AUDIO = "オーディオ";
     public static final String CONVERSATION = "会話集";
+    public static final String RECOMMENDATION = "おすすめ";
+    public static final String SENTENCE_LIST = "文章";
+    public static final String IMAGE_LIST = "画像";
+    public static final String FAVORITE_LIST = "お気に入り";
+    public static final String HISTORY_LIST = "ヒストリー";
+    public static final String MY_SEN_LIST = "私の文書";
 
     //item's length
     public static final int MAX_TAGNAME_LENGTH = 6;

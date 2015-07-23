@@ -47,7 +47,7 @@ public class HistoryDAO extends BaseDAO {
     }
     public void removeFromHistory(String id){
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        db.delete(DbHelper.DB_TABLE_HISTORY, DbHelper.DB_HISTORY_SENTENCES_ID + "=" + id, null);
+        db.delete(DbHelper.DB_TABLE_HISTORY, DbHelper.DB_HISTORY_SENTENCES_ID + "='"+id+"'", null);
         db.close();
     }
 }

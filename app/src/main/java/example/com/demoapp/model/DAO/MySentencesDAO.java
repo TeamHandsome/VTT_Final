@@ -23,34 +23,7 @@ public class MySentencesDAO extends BaseDAO {
             e.printStackTrace();
         }
     }
-    public ArrayList<SentenceItem> getAllMS(){
-        ArrayList<SentenceItem> arrayList = null;
-        String query ="SELECT * FROM sentences WHERE sentences._ids like 's%'";
-        this.rawQueryReadonly(query);
 
-        if(cursor.moveToFirst())
-        {
-            arrayList = new ArrayList<>();
-            do
-            {
-                SentenceItem item = new SentenceItem();
-                item.setId(cursor.getString((cursor.getColumnIndex(DbHelper.DB_SENTENCES_ID))));
-                item.setNameJp(cursor.getString(cursor.getColumnIndex(DbHelper.DB_SENTENCES_JP)));
-                item.setNameVn(cursor.getString(cursor.getColumnIndex(DbHelper.DB_SENTENCES_VN)));
-                item.setSound(cursor.getString(cursor.getColumnIndex(DbHelper.DB_SENTENCES_SOUND)));
-                if (cursor.getString(cursor.getColumnIndex(DbHelper.DB_SENTENCES_IMAGE))!=null){
-                    item.setImage(cursor.getString(cursor.getColumnIndex(DbHelper.DB_SENTENCES_IMAGE)));
-                }
-                arrayList.add(item);
-            }while(cursor.moveToNext());
-        }
-        close();
-        return arrayList;
-    }
 
-    public void removeFromMS(String id){
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        db.delete(DbHelper.DB_TABLE_SENTENCES,DbHelper.DB_TABLE_SENTENCES_ID+"="+id,null);
-        db.close();
-    }
+
 }

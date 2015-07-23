@@ -10,6 +10,7 @@ public final class Message {
     public static final String CONFIRM_CANCEL = "取り消しても宜しいですか？";
     public static final String FAVORITE_SIGN_UP = "お気に入り登録";
     public static final String FAVORITE_UN_SIGN = "お気に入りリストから削除されました。";
+    public static final String DELETED_FROM_HISTORY = "ヒストリーから削除されました。";
 
     //ERROR
     public static final String ERROR_LETTERS_ONLY= "英字で入力してください。";
