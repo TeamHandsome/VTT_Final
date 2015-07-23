@@ -40,6 +40,8 @@ public class DbHelper extends SQLiteOpenHelper{
     public static String DB_TAGGING_TAG_ID = "tag_id";
     public static String DB_TABLE_FAVORITE = "favorite";
     public static String LAST_ID_NUM = "last_id_num";
+    public static String DB_TABLE_SENTENCES = "sentences";
+    public static String DB_TABLE_SENTENCES_ID = "_ids";
 
     private Context context;
     private SQLiteDatabase myDataBase;
