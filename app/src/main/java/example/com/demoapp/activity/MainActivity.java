@@ -1,13 +1,9 @@
 package example.com.demoapp.activity;
 
 import android.annotation.TargetApi;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,26 +11,25 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.DrawerMenuItemAdapter;
+import example.com.demoapp.fragment.HomeFragment;
+import example.com.demoapp.fragment.FavoriteFragment;
+import example.com.demoapp.fragment.HistoryFragment;
+import example.com.demoapp.fragment.InterpreterFragment;
+import example.com.demoapp.fragment.MysentencesFragment;
 import example.com.demoapp.model.DrawerMenuItem;
 import example.com.demoapp.utility.DbHelper;
 
@@ -80,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         if (savedInstanceState == null) {
-            setFragment(0, ConversationFragment.class);
+            setFragment(0, HomeFragment.class);
         }
 
     }
@@ -134,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             public void run() {
                 switch (position) {
                     case 0:
-                        setFragment(0, ConversationFragment.class);
+                        setFragment(0, HomeFragment.class);
                         break;
                     case 1:
                         setFragment(1, TagFragment.class);

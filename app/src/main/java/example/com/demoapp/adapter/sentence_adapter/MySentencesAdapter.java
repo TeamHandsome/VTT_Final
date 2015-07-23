@@ -1,4 +1,4 @@
-package example.com.demoapp.adapter;
+package example.com.demoapp.adapter.sentence_adapter;
 
 import android.app.Activity;
 import android.view.View;
@@ -6,8 +6,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import example.com.demoapp.model.DAO.FavoriteDAO;
-import example.com.demoapp.model.DAO.HistoryDAO;
+import example.com.demoapp.adapter.sentence_adapter.BaseSentencesAdapter;
+import example.com.demoapp.model.DAO.SentencesDAO;
 import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Message;
@@ -15,9 +15,9 @@ import example.com.demoapp.utility.Message;
 /**
  * Created by dmonkey on 7/24/2015.
  */
-public class HistoryImageAdapter extends BaseImageAdapter{
+public class MySentencesAdapter extends BaseSentencesAdapter {
 
-    public HistoryImageAdapter(Activity context, int idLayoutResource, ArrayList<SentenceItem> listSentences) {
+    public MySentencesAdapter(Activity context, int idLayoutResource, ArrayList<SentenceItem> listSentences) {
         super(context, idLayoutResource, listSentences);
         this.context = context;
         this.idLayoutResource = idLayoutResource;
@@ -29,17 +29,19 @@ public class HistoryImageAdapter extends BaseImageAdapter{
         convertView = super.getView(position, convertView, parent);
 
         this.setUpSound(holder, position);
-        this.setUpBtnDelete(holder,convertView,position);
+        this.setUpBtnFavorite(holder, convertView, position);
+        this.setUpBtnDelete(holder, convertView, position);
+        this.setUpBtnEdit(holder,convertView,position);
 
         return convertView;
     }
 
     @Override
     protected void onclickDelete(int position) {
-        HistoryDAO dao = new HistoryDAO(context);
+        SentencesDAO dao = new SentencesDAO(context);
         SentenceItem item = listSentences.get(position);
-        dao.removeFromHistory(item.getId());
-        Common.showToastMessage(getContext(), Message.DELETED_FROM_HISTORY);
+        dao.removeSentence(item.getId());
+        Common.showToastMessage(getContext(), Message.ITEM_IS_DELETED(item.getNameJp()));
     }
 }
 

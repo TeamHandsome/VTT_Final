@@ -3,12 +3,9 @@ package example.com.demoapp.activity;
 import android.annotation.TargetApi;
 import android.app.SearchManager;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,14 +16,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import com.daimajia.swipe.util.Attributes;
 
 import java.util.ArrayList;
 
 import example.com.demoapp.R;
-import example.com.demoapp.adapter.BaseSentencesAdapter;
+import example.com.demoapp.adapter.sentence_adapter.BaseSentencesAdapter;
 import example.com.demoapp.adapter.SearchAdapter;
 import example.com.demoapp.model.DAO.SentencesDAO;
 import example.com.demoapp.model.SentenceItem;

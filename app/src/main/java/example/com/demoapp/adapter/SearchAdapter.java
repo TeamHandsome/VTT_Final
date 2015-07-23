@@ -8,8 +8,8 @@ import android.widget.Filter;
 import android.widget.Filterable;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
+import example.com.demoapp.adapter.sentence_adapter.BaseSentencesAdapter;
 import example.com.demoapp.model.SentenceItem;
 
 /**

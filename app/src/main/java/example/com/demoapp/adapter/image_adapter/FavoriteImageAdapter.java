@@ -1,4 +1,4 @@
-package example.com.demoapp.adapter;
+package example.com.demoapp.adapter.image_adapter;
 
 import android.app.Activity;
 import android.view.View;
@@ -6,18 +6,18 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import example.com.demoapp.adapter.image_adapter.BaseImageAdapter;
 import example.com.demoapp.model.DAO.FavoriteDAO;
-import example.com.demoapp.model.DAO.HistoryDAO;
 import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Message;
 
 /**
- * Created by dmonkey on 7/24/2015.
+ * Created by Tony on 23/7/2015.
  */
-public class HistorySentencesAdapter extends BaseSentencesAdapter {
+public class FavoriteImageAdapter extends BaseImageAdapter {
 
-    public HistorySentencesAdapter(Activity context, int idLayoutResource, ArrayList<SentenceItem> listSentences) {
+    public FavoriteImageAdapter(Activity context, int idLayoutResource, ArrayList<SentenceItem> listSentences) {
         super(context, idLayoutResource, listSentences);
         this.context = context;
         this.idLayoutResource = idLayoutResource;
@@ -36,10 +36,9 @@ public class HistorySentencesAdapter extends BaseSentencesAdapter {
 
     @Override
     protected void onclickDelete(int position) {
-        HistoryDAO dao = new HistoryDAO(context);
+        FavoriteDAO dao = new FavoriteDAO(context);
         SentenceItem item = listSentences.get(position);
-        dao.removeFromHistory(item.getId());
-        Common.showToastMessage(getContext(), Message.DELETED_FROM_HISTORY);
+        dao.removeFromFavorite(item.getId());
+        Common.showToastMessage(getContext(), Message.FAVORITE_UN_SIGN);
     }
 }
-

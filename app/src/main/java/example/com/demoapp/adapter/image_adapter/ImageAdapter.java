@@ -1,21 +1,12 @@
-package example.com.demoapp.adapter;
+package example.com.demoapp.adapter.image_adapter;
 
 import android.app.Activity;
-import android.net.Uri;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.daimajia.swipe.SwipeLayout;
-import com.daimajia.swipe.adapters.ArraySwipeAdapter;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import example.com.demoapp.R;
+import example.com.demoapp.adapter.image_adapter.BaseImageAdapter;
 import example.com.demoapp.model.SentenceItem;
 
 /**

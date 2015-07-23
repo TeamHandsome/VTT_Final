@@ -1,4 +1,4 @@
-package example.com.demoapp.activity;
+package example.com.demoapp.fragment;
 
 import android.app.Activity;
 import android.net.Uri;

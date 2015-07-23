@@ -1,16 +1,22 @@
-package example.com.demoapp.adapter;
+package example.com.demoapp.adapter.image_adapter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
+import android.net.Uri;
 import android.os.SystemClock;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.ArraySwipeAdapter;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -27,20 +33,20 @@ import example.com.demoapp.utility.Message;
 /**
  * Created by Tony on 23/7/2015.
  */
-public abstract class BaseSentencesAdapter extends ArraySwipeAdapter<SentenceItem> {
-    protected Activity context;
-    protected int idLayoutResource;
-    protected ArrayList<SentenceItem> listSentences;
+public abstract class BaseImageAdapter extends ArraySwipeAdapter<SentenceItem> {
+    Activity context;
+    int idLayoutResource;
+    ArrayList<SentenceItem> listSentences;
     protected long mLastClickTime = 0;
     protected ViewHolder holder = null;
 
     private static class ViewHolder {
-        TextView tvDisplayID, tvDisplayName;
+        ImageView imageView;
         ImageButton btDelete, btFavorite, btTag, btEdit;
         SwipeLayout swipeLayout;
     }
 
-    public BaseSentencesAdapter(Activity context, int idLayoutResource, ArrayList<SentenceItem> listSentences) {
+    public BaseImageAdapter(Activity context, int idLayoutResource, ArrayList<SentenceItem> listSentences) {
         super(context, idLayoutResource, listSentences);
         this.context = context;
         this.idLayoutResource = idLayoutResource;
@@ -49,26 +55,45 @@ public abstract class BaseSentencesAdapter extends ArraySwipeAdapter<SentenceIte
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+        WindowManager wm = (WindowManager)parent.getContext().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int y = width/2;
+
         if (convertView == null) {
             holder = new ViewHolder();
             LayoutInflater inflater = context.getLayoutInflater();
             convertView = inflater.inflate(idLayoutResource, parent, false);
 
             holder.swipeLayout = (SwipeLayout) convertView.findViewById(R.id.swipe);
-            holder.tvDisplayID = (TextView) convertView.findViewById(R.id.tvDisplayId);
-            holder.tvDisplayName = (TextView) convertView.findViewById(R.id.tvDisplayName);
+            holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
+
+//            holder.imageView.setLayoutParams(new GridView.LayoutParams(y, y));
+            holder.imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            holder.imageView.setPadding(2, 2, 2, 2);
 
             holder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);        //set kiểu swipe
             holder.swipeLayout.addDrag(SwipeLayout.DragEdge.Left, holder.swipeLayout.findViewById(R.id.drag_left)); //add swipe left
             holder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, holder.swipeLayout.findViewById(R.id.drag_right));
 
             convertView.setTag(holder);
+
         } else
             holder = (ViewHolder) convertView.getTag();
 
-        //set text for list view
-        holder.tvDisplayID.setText("" + (position + 1));
-        holder.tvDisplayName.setText(listSentences.get(position).getNameJp());
+        String pathImage = listSentences.get(position).getImage();
+        System.out.println(pathImage + "aaa");
+        Uri uri=Uri.parse("android.resource://" + context.getPackageName() + "/" +
+                "drawable" + "/" + pathImage);
+
+        Picasso.with(context)
+                .load(uri)
+                .resize(360, 360)
+                .centerCrop()
+                .into(holder.imageView);
+//        holder.imageView.setImageResource(context.getResources().getIdentifier(pathImage, "drawable", context.getPackageName()));
 
         return convertView;
     }
@@ -182,7 +207,7 @@ public abstract class BaseSentencesAdapter extends ArraySwipeAdapter<SentenceIte
             public void onClick(View v) {
                 onclickDelete(position);
                 listSentences.remove(position);
-                BaseSentencesAdapter.this.notifyDataSetChanged();
+                BaseImageAdapter.this.notifyDataSetChanged();
             }
         });
     }

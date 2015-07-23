@@ -13,11 +13,11 @@ import com.daimajia.swipe.util.Attributes;
 import java.util.ArrayList;
 
 import example.com.demoapp.R;
-import example.com.demoapp.adapter.BaseImageAdapter;
-import example.com.demoapp.adapter.FavoriteImageAdapter;
-import example.com.demoapp.adapter.HistoryImageAdapter;
-import example.com.demoapp.adapter.ImageAdapter;
-import example.com.demoapp.adapter.MyImageAdapter;
+import example.com.demoapp.adapter.image_adapter.BaseImageAdapter;
+import example.com.demoapp.adapter.image_adapter.FavoriteImageAdapter;
+import example.com.demoapp.adapter.image_adapter.HistoryImageAdapter;
+import example.com.demoapp.adapter.image_adapter.ImageAdapter;
+import example.com.demoapp.adapter.image_adapter.MyImageAdapter;
 import example.com.demoapp.model.DAO.FavoriteDAO;
 import example.com.demoapp.model.DAO.HistoryDAO;
 import example.com.demoapp.model.DAO.SentencesDAO;

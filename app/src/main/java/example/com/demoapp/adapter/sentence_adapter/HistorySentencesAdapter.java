@@ -1,4 +1,4 @@
-package example.com.demoapp.adapter;
+package example.com.demoapp.adapter.sentence_adapter;
 
 import android.app.Activity;
 import android.view.View;
@@ -6,17 +6,18 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import example.com.demoapp.model.DAO.FavoriteDAO;
+import example.com.demoapp.adapter.sentence_adapter.BaseSentencesAdapter;
+import example.com.demoapp.model.DAO.HistoryDAO;
 import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Message;
 
 /**
- * Created by dmonkey on 7/15/2015.
+ * Created by dmonkey on 7/24/2015.
  */
-public class FavoriteSentencesAdapter extends BaseSentencesAdapter {
+public class HistorySentencesAdapter extends BaseSentencesAdapter {
 
-    public FavoriteSentencesAdapter(Activity context, int idLayoutResource, ArrayList<SentenceItem> listSentences) {
+    public HistorySentencesAdapter(Activity context, int idLayoutResource, ArrayList<SentenceItem> listSentences) {
         super(context, idLayoutResource, listSentences);
         this.context = context;
         this.idLayoutResource = idLayoutResource;
@@ -24,7 +25,7 @@ public class FavoriteSentencesAdapter extends BaseSentencesAdapter {
     }
 
     @Override
-         public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         convertView = super.getView(position, convertView, parent);
 
         this.setUpSound(holder, position);
@@ -35,10 +36,10 @@ public class FavoriteSentencesAdapter extends BaseSentencesAdapter {
 
     @Override
     protected void onclickDelete(int position) {
-        FavoriteDAO dao = new FavoriteDAO(context);
+        HistoryDAO dao = new HistoryDAO(context);
         SentenceItem item = listSentences.get(position);
-        dao.removeFromFavorite(item.getId());
-        Common.showToastMessage(getContext(), Message.FAVORITE_UN_SIGN);
+        dao.removeFromHistory(item.getId());
+        Common.showToastMessage(getContext(), Message.DELETED_FROM_HISTORY);
     }
 }
 

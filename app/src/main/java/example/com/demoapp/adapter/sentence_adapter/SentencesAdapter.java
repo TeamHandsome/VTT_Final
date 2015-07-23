@@ -1,15 +1,12 @@
-package example.com.demoapp.adapter;
+package example.com.demoapp.adapter.sentence_adapter;
 
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.TextView;
-
-import com.daimajia.swipe.SwipeLayout;
 
 import java.util.ArrayList;
 
+import example.com.demoapp.adapter.sentence_adapter.BaseSentencesAdapter;
 import example.com.demoapp.model.SentenceItem;
 
 /**

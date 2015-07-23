@@ -4,10 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import java.util.Objects;
-
-import example.com.demoapp.activity.CategoryFragment;
-import example.com.demoapp.activity.SuggestFragment;
+import example.com.demoapp.fragment.CategoryFragment;
+import example.com.demoapp.fragment.SuggestFragment;
 import example.com.demoapp.fragment.ImageListFragment;
 import example.com.demoapp.fragment.SentenceListFragment;
 import example.com.demoapp.utility.Consts;

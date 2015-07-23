@@ -1,4 +1,4 @@
-package example.com.demoapp.activity;
+package example.com.demoapp.fragment;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -24,6 +24,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import example.com.demoapp.R;
+import example.com.demoapp.activity.AddEditMySentencesActivity;
+import example.com.demoapp.activity.DisplaySubActivity;
+import example.com.demoapp.activity.RecordActivity;
 import example.com.demoapp.adapter.CategoriesAdapter;
 import example.com.demoapp.model.CategoryItem;
 import example.com.demoapp.model.DAO.CategoryDAO;

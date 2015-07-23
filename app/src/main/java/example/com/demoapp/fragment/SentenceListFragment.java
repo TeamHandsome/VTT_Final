@@ -13,11 +13,11 @@ import com.daimajia.swipe.util.Attributes;
 import java.util.ArrayList;
 
 import example.com.demoapp.R;
-import example.com.demoapp.adapter.BaseSentencesAdapter;
-import example.com.demoapp.adapter.HistorySentencesAdapter;
-import example.com.demoapp.adapter.MySentencesAdapter;
-import example.com.demoapp.adapter.SentencesAdapter;
-import example.com.demoapp.adapter.FavoriteSentencesAdapter;
+import example.com.demoapp.adapter.sentence_adapter.BaseSentencesAdapter;
+import example.com.demoapp.adapter.sentence_adapter.HistorySentencesAdapter;
+import example.com.demoapp.adapter.sentence_adapter.MySentencesAdapter;
+import example.com.demoapp.adapter.sentence_adapter.SentencesAdapter;
+import example.com.demoapp.adapter.sentence_adapter.FavoriteSentencesAdapter;
 import example.com.demoapp.model.DAO.FavoriteDAO;
 import example.com.demoapp.model.DAO.HistoryDAO;
 import example.com.demoapp.model.DAO.SentencesDAO;

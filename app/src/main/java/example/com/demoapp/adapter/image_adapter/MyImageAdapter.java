@@ -1,4 +1,4 @@
-package example.com.demoapp.adapter;
+package example.com.demoapp.adapter.image_adapter;
 
 import android.app.Activity;
 import android.view.View;
@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import example.com.demoapp.adapter.image_adapter.BaseImageAdapter;
 import example.com.demoapp.model.DAO.SentencesDAO;
 import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.utility.Common;
@@ -14,7 +15,7 @@ import example.com.demoapp.utility.Message;
 /**
  * Created by dmonkey on 7/24/2015.
  */
-public class MyImageAdapter extends BaseImageAdapter{
+public class MyImageAdapter extends BaseImageAdapter {
 
     public MyImageAdapter(Activity context, int idLayoutResource, ArrayList<SentenceItem> listSentences) {
         super(context, idLayoutResource, listSentences);
@@ -29,8 +30,8 @@ public class MyImageAdapter extends BaseImageAdapter{
 
         this.setUpSound(holder, position);
         this.setUpBtnFavorite(holder,convertView,position);
-        this.setUpBtnDelete(holder,convertView,position);
-        this.setUpBtnEdit(holder,convertView,position);
+        this.setUpBtnDelete(holder, convertView, position);
+        this.setUpBtnEdit(holder, convertView, position);
 
         return convertView;
     }

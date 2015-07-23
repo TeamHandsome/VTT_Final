@@ -1,4 +1,4 @@
-package example.com.demoapp.activity;
+package example.com.demoapp.fragment;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
