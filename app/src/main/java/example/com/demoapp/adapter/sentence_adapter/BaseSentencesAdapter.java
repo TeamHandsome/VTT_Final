@@ -36,7 +36,7 @@ public abstract class BaseSentencesAdapter extends ArraySwipeAdapter<SentenceIte
 
     private static class ViewHolder {
         TextView tvDisplayID, tvDisplayName;
-        ImageButton btDelete, btFavorite, btTag, btEdit;
+        ImageButton btDelete, btFavorite, btTag, btEdit, btGoto;
         SwipeLayout swipeLayout;
     }
 
@@ -187,8 +187,6 @@ public abstract class BaseSentencesAdapter extends ArraySwipeAdapter<SentenceIte
         });
     }
 
-    protected abstract void onclickDelete(int position);
-
     //Setting up for Tag button
     protected void setUpBtnEdit(final ViewHolder holder, View convertView,final int position){
         holder.btEdit = (ImageButton) convertView.findViewById(R.id.btEdit);
@@ -202,5 +200,21 @@ public abstract class BaseSentencesAdapter extends ArraySwipeAdapter<SentenceIte
                 context.startActivity(intent);
             }
         });
+    }
+
+    protected void setUpBtnGoto(final ViewHolder holder, View convertView,final int position){
+        holder.btGoto = (ImageButton) convertView.findViewById(R.id.btGoto);
+        holder.btGoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onclickGoto(holder,position);
+            }
+        });
+    }
+
+    protected abstract void onclickDelete(int position);
+
+    protected void onclickGoto(final ViewHolder holder,final int position){
+
     }
 }
