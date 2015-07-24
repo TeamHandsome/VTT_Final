@@ -2,7 +2,6 @@ package example.com.demoapp.utility;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Point;
 import android.net.Uri;
 import android.view.Display;
@@ -42,9 +41,9 @@ public final class Common {
                                                 String text , String image) {
         TextView textView = (TextView)view.findViewById(R.id.navigation_text);
         textView.setText(StringUtils.addSpaceBetweenChar(text));
-        setImageForNavigaionHeader(view,context,image);
+        setImageForNavigationHeader(view, context, image);
     }
-    public static void setImageForNavigaionHeader(View view,final Context context, String image){
+    public static void setImageForNavigationHeader(View view, final Context context, String image){
         WindowManager wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
