@@ -21,7 +21,8 @@ public class PopupActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        PopupActivity.this.getWindow().setBackgroundDrawableResource(R.drawable.back_pop_up);
+
         setContentView(R.layout.activity_popup);
         MediaPlayer mPlayer = new MediaPlayer();
         Bundle extras = getIntent().getExtras();
@@ -41,7 +42,7 @@ public class PopupActivity extends Activity {
             }
             //////
             TextView tv_vn = (TextView) findViewById(R.id.tv_vn);
-            tv_vn.setText(vn_name);
+            tv_vn.setText(vn_name.toUpperCase());
             //////
             ImageView img_body = (ImageView) findViewById(R.id.img_body);
             Uri uri1 =Uri.parse("android.resource://" + this.getPackageName() + "/" +
