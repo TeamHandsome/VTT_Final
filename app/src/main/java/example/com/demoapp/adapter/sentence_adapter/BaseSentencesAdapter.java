@@ -66,9 +66,7 @@ public abstract class BaseSentencesAdapter extends ArraySwipeAdapter<SentenceIte
         } else
             holder = (ViewHolder) convertView.getTag();
 
-        //set text for list view
-        holder.tvDisplayID.setText("" + (position + 1));
-        holder.tvDisplayName.setText(listSentences.get(position).getNameJp());
+        this.setUpListView(holder,convertView,position);
 
         return convertView;
     }
@@ -80,7 +78,7 @@ public abstract class BaseSentencesAdapter extends ArraySwipeAdapter<SentenceIte
 
     @Override
     public int getCount() {
-        return listSentences.size();
+        return listSentences!=null ? listSentences.size():0;
     }
 
     @Override
@@ -93,6 +91,11 @@ public abstract class BaseSentencesAdapter extends ArraySwipeAdapter<SentenceIte
         return listSentences.get(i).hashCode();
     }
 
+    //Setting up data to show on Grid view
+    private void setUpListView(final ViewHolder holder,View convertView,final int position){
+        holder.tvDisplayID.setText("" + (position + 1));
+        holder.tvDisplayName.setText(listSentences.get(position).getNameJp());
+    }
     //Setting up sound for a sentence
     protected void setUpSound(final ViewHolder holder,final int position){
         final String soundPath = listSentences.get(position).getSound();

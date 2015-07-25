@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 import com.daimajia.swipe.util.Attributes;
 
@@ -42,6 +43,8 @@ public class ImageListFragment extends Fragment {
         context = getActivity();
         View view = inflater.inflate(R.layout.fragment_list_images, container, false);
         gridView = (GridView) view.findViewById(R.id.gridview);
+        ImageView no_data = (ImageView) view.findViewById(R.id.no_data);
+        gridView.setEmptyView(no_data);
 
         switch (pager_parent){
             case Consts.SENTENCE_LIST_BY_SUB:

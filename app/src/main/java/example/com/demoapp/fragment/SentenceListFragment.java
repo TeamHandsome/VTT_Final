@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.daimajia.swipe.util.Attributes;
@@ -42,6 +43,9 @@ public class SentenceListFragment extends Fragment {
         context = getActivity();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_list_sentences, container, false);
+        listView = (ListView) view.findViewById(R.id.lvSentences);
+        ImageView no_data = (ImageView) view.findViewById(R.id.no_data);
+        listView.setEmptyView(no_data);
 
         switch (pager_parent){
             case Consts.SENTENCE_LIST_BY_SUB:
@@ -60,7 +64,7 @@ public class SentenceListFragment extends Fragment {
                 this.initMySentenceView();
                 break;
         }
-        listView = (ListView) view.findViewById(R.id.lvSentences);
+
 
         listView.setAdapter(sentencesAdapter);  //apply adapter into listView
         sentencesAdapter.setMode(Attributes.Mode.Single);

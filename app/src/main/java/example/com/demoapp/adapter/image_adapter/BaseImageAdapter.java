@@ -83,17 +83,7 @@ public abstract class BaseImageAdapter extends ArraySwipeAdapter<SentenceItem> {
         } else
             holder = (ViewHolder) convertView.getTag();
 
-        String pathImage = listSentences.get(position).getImage();
-        System.out.println(pathImage + "aaa");
-        Uri uri=Uri.parse("android.resource://" + context.getPackageName() + "/" +
-                "drawable" + "/" + pathImage);
-
-        Picasso.with(context)
-                .load(uri)
-                .resize(360, 360)
-                .centerCrop()
-                .into(holder.imageView);
-//        holder.imageView.setImageResource(context.getResources().getIdentifier(pathImage, "drawable", context.getPackageName()));
+        this.setUpGridView(holder, convertView, position);
 
         return convertView;
     }
@@ -105,7 +95,7 @@ public abstract class BaseImageAdapter extends ArraySwipeAdapter<SentenceItem> {
 
     @Override
     public int getCount() {
-        return listSentences.size();
+        return listSentences!=null ? listSentences.size():0;
     }
 
     @Override
@@ -118,6 +108,20 @@ public abstract class BaseImageAdapter extends ArraySwipeAdapter<SentenceItem> {
         return listSentences.get(i).hashCode();
     }
 
+    //Setting up data to show on Grid view
+    private void setUpGridView(final ViewHolder holder,View convertView,final int position){
+        String pathImage = listSentences.get(position).getImage();
+        System.out.println(pathImage + "aaa");
+        Uri uri=Uri.parse("android.resource://" + context.getPackageName() + "/" +
+                "drawable" + "/" + pathImage);
+
+        Picasso.with(context)
+                .load(uri)
+                .resize(360, 360)
+                .centerCrop()
+                .into(holder.imageView);
+//        holder.imageView.setImageResource(context.getResources().getIdentifier(pathImage, "drawable", context.getPackageName()));
+    }
     //Setting up sound for a sentence
     protected void setUpSound(final ViewHolder holder,final int position){
         final String soundPath = listSentences.get(position).getSound();

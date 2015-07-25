@@ -30,7 +30,7 @@ public class SentencesDAO extends BaseDAO {
     }
 
     public ArrayList<SentenceItem> getAllSentenceBySub(int subcategories_id){
-        ArrayList<SentenceItem> arrayList = null;
+        ArrayList<SentenceItem> arrayList = new ArrayList<>();
         ArrayList<String> favoriteList= getAllFavoriteSentenceID();
         String query ="SELECT * FROM sentences INNER JOIN subcategories" +
                 " ON sentences.subcategories_id = subcategories._id" +
@@ -64,7 +64,7 @@ public class SentencesDAO extends BaseDAO {
     }
 
     public ArrayList getAllFavoriteSentenceID(){
-        ArrayList<String> arrayList = null;
+        ArrayList<String> arrayList = new ArrayList<>();
         String query ="SElECT "+DbHelper.DB_FAVORITE_SENTENCES_ID+" From favorite";
         this.rawQueryReadonly(query);
         if(cursor.moveToFirst())
@@ -88,7 +88,7 @@ public class SentencesDAO extends BaseDAO {
     }
 
     public ArrayList<SentenceItem> getAllSentences(){
-        ArrayList<SentenceItem> arrayList = null;
+        ArrayList<SentenceItem> arrayList = new ArrayList<>();
         String query = "SELECT * FROM sentences";
         this.rawQueryReadonly(query);
 
@@ -115,7 +115,7 @@ public class SentencesDAO extends BaseDAO {
     }
 
     public ArrayList<SentenceItem> getAllMySentence(){
-        ArrayList<SentenceItem> arrayList = null;
+        ArrayList<SentenceItem> arrayList = new ArrayList<>();
         String query ="SELECT * FROM sentences WHERE sentences._ids like 's%'";
         this.rawQueryReadonly(query);
 
