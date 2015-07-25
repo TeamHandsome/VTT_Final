@@ -20,4 +20,5 @@
 
     </ListView>
 
+    <include layout="@layout/cannot_find_result"/>
 </LinearLayout>
