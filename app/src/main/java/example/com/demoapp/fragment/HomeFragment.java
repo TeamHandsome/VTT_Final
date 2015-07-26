@@ -35,6 +35,7 @@ public class HomeFragment extends Fragment {
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) view.findViewById(R.id.pager);
         pager.setAdapter(adapter);
+        pager.setTag(Consts.HOME);
 
         // Assiging the Sliding Tab Layout View
         tabs = (SlidingTabLayout) view.findViewById(R.id.tabs);

@@ -19,9 +19,6 @@ public class HistoryImageAdapter extends BaseImageAdapter {
 
     public HistoryImageAdapter(Activity context, int idLayoutResource, ArrayList<SentenceItem> listSentences) {
         super(context, idLayoutResource, listSentences);
-        this.context = context;
-        this.idLayoutResource = idLayoutResource;
-        this.listSentences = listSentences;
     }
 
     @Override

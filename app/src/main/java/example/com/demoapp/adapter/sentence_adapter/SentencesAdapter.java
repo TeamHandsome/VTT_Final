@@ -16,9 +16,6 @@ public class SentencesAdapter extends BaseSentencesAdapter {
 
     public SentencesAdapter(Activity context, int idLayoutResource, ArrayList<SentenceItem> listSentences) {
         super(context, idLayoutResource, listSentences);
-        this.context = context;
-        this.idLayoutResource = idLayoutResource;
-        this.listSentences = listSentences;
     }
 
 
@@ -35,5 +32,6 @@ public class SentencesAdapter extends BaseSentencesAdapter {
 
     @Override
     protected void onclickDelete(int position) {
+        return;
     }
 }

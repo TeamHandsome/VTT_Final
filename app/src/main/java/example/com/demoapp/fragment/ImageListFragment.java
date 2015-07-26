@@ -19,6 +19,7 @@ import example.com.demoapp.adapter.image_adapter.FavoriteImageAdapter;
 import example.com.demoapp.adapter.image_adapter.HistoryImageAdapter;
 import example.com.demoapp.adapter.image_adapter.ImageAdapter;
 import example.com.demoapp.adapter.image_adapter.MyImageAdapter;
+import example.com.demoapp.adapter.image_adapter.TagImageAdapter;
 import example.com.demoapp.model.DAO.FavoriteDAO;
 import example.com.demoapp.model.DAO.HistoryDAO;
 import example.com.demoapp.model.DAO.SentencesDAO;
@@ -29,75 +30,54 @@ import example.com.demoapp.utility.Consts;
 /**
  * Created by Tony on 23/7/2015.
  */
-public class ImageListFragment extends Fragment {
-    GridView gridView;
-    ArrayList<SentenceItem> listSentences;
-    BaseImageAdapter imageAdapter;
-    Context context;
-    int pager_parent = Consts.NOT_FOUND;
+public class ImageListFragment extends BaseListFragment {
+    private GridView gridView;
+    private BaseImageAdapter imageAdapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        pager_parent = (int)container.getTag();
-        context = getActivity();
-        View view = inflater.inflate(R.layout.fragment_list_images, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_list_images, container, false);
+
         gridView = (GridView) view.findViewById(R.id.gridview);
         ImageView no_data = (ImageView) view.findViewById(R.id.no_data);
         gridView.setEmptyView(no_data);
-
-        switch (pager_parent){
-            case Consts.SENTENCE_LIST_BY_SUB:
-                this.initListBySubView();
-                break;
-            case Consts.FAVORITE:
-                this.initFavoriteView();
-                break;
-            case Consts.HISTORY:
-                this.initHistoryView();
-                break;
-            case Consts.SENTENCE_LIST_BY_TAG:
-                this.initListByTagView();
-                break;
-            case Consts.MY_SENTENCE_LIST:
-                this.initMySentenceView();
-                break;
-        }
-
         gridView.setAdapter(imageAdapter);  //apply adapter to gridview
         imageAdapter.setMode(Attributes.Mode.Multiple);
 
         return view;
     }
 
-    private void initListBySubView(){
-        SentencesDAO dao = new SentencesDAO();
-        listSentences = dao.getAllSentenceBySub(DisplaySentencesActivity.subCategory_id);
+    @Override
+    protected void initRecommendationView() {
+        return;
+    }
+
+    @Override
+    protected void initListBySubView(){
         imageAdapter = new ImageAdapter(getActivity(), R.layout.custom_row_img_f_t, listSentences);
     }
 
-    private void initHistoryView(){
-        HistoryDAO dao = new HistoryDAO(context);
-        listSentences = dao.getAllHistory();
+    @Override
+    protected void initHistoryView(){
         imageAdapter = new HistoryImageAdapter(getActivity(), R.layout.custom_row_img_d, listSentences);
-
     }
 
-    private void initFavoriteView(){
-        FavoriteDAO dao = new FavoriteDAO(context);
-        listSentences = dao.getAllFavorite();
+    @Override
+    protected void initFavoriteView(){
         imageAdapter = new FavoriteImageAdapter(getActivity(), R.layout.custom_row_img_d, listSentences);
     }
 
-    private void initListByTagView(){
-        SentencesDAO dao = new SentencesDAO(context);
-
+    @Override
+    protected void initListByTagView(){
+        imageAdapter = new TagImageAdapter(getActivity(),R.layout.custom_row_img_d,listSentences);
     }
 
-    private void initMySentenceView(){
-        SentencesDAO dao = new SentencesDAO(context);
-        listSentences = dao.getAllMySentence();   //get sentence list from DB
+    @Override
+    protected void initMySentenceView(){
         imageAdapter = new MyImageAdapter(getActivity(), R.layout.custom_row_img_f_d_e, listSentences);
     }
+
 
 }

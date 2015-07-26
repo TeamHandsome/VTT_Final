@@ -16,9 +16,6 @@ public class ImageAdapter extends BaseImageAdapter {
 
     public ImageAdapter(Activity context, int idLayoutResource, ArrayList<SentenceItem> listSentences) {
         super(context, idLayoutResource, listSentences);
-        this.context = context;
-        this.idLayoutResource = idLayoutResource;
-        this.listSentences = listSentences;
     }
 
     @Override
@@ -34,6 +31,7 @@ public class ImageAdapter extends BaseImageAdapter {
 
     @Override
     protected void onclickDelete(int position) {
+        return;
     }
 
 
