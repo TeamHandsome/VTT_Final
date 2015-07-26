@@ -220,7 +220,7 @@ public abstract class BaseImageAdapter extends ArraySwipeAdapter<SentenceItem> {
 
     protected abstract void onclickDelete(int position);
 
-    //Setting up for Tag button
+    //Setting up for Edit button
     protected void setUpBtnEdit(final ViewHolder holder, View convertView,final int position){
         holder.btEdit = (ImageButton) convertView.findViewById(R.id.btEdit);
         holder.btEdit.setOnClickListener(new View.OnClickListener() {

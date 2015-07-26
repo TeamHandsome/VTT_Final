@@ -10,6 +10,7 @@ import android.widget.ListView;
 import com.daimajia.swipe.util.Attributes;
 
 import example.com.demoapp.R;
+import example.com.demoapp.activity.TagPagerActivity;
 import example.com.demoapp.adapter.sentence_adapter.BaseSentencesAdapter;
 import example.com.demoapp.adapter.sentence_adapter.HistorySentencesAdapter;
 import example.com.demoapp.adapter.sentence_adapter.MySentencesAdapter;
@@ -62,7 +63,8 @@ public class SentenceListFragment extends BaseListFragment {
 
     @Override
     protected void initListByTagView(){
-        sentencesAdapter = new TagSentenceAdapter(getActivity(),R.layout.custom_row_sen_f_d,listSentences);
+        sentencesAdapter = new TagSentenceAdapter(getActivity(),R.layout.custom_row_sen_f_d,
+                listSentences, TagPagerActivity.tag_id);
     }
 
     @Override

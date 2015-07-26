@@ -17,21 +17,15 @@ import example.com.demoapp.utility.Message;
 public class TagSentenceAdapter extends BaseSentencesAdapter {
     private String tag_id;
 
-    public String getTag_id() {
-        return tag_id;
-    }
-
-    public void setTag_id(String tag_id) {
-        this.tag_id = tag_id;
-    }
-
-    public TagSentenceAdapter(Activity context, int idLayoutResource, ArrayList<SentenceItem> listSentences) {
+    public TagSentenceAdapter(Activity context, int idLayoutResource, ArrayList<SentenceItem> listSentences
+                ,String tag_id) {
         super(context, idLayoutResource, listSentences);
+        this.tag_id = tag_id;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        super.getView(position, convertView, parent);
+        convertView = super.getView(position, convertView, parent);
         this.setUpSound(holder, position);
         this.setUpBtnFavorite(holder, convertView, position);
         this.setUpBtnDelete(holder, convertView, position);

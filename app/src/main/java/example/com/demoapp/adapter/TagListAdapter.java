@@ -82,7 +82,8 @@ public class TagListAdapter extends ArraySwipeAdapter<TagItem> {
         holder.tv_countTag.setText(listSentencesByTagId.size()+"文");
 
         if (position % 2 == 1){
-            convertView.setBackgroundColor(Color.parseColor("#b3e5fc"));
+            final int back_color = getContext().getResources().getColor(R.color.colorPrimaryLight);
+            convertView.setBackgroundColor(back_color);
         }else {
             convertView.setBackgroundColor(Color.parseColor("#FFFFFF"));
         }

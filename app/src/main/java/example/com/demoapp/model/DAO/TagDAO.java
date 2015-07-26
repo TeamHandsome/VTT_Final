@@ -193,8 +193,8 @@ public class TagDAO extends BaseDAO {
     public void removeSentenceFromTag(String tag_id, String sentence_id){
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         db.delete(DbHelper.DB_TABLE_TAGGING,
-                DbHelper.DB_SENTENCES_ID + "='" + sentence_id + "'"+
-                        "AND"+DbHelper.DB_TAGGING_TAG_ID + "='" + tag_id + "'" , null);
+                DbHelper.DB_TAGGING_SENTENCES_ID + "='" + sentence_id + "'"+
+                        " AND "+DbHelper.DB_TAGGING_TAG_ID + "='" + tag_id + "'" , null);
         db.close();
     }
 }

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.daimajia.swipe.util.Attributes;
 
 import example.com.demoapp.R;
+import example.com.demoapp.activity.TagPagerActivity;
 import example.com.demoapp.adapter.image_adapter.BaseImageAdapter;
 import example.com.demoapp.adapter.image_adapter.FavoriteImageAdapter;
 import example.com.demoapp.adapter.image_adapter.HistoryImageAdapter;
@@ -61,7 +62,8 @@ public class ImageListFragment extends BaseListFragment {
 
     @Override
     protected void initListByTagView(){
-        imageAdapter = new TagImageAdapter(getActivity(),R.layout.custom_row_img_f_d,listSentences);
+        imageAdapter = new TagImageAdapter(getActivity(),R.layout.custom_row_img_f_d,
+                listSentences, TagPagerActivity.tag_id);
     }
 
     @Override

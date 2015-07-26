@@ -183,7 +183,7 @@ public abstract class BaseSentencesAdapter extends ArraySwipeAdapter<SentenceIte
         imageButton.setTag(Consts.UNCHECKED);
         return imageButton;
     }
-    //Setting up for Tag button
+    //Setting up for Edit button
     protected void setUpBtnTag(final ViewHolder holder, View convertView,final int position){
         holder.btTag = (ImageButton) convertView.findViewById(R.id.btTag);
         holder.btTag.setOnClickListener(new View.OnClickListener() {
