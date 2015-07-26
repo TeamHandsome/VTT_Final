@@ -17,6 +17,7 @@ public final class Consts {
     public static final String DATA = "data";
     public static final String NAVIGATION_TEXT ="navigation_text";
     public static final String NAVIGATION_IMAGE ="navigation_image";
+    public static final String TAG_ID = "tag_id";
 
     //action type
     public static final int EDIT_TAG_NORMAL = 10;

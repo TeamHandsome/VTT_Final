@@ -3,6 +3,7 @@ package example.com.demoapp.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 import example.com.demoapp.fragment.CategoryFragment;
 import example.com.demoapp.fragment.SuggestFragment;
@@ -54,6 +55,9 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                 case Consts.MY_SENTENCE_LIST:
                     tab = new SentenceListFragment();
                     break;
+                default:
+                    Log.e("Parent haven't set yet","please set pager parent now");
+                    break;
             }
 
         }
@@ -77,6 +81,9 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                     break;
                 case Consts.MY_SENTENCE_LIST:
                     tab = new ImageListFragment();
+                    break;
+                default:
+                    Log.e("Parent haven't set yet","please set pager parent now");
                     break;
             }
         }

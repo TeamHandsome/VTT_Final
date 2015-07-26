@@ -11,6 +11,7 @@ import java.util.List;
 
 import example.com.demoapp.utility.DbHelper;
 import example.com.demoapp.model.TagItem;
+import example.com.demoapp.utility.StringUtils;
 
 /**
  * Created by Long on 7/8/2015.
@@ -187,5 +188,13 @@ public class TagDAO extends BaseDAO {
         }
         cursor.close();
         return arrayList;
+    }
+
+    public void removeSentenceFromTag(String tag_id, String sentence_id){
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        db.delete(DbHelper.DB_TABLE_TAGGING,
+                DbHelper.DB_SENTENCES_ID + "='" + sentence_id + "'"+
+                        "AND"+DbHelper.DB_TAGGING_TAG_ID + "='" + tag_id + "'" , null);
+        db.close();
     }
 }

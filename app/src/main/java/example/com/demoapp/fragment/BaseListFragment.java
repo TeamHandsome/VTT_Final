@@ -2,20 +2,15 @@ package example.com.demoapp.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import example.com.demoapp.R;
-import example.com.demoapp.activity.DisplaySentencesActivity;
-import example.com.demoapp.adapter.image_adapter.BaseImageAdapter;
-import example.com.demoapp.adapter.sentence_adapter.BaseSentencesAdapter;
+import example.com.demoapp.activity.SubPagerActivity;
+import example.com.demoapp.activity.TagPagerActivity;
 import example.com.demoapp.model.DAO.FavoriteDAO;
 import example.com.demoapp.model.DAO.HistoryDAO;
 import example.com.demoapp.model.DAO.SentencesDAO;
@@ -78,7 +73,7 @@ public abstract class BaseListFragment extends Fragment{
     //get sentence list by sub list from DB
     protected void initListBySubList(){
         SentencesDAO dao = new SentencesDAO();
-        listSentences = dao.getAllSentenceBySub(DisplaySentencesActivity.subCategory_id);
+        listSentences = dao.getAllSentenceBySub(SubPagerActivity.subCategory_id);
     };
 
     //set View for sentence list by sub list
@@ -105,6 +100,7 @@ public abstract class BaseListFragment extends Fragment{
     //get sentence list by tag list from DB
     protected void initListByTagList(){
         SentencesDAO dao = new SentencesDAO(context);
+        listSentences = dao.getAllSentenceByTagID(TagPagerActivity.tag_id);
     };
 
     //set View for sentence list by tag list

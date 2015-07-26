@@ -1,8 +1,6 @@
 package example.com.demoapp.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +9,6 @@ import android.widget.ImageView;
 
 import com.daimajia.swipe.util.Attributes;
 
-import java.util.ArrayList;
-
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.image_adapter.BaseImageAdapter;
 import example.com.demoapp.adapter.image_adapter.FavoriteImageAdapter;
@@ -20,12 +16,6 @@ import example.com.demoapp.adapter.image_adapter.HistoryImageAdapter;
 import example.com.demoapp.adapter.image_adapter.ImageAdapter;
 import example.com.demoapp.adapter.image_adapter.MyImageAdapter;
 import example.com.demoapp.adapter.image_adapter.TagImageAdapter;
-import example.com.demoapp.model.DAO.FavoriteDAO;
-import example.com.demoapp.model.DAO.HistoryDAO;
-import example.com.demoapp.model.DAO.SentencesDAO;
-import example.com.demoapp.model.SentenceItem;
-import example.com.demoapp.activity.DisplaySentencesActivity;
-import example.com.demoapp.utility.Consts;
 
 /**
  * Created by Tony on 23/7/2015.
@@ -71,7 +61,7 @@ public class ImageListFragment extends BaseListFragment {
 
     @Override
     protected void initListByTagView(){
-        imageAdapter = new TagImageAdapter(getActivity(),R.layout.custom_row_img_d,listSentences);
+        imageAdapter = new TagImageAdapter(getActivity(),R.layout.custom_row_img_f_d,listSentences);
     }
 
     @Override

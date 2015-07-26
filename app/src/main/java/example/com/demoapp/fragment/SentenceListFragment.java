@@ -1,8 +1,6 @@
 package example.com.demoapp.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +9,6 @@ import android.widget.ListView;
 
 import com.daimajia.swipe.util.Attributes;
 
-import java.util.ArrayList;
-
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.sentence_adapter.BaseSentencesAdapter;
 import example.com.demoapp.adapter.sentence_adapter.HistorySentencesAdapter;
@@ -20,12 +16,6 @@ import example.com.demoapp.adapter.sentence_adapter.MySentencesAdapter;
 import example.com.demoapp.adapter.sentence_adapter.SentencesAdapter;
 import example.com.demoapp.adapter.sentence_adapter.FavoriteSentencesAdapter;
 import example.com.demoapp.adapter.sentence_adapter.TagSentenceAdapter;
-import example.com.demoapp.model.DAO.FavoriteDAO;
-import example.com.demoapp.model.DAO.HistoryDAO;
-import example.com.demoapp.model.DAO.SentencesDAO;
-import example.com.demoapp.model.SentenceItem;
-import example.com.demoapp.activity.DisplaySentencesActivity;
-import example.com.demoapp.utility.Consts;
 
 /**
  * Created by Tony on 23/7/2015.
@@ -72,7 +62,7 @@ public class SentenceListFragment extends BaseListFragment {
 
     @Override
     protected void initListByTagView(){
-        sentencesAdapter = new TagSentenceAdapter(getActivity(),R.layout.custom_row_img_d,listSentences);
+        sentencesAdapter = new TagSentenceAdapter(getActivity(),R.layout.custom_row_sen_f_d,listSentences);
     }
 
     @Override

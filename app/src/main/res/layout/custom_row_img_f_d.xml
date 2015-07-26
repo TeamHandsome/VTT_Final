@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    swipe:leftEdgeSwipeOffset="0dp"
+    swipe:rightEdgeSwipeOffset="0dp">
+
+    <LinearLayout
+        android:id="@+id/drag_right"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <include
+            android:id="@+id/btDelete"
+            layout="@layout/bt_delete_for_list" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/drag_left"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <include
+            layout="@layout/bt_favorite_for_list" />
+
+    </LinearLayout>
+
+    <include
+        layout="@layout/image_view_sen_list" />
+</com.daimajia.swipe.SwipeLayout>

@@ -1,11 +1,13 @@
-package example.com.demoapp.activity;
+package example.com.demoapp.fragment;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,9 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import example.com.demoapp.R;
+import example.com.demoapp.activity.TagPagerActivity;
 import example.com.demoapp.adapter.TagListAdapter;
 import example.com.demoapp.model.DAO.TagDAO;
 import example.com.demoapp.model.TagItem;
+import example.com.demoapp.utility.Consts;
+import example.com.demoapp.utility.StringUtils;
 
 public class TagFragment extends Fragment {
     public TagFragment() {
@@ -64,6 +69,24 @@ public class TagFragment extends Fragment {
         listTags = tagDAO.getAllTagFromTags();  //gán dữ liệu từ database vào mảng ArrayList
         mTagListAdapter = new TagListAdapter(getActivity(), R.layout.fragment_tag_item, listTags); //gán qua Adapter
         lv_tags.setAdapter(mTagListAdapter);  //từ Adapter lên listview
+        this.setOnclickOnListView();
         mTagListAdapter.setMode(Attributes.Mode.Single);
+    }
+
+    private void setOnclickOnListView(){
+        lv_tags.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Intent intent = new Intent(getActivity(), TagPagerActivity.class);
+                TagItem item = listTags.get(position);
+                //send tag id
+                intent.putExtra(Consts.TAG_ID, item.getId());
+                //send navigation text
+                String text = Consts.TAG + "-" + item.getNameTag();
+                text = StringUtils.addSpaceBetweenChar(text);
+                intent.putExtra(Consts.NAVIGATION_TEXT, text);
+
+                startActivity(intent);
+            }
+        });
     }
 }

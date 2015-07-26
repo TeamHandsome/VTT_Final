@@ -15,7 +15,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import example.com.demoapp.R;
-import example.com.demoapp.activity.DisplaySentencesActivity;
 import example.com.demoapp.adapter.SubCategoriesAdapter;
 import example.com.demoapp.utility.Consts;
 import example.com.demoapp.model.DAO.SubCategoriesDAO;
@@ -62,7 +61,7 @@ public class DisplaySubActivity extends ActionBarActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getBaseContext(), DisplaySentencesActivity.class);
+                Intent intent = new Intent(getBaseContext(), SubPagerActivity.class);
                 SubCategoriesItem item = listSubcategories.get(position);
                 //send subcategory id
                 intent.putExtra(Consts.SUBCATEGORY_ID, item.getId());

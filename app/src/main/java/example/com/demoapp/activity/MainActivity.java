@@ -30,6 +30,7 @@ import example.com.demoapp.fragment.FavoriteFragment;
 import example.com.demoapp.fragment.HistoryFragment;
 import example.com.demoapp.fragment.InterpreterFragment;
 import example.com.demoapp.fragment.MysentencesFragment;
+import example.com.demoapp.fragment.TagFragment;
 import example.com.demoapp.model.DrawerMenuItem;
 import example.com.demoapp.utility.DbHelper;
 

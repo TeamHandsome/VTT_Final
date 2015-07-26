@@ -42,7 +42,7 @@
                 android:value=".activity.MainActivity" />
         </activity>
         <activity
-            android:name=".activity.DisplaySentencesActivity"
+            android:name=".activity.SubPagerActivity"
             android:label="@string/title_activity_display"
             android:launchMode="singleTask"></activity>
         <activity
@@ -64,6 +64,9 @@
         <activity
             android:name=".activity.RecordActivity"
             android:label="@string/title_activity_record"></activity>
+        <activity
+            android:name=".activity.TagPagerActivity"
+            android:label="List by Tag"></activity>
     </application>
 
 </manifest>
