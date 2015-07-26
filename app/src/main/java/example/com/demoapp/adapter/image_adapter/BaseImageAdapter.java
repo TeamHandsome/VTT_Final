@@ -29,6 +29,7 @@ import example.com.demoapp.activity.PopupActivity;
 import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Consts;
 import example.com.demoapp.utility.Message;
+import example.com.demoapp.utility.StringUtils;
 
 /**
  * Created by Tony on 23/7/2015.
@@ -112,8 +113,7 @@ public abstract class BaseImageAdapter extends ArraySwipeAdapter<SentenceItem> {
     private void setUpGridView(final ViewHolder holder,View convertView,final int position){
         String pathImage = listSentences.get(position).getImage();
         System.out.println(pathImage + "aaa");
-        Uri uri=Uri.parse("android.resource://" + context.getPackageName() + "/" +
-                "drawable" + "/" + pathImage);
+        Uri uri= StringUtils.buildDrawableUri(context.getPackageName(),pathImage);
 
         Picasso.with(context)
                 .load(uri)

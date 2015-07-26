@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 
 import example.com.demoapp.R;
 import example.com.demoapp.utility.Consts;
+import example.com.demoapp.utility.StringUtils;
 
 public class PopupActivity extends Activity {
 
@@ -32,8 +33,7 @@ public class PopupActivity extends Activity {
             String img = extras.getString("img");
             ///////
             if (soundPath!=null){
-                Uri uri=Uri.parse("android.resource://" + getPackageName() + "/" +
-                        "raw" + "/" + soundPath);
+                Uri uri = StringUtils.buildRawUri(this.getPackageName(), soundPath);
                 mPlayer = MediaPlayer.create(PopupActivity.this, uri);
                 if(mPlayer.isPlaying()){
                     mPlayer.stop();
@@ -45,8 +45,7 @@ public class PopupActivity extends Activity {
             tv_vn.setText(vn_name.toUpperCase());
             //////
             ImageView img_body = (ImageView) findViewById(R.id.img_body);
-            Uri uri1 =Uri.parse("android.resource://" + this.getPackageName() + "/" +
-                    "drawable" + "/" + img);
+            Uri uri1 =StringUtils.buildDrawableUri(this.getPackageName(), img);
 
             Picasso.with(this)
                     .load(uri1)
