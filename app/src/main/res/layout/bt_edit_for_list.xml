@@ -4,4 +4,5 @@
     android:id="@+id/btEdit"
     android:layout_width="52dp"
     android:layout_height="match_parent"
-    android:background="@color/green"/>
+    android:background="@color/green"
+    android:src="@mipmap/ic_image_edit"/>

@@ -57,5 +57,6 @@
 
     <string name="search_hint_tag">タグ名</string>
     <string name="search_hint">Search...</string>
+    <string name="title_activity_pop_up_my_sen">ベトナム語に訳す</string>
 
 </resources>

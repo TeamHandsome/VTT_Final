@@ -28,6 +28,7 @@ import example.com.demoapp.model.DAO.SentencesDAO;
 import example.com.demoapp.model.SentenceItem;
 
 public class SearchActivity extends AppCompatActivity {
+    Context context;
     SearchView searchView;
     ListView listView;
     ArrayList<SentenceItem> listSearch;
@@ -46,7 +47,7 @@ public class SearchActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.lv_search);
         //  searchView = (SearchView) findViewById(R.id.searchView1);
-        sentencesDAO = new SentencesDAO();
+        sentencesDAO = new SentencesDAO(context);
         listSearch = sentencesDAO.getAllSentences();
         sentencesAdapter = new SearchAdapter(this, R.layout.custom_row_sen_f_t, listSearch);
         listView.setAdapter(sentencesAdapter);
@@ -64,7 +65,9 @@ public class SearchActivity extends AppCompatActivity {
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-//        searchView.setIconifiedByDefault(false);
+        searchView.setIconified(false);
+        searchView.setFocusable(true);
+        searchView.requestFocusFromTouch();
 
         //change default button close
         int id = searchView.getContext().getResources().getIdentifier("android:id/search_close_btn", null, null);

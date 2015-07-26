@@ -1,7 +1,10 @@
 package example.com.demoapp.activity;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
@@ -10,11 +13,13 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -31,8 +36,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import example.com.demoapp.R;
+import example.com.demoapp.adapter.sentence_adapter.BaseSentencesAdapter;
+import example.com.demoapp.adapter.sentence_adapter.MySentencesAdapter;
+import example.com.demoapp.fragment.SentenceListFragment;
 import example.com.demoapp.model.DAO.SentencesDAO;
 import example.com.demoapp.model.DAO.TagDAO;
 import example.com.demoapp.model.SentenceItem;
@@ -41,6 +51,7 @@ import example.com.demoapp.utility.Consts;
 import example.com.demoapp.utility.Message;
 
 public class AddEditMySentencesActivity extends ActionBarActivity {
+    BaseSentencesAdapter baseSentencesAdapter;
     Context context;
     public static final int REQUEST_CODE_ADD_TAG = 10;
     public static final int RESULT_CODE_ADD_TAG = 20;
@@ -49,8 +60,8 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
     public static final int RESULT_IMAGE_CAPTURE = 41;
     public static final int REQUEST_CODE_RECORD = 50;
     public static final int RESULT_CODE_RECORD = 51;
-    SentencesDAO addNewSenDAO = new SentencesDAO();
-    TagDAO addtagMySenDAO = new TagDAO(context);
+    SentencesDAO addNewSenDAO;
+    TagDAO addtagMySenDAO;
 
     public static String folder_main = "NewFolder/";
     String image_namefile = System.currentTimeMillis() + ".jpg";     //save random name Image
@@ -62,6 +73,7 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
     List<Uri> saveUri = new ArrayList<>();
     public String uri_record;         //save Uri path record
     ArrayList<String> resultTag = new ArrayList<>();      // result Tag tra ve tu AddEditTagActivity
+    public static ArrayList<SentenceItem> listSentences;
 
     private int action_type = -1;
     File file;
@@ -70,6 +82,8 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
     ImageButton bt_record, bt_recordPlay, bt_recordStop, bt_recordDelete, bt_recordPath,
             bt_takephoto, bt_gallery, bt_photodelete, bt_cancel2, bt_accept2;
     ImageView img_photo;
+    EditText ed_japanese, ed_vietnamese;
+    String vn, jp_hiragana, audio, image_d;
 
 
     @Override
@@ -80,10 +94,13 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //h
+        this.action_type = getIntent().getIntExtra(Consts.ACTION_TYPE, Consts.NOT_FOUND);
 
         findViewById(R.id.bt_addTagMySentences).setOnClickListener(listener);
         tagView = (TagView) findViewById(R.id.tagView1);
         img_photo = (ImageView) findViewById(R.id.img_photo);
+        ed_vietnamese = (EditText) findViewById(R.id.ed_vietnamese);
+        ed_japanese = (EditText) findViewById(R.id.ed_japanese);
         //Xy ly phan Record
         bt_record = (ImageButton) findViewById(R.id.bt_record);
         bt_recordPlay = (ImageButton) findViewById(R.id.bt_recordPlay);
@@ -124,6 +141,14 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
             Picasso.with(this).load(takingPhoto).config(Bitmap.Config.RGB_565).resize(600, 600).centerInside().into(img_photo);
         }
 
+        /////// modify
+        if (action_type == Consts.EDIT_MY_SEN) {
+            String name_vn = getIntent().getStringExtra(Consts.NAME_VN);
+            String name_jp = getIntent().getStringExtra(Consts.NAME_JP);
+            ed_japanese.setText(name_jp);
+            ed_vietnamese.setText(name_vn);
+        }
+
     }
 
     View.OnClickListener listener = new View.OnClickListener() {
@@ -132,7 +157,7 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
             switch (v.getId()) {
                 case R.id.bt_addTagMySentences:
                     Intent i = new Intent(getApplicationContext(), AddEditTagActivity.class);
-                    i.putExtra(Consts.ACTION_TYPE,Consts.EDIT_TAG_ADD_SEN);
+                    i.putExtra(Consts.ACTION_TYPE, Consts.EDIT_TAG_ADD_SEN);
                     i.putStringArrayListExtra(Consts.AVAILABLE_TAG, resultTag);
                     startActivityForResult(i, REQUEST_CODE_ADD_TAG);
                     break;
@@ -196,18 +221,61 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
                     finish();
                     break;
                 case R.id.bt_accept2:
-                    if(action_type==Consts.ADD_MY_SEN){
+                    if (action_type == Consts.ADD_MY_SEN) {
+                        saveData();
+                        if (vn.length() > 0 && jp_hiragana.length() > 0) {
+                            int countId = addNewSenDAO.findLastIDMySenNumber() + 1;
+                            String id = "s" + countId;
+                            addNewSenDAO.addSentences(id, vn, jp_hiragana, audio, image_d);
+                            addtagMySenDAO.addTagToTags(id, resultTag);
+                            finish();
+                        } else {
+                            invalidInput();
+                        }
 
-                    }else {
-
+                    } else if (action_type == Consts.EDIT_MY_SEN) {
+                        saveData();
+                        if (vn.length() > 0 && jp_hiragana.length() > 0){
+                            String id = getIntent().getStringExtra(Consts.SENTENCE_ID);
+                            addNewSenDAO.updateSentences(id, vn, jp_hiragana, audio, image_d);
+                            addtagMySenDAO.addTagToTags(id, resultTag);
+                            finish();
+                        }else  {
+                            invalidInput();
+                        }
                     }
-//                    addNewSenDAO.addUri(saveUri);
-//                    addtagMySenDAO.addTagToTags(1,resultTag);
-//
                     break;
             }
         }
     };
+
+    public void saveData() {
+        vn = ed_vietnamese.getText().toString();
+        jp_hiragana = ed_japanese.getText().toString();
+        audio = uri_record;
+        if (takingPhoto == null) {
+            image_d = selectedImage + "";
+        } else {
+            image_d = takingPhoto + "";
+        }
+        addNewSenDAO = new SentencesDAO(getApplicationContext());
+        addtagMySenDAO = new TagDAO(getApplicationContext());
+    }
+
+    public void invalidInput() {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(AddEditMySentencesActivity.this);
+        alertBuilder.setTitle("Invalid Data");
+        alertBuilder.setMessage("Please, Enter valid data");
+        alertBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+
+            }
+        });
+        AlertDialog dialog = alertBuilder.create();
+        dialog.show();
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -233,7 +301,7 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
             if (extras2 != null) {
                 Bitmap photo = extras2.getParcelable("data");
                 selectedImage = getImageUri(this, photo);      //save file image path
-              //  saveUri.add(selectedImage);
+                //  saveUri.add(selectedImage);
 
                 Picasso.with(this).load(selectedImage).config(Bitmap.Config.RGB_565).fit().centerInside().into(img_photo);
             }
@@ -258,7 +326,7 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
                 Bitmap bitmap = extras.getParcelable("data");
                 saveBitmap(bitmap);
                 takingPhoto = getImageUri(this, bitmap);
-            //    saveUri.add(takingPhoto);
+                //    saveUri.add(takingPhoto);
 
                 Picasso.with(this).load(takingPhoto).config(Bitmap.Config.RGB_565).fit().centerInside().into(img_photo);
             }
@@ -378,20 +446,20 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
         }
     }
 
-    private boolean validateSentence(SentenceItem sen){
+    private boolean validateSentence(SentenceItem sen) {
         String message = "";
         Context con = AddEditMySentencesActivity.this;
-        if (sen.getNameJp() == null || sen.getNameJp().trim().isEmpty()){
+        if (sen.getNameJp() == null || sen.getNameJp().trim().isEmpty()) {
             message = Message.MUST_NOT_EMPTY(Consts.JAPANESE);
             Common.showToastMessage(con, message);
             return false;
         }
-        if(sen.getNameVn().length() > Consts.MAX_VIE_CHAR_LENGTH){
+        if (sen.getNameVn().length() > Consts.MAX_VIE_CHAR_LENGTH) {
             message = Message.MAX_CHARACTER_LENGTH(sen.getNameVn(), Consts.MAX_VIE_CHAR_LENGTH);
             Common.showToastMessage(con, message);
             return false;
         }
-        if(sen.getNameJp().length() > Consts.MAX_JAP_CHAR_LENGTH){
+        if (sen.getNameJp().length() > Consts.MAX_JAP_CHAR_LENGTH) {
             message = Message.MAX_CHARACTER_LENGTH(sen.getNameJp(), Consts.MAX_JAP_CHAR_LENGTH);
             Common.showToastMessage(con, message);
             return false;

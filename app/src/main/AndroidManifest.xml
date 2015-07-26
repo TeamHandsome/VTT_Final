@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="example.com.demoapp">
+    package="example.com.demoapp" >
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -17,10 +17,10 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".activity.MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,14 +29,14 @@
         </activity>
         <activity
             android:name=".activity.SearchActivity"
-            android:label="@string/title_activity_search">
+            android:label="@string/title_activity_search" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
         </activity>
         <activity
             android:name=".activity.DisplaySubActivity"
-            android:label="@string/title_activity_shopping">
+            android:label="@string/title_activity_shopping" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
@@ -44,15 +44,15 @@
         <activity
             android:name=".activity.SubPagerActivity"
             android:label="@string/title_activity_display"
-            android:launchMode="singleTask"></activity>
+            android:launchMode="singleTask" />
         <activity
             android:name=".activity.PopupActivity"
             android:label="@string/PopUp_title"
-            android:theme="@style/AppDialogTheme"></activity>
+            android:theme="@style/AppDialogTheme" />
         <activity
             android:name=".activity.AddEditTagActivity"
             android:label="@string/title_activity_add_edit_tag"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
@@ -60,10 +60,15 @@
         <activity
             android:name=".activity.AddEditMySentencesActivity"
             android:label="@string/title_activity_add_new_my_sentences"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.RecordActivity"
-            android:label="@string/title_activity_record"></activity>
+            android:label="@string/title_activity_record" />
+        <activity
+            android:name=".activity.PopUpMySenActivity"
+            android:label="@string/title_activity_pop_up_my_sen"
+            android:theme="@style/AppDialogTheme">
+        </activity>
         <activity
             android:name=".activity.TagPagerActivity"
             android:label="List by Tag"></activity>

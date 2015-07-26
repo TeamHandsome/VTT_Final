@@ -87,20 +87,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-//        ((EditText)searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setTextColor(Color.WHITE);
-
-//        View searchplate = (View)searchView.findViewById(android.support.v7.appcompat.R.id.search_plate);
-//        searchplate.setBackgroundResource(R.drawable.texfield_searchview_holo_light);
-
-//        ImageView searchCloseIcon = (ImageView)searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
-//        searchCloseIcon.setImageResource(R.drawable.clear_search);
-//
-//        ImageView voiceIcon = (ImageView)searchView.findViewById(android.support.v7.appcompat.R.id.search_voice_btn);
-//        voiceIcon.setImageResource(R.drawable.abc_ic_voice_search);
-
-//        ImageView searchIcon = (ImageView)searchView.findViewById(android.support.v7.appcompat.R.id.search_mag_icon);
-//        searchIcon.setImageResource(R.drawable.abc_ic_search);
-
         return true;
     }
 

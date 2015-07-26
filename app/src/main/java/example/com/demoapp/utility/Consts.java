@@ -11,6 +11,8 @@ public final class Consts {
     public static final String CATEGORY_NAME = "category_name";
     public static final String SUBCATEGORY_ID ="subCategory_id";
     public static final String SENTENCE_ID = "sentence_id";
+    public static final String NAME_VN = "name_vn";
+    public static final String NAME_JP ="name_jp";
     public static final String REQUEST_ADD_NEW = "ADD_NEW_MYSEN";
     public static final String ACTION_TYPE = "action_type";
     public static final String AVAILABLE_TAG = "available_tag";

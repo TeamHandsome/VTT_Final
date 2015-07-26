@@ -72,7 +72,7 @@ public abstract class BaseListFragment extends Fragment{
 
     //get sentence list by sub list from DB
     protected void initListBySubList(){
-        SentencesDAO dao = new SentencesDAO();
+        SentencesDAO dao = new SentencesDAO(context);
         listSentences = dao.getAllSentenceBySub(SubPagerActivity.subCategory_id);
     };
 

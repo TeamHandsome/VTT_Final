@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import example.com.demoapp.R;
 import example.com.demoapp.activity.AddEditMySentencesActivity;
 import example.com.demoapp.activity.AddEditTagActivity;
+import example.com.demoapp.activity.PopUpMySenActivity;
 import example.com.demoapp.model.DAO.FavoriteDAO;
 import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.activity.PopupActivity;
@@ -117,6 +118,26 @@ public abstract class BaseSentencesAdapter extends ArraySwipeAdapter<SentenceIte
             }
         });
     }
+    protected void setUpSoundSen(final ViewHolder holder,final int position){
+        final String soundPath = listSentences.get(position).getSound();
+        final String vn_name = listSentences.get(position).getNameVn();
+        final String img = listSentences.get(position).getImage();
+        holder.swipeLayout.getSurfaceView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle prevent click many times
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
+                Intent i = new Intent(context, PopUpMySenActivity.class);
+                i.putExtra("position", soundPath);
+                i.putExtra("vn_name", vn_name);
+                i.putExtra("img", img);
+                context.startActivity(i);
+            }
+        });
+    }
 
     //Setting up for Favorite button
     protected void setUpBtnFavorite(final ViewHolder holder,View convertView,final int position){
@@ -200,6 +221,8 @@ public abstract class BaseSentencesAdapter extends ArraySwipeAdapter<SentenceIte
                 String sentences_id = listSentences.get(position).getId(); // lay Id cua sentence trong db
                 intent.putExtra(Consts.ACTION_TYPE, Consts.EDIT_MY_SEN);
                 intent.putExtra(Consts.SENTENCE_ID, sentences_id);
+                intent.putExtra(Consts.NAME_VN, listSentences.get(position).getNameVn());
+                intent.putExtra(Consts.NAME_JP, listSentences.get(position).getNameJp());
                 context.startActivity(intent);
             }
         });
