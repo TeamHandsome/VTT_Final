@@ -43,6 +43,7 @@ public final class Common {
         textView.setText(StringUtils.addSpaceBetweenChar(text));
         setImageForNavigationHeader(view, context, image);
     }
+
     public static void setImageForNavigationHeader(View view, final Context context, String image){
         WindowManager wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -59,5 +60,19 @@ public final class Common {
                 .resize(width, height)
                 .centerCrop()
                 .into(imageView);
+    }
+
+    public static Point getScreenSizeInPixels(Context context){
+        WindowManager wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size;
+    }
+
+    public Common() {
+        //this prevents even the native class from
+        //calling this constructor as well :
+        throw new AssertionError();
     }
 }

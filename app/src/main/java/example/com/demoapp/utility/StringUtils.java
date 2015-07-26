@@ -25,6 +25,7 @@ public final class StringUtils {
                 "raw" + "/" + resourceName);
         return uri;
     }
+
     public StringUtils() {
         //this prevents even the native class from
         //calling this constructor as well :

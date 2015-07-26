@@ -1,6 +1,7 @@
 package example.com.demoapp.activity;
 
 import android.app.Activity;
+import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import example.com.demoapp.R;
+import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Consts;
 import example.com.demoapp.utility.StringUtils;
 
@@ -44,7 +46,17 @@ public class PopupActivity extends Activity {
             TextView tv_vn = (TextView) findViewById(R.id.tv_vn);
             tv_vn.setText(vn_name.toUpperCase());
             //////
+            Point size = Common.getScreenSizeInPixels(PopupActivity.this);
+            int width = size.x;
+            int y = width/2;
+
             ImageView img_body = (ImageView) findViewById(R.id.img_body);
+            img_body.setMaxHeight(y);
+            img_body.setMaxWidth(y);
+            img_body.setMinimumWidth(y);
+            img_body.setMinimumHeight(y);
+            img_body.setScaleType(ImageView.ScaleType.FIT_XY);
+
             Uri uri1 =StringUtils.buildDrawableUri(this.getPackageName(), img);
 
             Picasso.with(this)

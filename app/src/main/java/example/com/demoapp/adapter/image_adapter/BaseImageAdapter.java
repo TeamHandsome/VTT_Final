@@ -11,13 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.ArraySwipeAdapter;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import example.com.demoapp.R;
@@ -56,10 +59,7 @@ public abstract class BaseImageAdapter extends ArraySwipeAdapter<SentenceItem> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        WindowManager wm = (WindowManager)parent.getContext().getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
+        Point size = Common.getScreenSizeInPixels(parent.getContext());
         int width = size.x;
         int y = width/2;
 
@@ -71,7 +71,10 @@ public abstract class BaseImageAdapter extends ArraySwipeAdapter<SentenceItem> {
             holder.swipeLayout = (SwipeLayout) convertView.findViewById(R.id.swipe);
             holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
 
-//            holder.imageView.setLayoutParams(new GridView.LayoutParams(y, y));
+            holder.imageView.setMaxHeight(y);
+            holder.imageView.setMaxWidth(y);
+            holder.imageView.setMinimumWidth(y);
+            holder.imageView.setMinimumHeight(y);
             holder.imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             holder.imageView.setPadding(2, 2, 2, 2);
 
@@ -112,8 +115,7 @@ public abstract class BaseImageAdapter extends ArraySwipeAdapter<SentenceItem> {
     //Setting up data to show on Grid view
     private void setUpGridView(final ViewHolder holder,View convertView,final int position){
         String pathImage = listSentences.get(position).getImage();
-        System.out.println(pathImage + "aaa");
-        Uri uri= StringUtils.buildDrawableUri(context.getPackageName(),pathImage);
+        Uri uri = StringUtils.buildDrawableUri(context.getPackageName(), pathImage);
 
         Picasso.with(context)
                 .load(uri)

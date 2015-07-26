@@ -99,4 +99,5 @@ public class ImageListFragment extends Fragment {
         listSentences = dao.getAllMySentence();   //get sentence list from DB
         imageAdapter = new MyImageAdapter(getActivity(), R.layout.custom_row_img_f_d_e, listSentences);
     }
+
 }

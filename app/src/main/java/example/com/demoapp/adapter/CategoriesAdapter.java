@@ -11,6 +11,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import example.com.demoapp.R;
+import example.com.demoapp.utility.Common;
 
 /**
  * Created by Long on 6/14/2015.
@@ -40,10 +41,7 @@ public class CategoriesAdapter extends BaseAdapter{
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
-        WindowManager wm = (WindowManager)mContext.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
+        Point size = Common.getScreenSizeInPixels(parent.getContext());
         int width = size.x;
         int y = width/2;
         if (convertView == null) {
