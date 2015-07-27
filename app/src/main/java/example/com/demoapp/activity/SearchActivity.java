@@ -3,8 +3,11 @@ package example.com.demoapp.activity;
 import android.annotation.TargetApi;
 import android.app.SearchManager;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v4.app.NavUtils;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,8 +16,10 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 
 import com.daimajia.swipe.util.Attributes;
@@ -27,13 +32,13 @@ import example.com.demoapp.adapter.SearchAdapter;
 import example.com.demoapp.model.DAO.SentencesDAO;
 import example.com.demoapp.model.SentenceItem;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements AbsListView.OnScrollListener{
     Context context;
-    SearchView searchView;
     ListView listView;
-    ArrayList<SentenceItem> listSearch;
-    BaseSentencesAdapter sentencesAdapter;
+    ArrayList<SentenceItem> values;
+    private ProgressBar progressBar;
     SearchAdapter searchAdapter;
+    private Handler mHandler;
     SentencesDAO sentencesDAO = null;
 
     @Override
@@ -45,17 +50,44 @@ public class SearchActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        mHandler = new Handler();
         listView = (ListView) findViewById(R.id.lv_search);
+        View footer = getLayoutInflater().inflate(R.layout.progress_bar_footer, null);
+        progressBar = (ProgressBar) footer.findViewById(R.id.progressBar);
         //  searchView = (SearchView) findViewById(R.id.searchView1);
         sentencesDAO = new SentencesDAO(context);
-        listSearch = sentencesDAO.getAllSentences();
-        sentencesAdapter = new SearchAdapter(this, R.layout.custom_row_sen_f_t, listSearch);
-        listView.setAdapter(sentencesAdapter);
+        values = sentencesDAO.getAllSentences();
+        searchAdapter = new SearchAdapter(this, values, 20, 10);
+        listView.setAdapter(searchAdapter);
+        listView.setOnScrollListener(this);
+        progressBar.setVisibility((20 < values.size()) ? View.VISIBLE : View.GONE);
         listView.setTextFilterEnabled(true);
-        sentencesAdapter.setMode(Attributes.Mode.Single);
+        searchAdapter.setMode(Attributes.Mode.Single);
 
 
     }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        if(firstVisibleItem + visibleItemCount == totalItemCount && !searchAdapter.endReached() && !hasCallback){ //check if we've reached the bottom
+            mHandler.postDelayed(showMore, 1000);
+            hasCallback = true;
+        }
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+    }
+
+    private boolean hasCallback;
+    private Runnable showMore = new Runnable(){
+        public void run(){
+            boolean noMoreToShow = searchAdapter.showMore(); //show more views and find out if
+            progressBar.setVisibility(noMoreToShow? View.GONE : View.VISIBLE);
+            hasCallback = false;
+        }
+    };
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
@@ -119,7 +151,6 @@ public class SearchActivity extends AppCompatActivity {
         if (id == R.id.home) {
             NavUtils.navigateUpFromSameTask(this); // khi click back icon se go back sourceAcitivy
         }
-
         return super.onOptionsItemSelected(item);
     }
 

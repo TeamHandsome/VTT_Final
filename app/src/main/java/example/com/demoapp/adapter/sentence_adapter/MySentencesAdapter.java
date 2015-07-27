@@ -25,7 +25,7 @@ public class MySentencesAdapter extends BaseSentencesAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = super.getView(position, convertView, parent);
 
-        this.setUpSound(holder, position);
+        this.setUpSoundSen(holder, position);
         this.setUpBtnFavorite(holder, convertView, position);
         this.setUpBtnDelete(holder, convertView, position);
         this.setUpBtnEdit(holder,convertView,position);
