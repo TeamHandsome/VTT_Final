@@ -17,6 +17,7 @@ import example.com.demoapp.adapter.image_adapter.HistoryImageAdapter;
 import example.com.demoapp.adapter.image_adapter.ImageAdapter;
 import example.com.demoapp.adapter.image_adapter.MyImageAdapter;
 import example.com.demoapp.adapter.image_adapter.TagImageAdapter;
+import example.com.demoapp.utility.Consts;
 
 /**
  * Created by Tony on 23/7/2015.
@@ -32,12 +33,16 @@ public class ImageListFragment extends BaseListFragment {
         view = inflater.inflate(R.layout.fragment_list_images, container, false);
 
         gridView = (GridView) view.findViewById(R.id.gridview);
+        this.setGridView();
+
+        return view;
+    }
+
+    private void setGridView(){
         ImageView no_data = (ImageView) view.findViewById(R.id.no_data);
         gridView.setEmptyView(no_data);
         gridView.setAdapter(imageAdapter);  //apply adapter to gridview
         imageAdapter.setMode(Attributes.Mode.Multiple);
-
-        return view;
     }
 
     @Override
@@ -71,5 +76,13 @@ public class ImageListFragment extends BaseListFragment {
         imageAdapter = new MyImageAdapter(getActivity(), R.layout.custom_row_img_f_d_e, listSentences);
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(pager_parent == Consts.MY_SENTENCE_LIST){
+            this.initMySentenceList();
+            this.initMySentenceView();
+            this.setGridView();
+        }
+    }
 }

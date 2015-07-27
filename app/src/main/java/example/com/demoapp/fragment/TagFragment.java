@@ -71,4 +71,13 @@ public class TagFragment extends Fragment {
         lv_tags.setAdapter(mTagListAdapter);  //từ Adapter lên listview
         mTagListAdapter.setMode(Attributes.Mode.Single);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        listTags = tagDAO.getAllTagFromTags();
+        mTagListAdapter = new TagListAdapter(getActivity(), R.layout.fragment_tag_item, listTags); //gán qua Adapter
+        lv_tags.setAdapter(mTagListAdapter);
+        mTagListAdapter.setMode(Attributes.Mode.Single);
+    }
 }

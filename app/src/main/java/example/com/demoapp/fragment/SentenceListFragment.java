@@ -17,6 +17,7 @@ import example.com.demoapp.adapter.sentence_adapter.MySentencesAdapter;
 import example.com.demoapp.adapter.sentence_adapter.SentencesAdapter;
 import example.com.demoapp.adapter.sentence_adapter.FavoriteSentencesAdapter;
 import example.com.demoapp.adapter.sentence_adapter.TagSentenceAdapter;
+import example.com.demoapp.utility.Consts;
 
 /**
  * Created by Tony on 23/7/2015.
@@ -33,12 +34,16 @@ public class SentenceListFragment extends BaseListFragment {
         view = inflater.inflate(R.layout.fragment_list_sentences, container, false);
 
         listView = (ListView) view.findViewById(R.id.lvSentences);
+        this.setListView();
+
+        return view;
+    }
+
+    private void setListView(){
         ImageView no_data = (ImageView) view.findViewById(R.id.no_data);
         listView.setEmptyView(no_data);
         listView.setAdapter(sentencesAdapter);  //apply adapter into listView
         sentencesAdapter.setMode(Attributes.Mode.Single);
-
-        return view;
     }
 
     @Override
@@ -70,5 +75,15 @@ public class SentenceListFragment extends BaseListFragment {
     @Override
     protected void initMySentenceView(){
         sentencesAdapter = new MySentencesAdapter(getActivity(), R.layout.custom_row_sen_f_d_e, listSentences);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(pager_parent == Consts.MY_SENTENCE_LIST){
+            this.initMySentenceList();
+            this.initMySentenceView();
+            this.setListView();
+        }
     }
 }
