@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import example.com.demoapp.R;
 import example.com.demoapp.activity.AddEditMySentencesActivity;
 import example.com.demoapp.activity.AddEditTagActivity;
+import example.com.demoapp.extend.ConfirmDeleteDialog;
 import example.com.demoapp.activity.PopUpMySenActivity;
 import example.com.demoapp.model.DAO.FavoriteDAO;
 import example.com.demoapp.model.SentenceItem;
@@ -204,11 +205,33 @@ public abstract class BaseSentencesAdapter extends ArraySwipeAdapter<SentenceIte
         holder.btDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setUpConfirmDeleteDialog(position);
+            }
+        });
+    }
+
+    //Setting up for confirm delete dialog
+    private void setUpConfirmDeleteDialog(final int position) {
+        String tag_name = listSentences.get(position).getNameJp();
+        String title = setTitleConfirmDeleteDialog();
+        String message = Message.CONFIRM_DELETE(tag_name);
+        ConfirmDeleteDialog dialog = new ConfirmDeleteDialog(context,title,message) {
+            @Override
+            public void onClickAccept() {
                 onclickDelete(position);
                 listSentences.remove(position);
                 BaseSentencesAdapter.this.notifyDataSetChanged();
             }
-        });
+        };
+        dialog.show();
+    }
+
+    //define database action for onclick button delete
+    protected abstract void onclickDelete(int position);
+
+    //set title for confirm delete dialog
+    protected String setTitleConfirmDeleteDialog(){
+        return Consts.DELETE_SENTENCE;
     }
 
     //Setting up for Tag button
@@ -237,8 +260,6 @@ public abstract class BaseSentencesAdapter extends ArraySwipeAdapter<SentenceIte
             }
         });
     }
-
-    protected abstract void onclickDelete(int position);
 
     protected void onclickGoto(final ViewHolder holder,final int position){
 

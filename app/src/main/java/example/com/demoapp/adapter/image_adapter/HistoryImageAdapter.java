@@ -10,6 +10,7 @@ import example.com.demoapp.adapter.image_adapter.BaseImageAdapter;
 import example.com.demoapp.model.DAO.HistoryDAO;
 import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.utility.Common;
+import example.com.demoapp.utility.Consts;
 import example.com.demoapp.utility.Message;
 
 /**
@@ -26,7 +27,7 @@ public class HistoryImageAdapter extends BaseImageAdapter {
         convertView = super.getView(position, convertView, parent);
 
         this.setUpSound(holder, position);
-        this.setUpBtnDelete(holder,convertView,position);
+        this.setUpBtnDelete(holder, convertView, position);
 
         return convertView;
     }
@@ -36,7 +37,11 @@ public class HistoryImageAdapter extends BaseImageAdapter {
         HistoryDAO dao = new HistoryDAO(context);
         SentenceItem item = listSentences.get(position);
         dao.removeFromHistory(item.getId());
-        Common.showToastMessage(getContext(), Message.DELETED_FROM_HISTORY);
+    }
+
+    @Override
+    protected String setTitleConfirmDeleteDialog(){
+        return Consts.DELETE_FROM_HISTORY;
     }
 }
 

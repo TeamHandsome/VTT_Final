@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import example.com.demoapp.model.DAO.TagDAO;
 import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.utility.Common;
+import example.com.demoapp.utility.Consts;
 import example.com.demoapp.utility.Message;
 
 /**
@@ -36,7 +37,11 @@ public class TagImageAdapter extends BaseImageAdapter {
     protected void onclickDelete(int position) {
         TagDAO dao = new TagDAO(context);
         SentenceItem item = listSentences.get(position);
-        dao.removeSentenceFromTag(tag_id,item.getId());
-        Common.showToastMessage(getContext(), Message.ITEM_IS_DELETED(item.getNameJp()));
+        dao.removeSentenceFromTag(tag_id, item.getId());
+    }
+
+    @Override
+    protected String setTitleConfirmDeleteDialog(){
+        return Consts.DELETE_SEN_FROM_TAG;
     }
 }

@@ -38,7 +38,6 @@ public class MyImageAdapter extends BaseImageAdapter {
         SentencesDAO dao = new SentencesDAO(context);
         SentenceItem item = listSentences.get(position);
         dao.removeSentence(item.getId());
-        Common.showToastMessage(getContext(), Message.ITEM_IS_DELETED(item.getNameJp()));
     }
 }
 

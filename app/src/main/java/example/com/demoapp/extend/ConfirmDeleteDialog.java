@@ -15,13 +15,14 @@ import example.com.demoapp.utility.Message;
  * Created by Tony on 27/7/2015.
  */
 public abstract class ConfirmDeleteDialog extends Dialog {
-    private TextView tv_Message, tv_ConfirmMessage;
+    private TextView tv_Message, tv_Title;
     private ImageButton accept, cancel;
-    private String message;
+    private String title,message;
 
-    public ConfirmDeleteDialog(Activity activity,String message) {
+    public ConfirmDeleteDialog(Activity activity,String title, String message) {
         super(activity);
         this.message = message;
+        this.title = title;
     }
 
     @Override
@@ -29,7 +30,7 @@ public abstract class ConfirmDeleteDialog extends Dialog {
         super.onCreate(savedInstanceState);
         initView();
         tv_Message.setText(message);
-        tv_ConfirmMessage.setText(Message.CONFIRM_DELETE);
+        tv_Title.setText(title);
         accept = (ImageButton) findViewById(R.id.bt_accept);
         cancel = (ImageButton) findViewById(R.id.bt_cancel);
         accept.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +53,7 @@ public abstract class ConfirmDeleteDialog extends Dialog {
         getWindow().setBackgroundDrawableResource(R.drawable.back_pop_up);
         setContentView(R.layout.custom_dialog_confirm_delete);
         tv_Message = (TextView) findViewById(R.id.tv_Message);
-        tv_ConfirmMessage = (TextView) findViewById(R.id.tv_ConfirmMessage);
+        tv_Title = (TextView) findViewById(R.id.tv_Title);
     }
 
     public abstract void  onClickAccept();

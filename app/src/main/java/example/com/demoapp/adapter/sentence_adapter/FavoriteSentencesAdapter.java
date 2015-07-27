@@ -10,6 +10,7 @@ import example.com.demoapp.adapter.sentence_adapter.BaseSentencesAdapter;
 import example.com.demoapp.model.DAO.FavoriteDAO;
 import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.utility.Common;
+import example.com.demoapp.utility.Consts;
 import example.com.demoapp.utility.Message;
 
 /**
@@ -26,7 +27,7 @@ public class FavoriteSentencesAdapter extends BaseSentencesAdapter {
         convertView = super.getView(position, convertView, parent);
 
         this.setUpSound(holder, position);
-        this.setUpBtnDelete(holder,convertView,position);
+        this.setUpBtnDelete(holder, convertView, position);
 
         return convertView;
     }
@@ -36,7 +37,11 @@ public class FavoriteSentencesAdapter extends BaseSentencesAdapter {
         FavoriteDAO dao = new FavoriteDAO(context);
         SentenceItem item = listSentences.get(position);
         dao.removeFromFavorite(item.getId());
-        Common.showToastMessage(getContext(), Message.FAVORITE_UN_SIGN);
+    }
+
+    @Override
+    protected String setTitleConfirmDeleteDialog(){
+        return Consts.DELETE_FROM_FAVORITE;
     }
 }
 

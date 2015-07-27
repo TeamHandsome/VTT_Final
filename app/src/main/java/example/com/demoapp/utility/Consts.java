@@ -66,6 +66,13 @@ public final class Consts {
     public static final int MY_SENTENCE_LIST = 4;
     public static final int SENTENCE_LIST_BY_TAG = 5;
 
+    //delete dialog title
+    public static final String DELETE_SENTENCE = "文章を削除";
+    public static final String DELETE_FROM_FAVORITE = "お気に入りリストから削除";
+    public static final String DELETE_FROM_HISTORY = "ヒストリーから削除";
+    public static final String DELETE_TAG = "タグを削除";
+    public static final String DELETE_SEN_FROM_TAG = "タグから削除";
+
     /**
      * Opposite of {@link #FAILS}.
      */

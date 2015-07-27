@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import example.com.demoapp.R;
 import example.com.demoapp.activity.AddEditMySentencesActivity;
 import example.com.demoapp.activity.AddEditTagActivity;
+import example.com.demoapp.extend.ConfirmDeleteDialog;
 import example.com.demoapp.model.DAO.FavoriteDAO;
 import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.activity.PopupActivity;
@@ -211,14 +212,34 @@ public abstract class BaseImageAdapter extends ArraySwipeAdapter<SentenceItem> {
         holder.btDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onclickDelete(position);
-                listSentences.remove(position);
-                BaseImageAdapter.this.notifyDataSetChanged();
+                setUpConfirmDeleteDialog(position);
             }
         });
     }
 
+    //Setting up for confirm delete dialog
+    private void setUpConfirmDeleteDialog(final int position) {
+        String tag_name = listSentences.get(position).getNameJp();
+        String title = setTitleConfirmDeleteDialog();
+        String message = Message.CONFIRM_DELETE(tag_name);
+        ConfirmDeleteDialog dialog = new ConfirmDeleteDialog(context,title,message) {
+            @Override
+            public void onClickAccept() {
+                onclickDelete(position);
+                listSentences.remove(position);
+                BaseImageAdapter.this.notifyDataSetChanged();
+            }
+        };
+        dialog.show();
+    }
+
+    //define database action for onclick button delete
     protected abstract void onclickDelete(int position);
+
+    //set title for confirm delete dialog
+    protected String setTitleConfirmDeleteDialog(){
+        return Consts.DELETE_SENTENCE;
+    }
 
     //Setting up for Edit button
     protected void setUpBtnEdit(final ViewHolder holder, View convertView,final int position){

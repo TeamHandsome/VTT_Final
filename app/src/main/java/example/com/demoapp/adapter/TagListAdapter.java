@@ -152,10 +152,12 @@ public class TagListAdapter extends ArraySwipeAdapter<TagItem> {
         });
     }
 
+    //Setting up for confirm delete dialog
     private void setUpConfirmDeleteDialog(final int position) {
         String tag_name = listTags.get(position).getNameTag();
-        String message = Message.ITEM_WILL_BE_DELETE(tag_name);
-        ConfirmDeleteDialog dialog = new ConfirmDeleteDialog(context,message) {
+        String title = Consts.DELETE_TAG;
+        String message = Message.CONFIRM_DELETE(tag_name);
+        ConfirmDeleteDialog dialog = new ConfirmDeleteDialog(context,title,message) {
             @Override
             public void onClickAccept() {
                 TagDAO dao = new TagDAO(context);
