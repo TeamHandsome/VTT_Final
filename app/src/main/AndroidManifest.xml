@@ -50,10 +50,6 @@
             android:label="@string/PopUp_title"
             android:theme="@style/AppDialogTheme" />
         <activity
-            android:name=".activity.PopUpMySenActivity"
-            android:label="@string/PopUp_title"
-            android:theme="@style/AppDialogTheme"/>
-        <activity
             android:name=".activity.AddEditTagActivity"
             android:label="@string/title_activity_add_edit_tag"
             android:windowSoftInputMode="stateHidden" >
