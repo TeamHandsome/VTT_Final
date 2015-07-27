@@ -208,4 +208,12 @@ public class TagDAO extends BaseDAO {
                 DbHelper.DB_TAGS_ID + "='" + tag_id + "'", null);
         db.close();
     }
+
+    public void updateTagName(String tag_id,String tag_name){
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DbHelper.DB_TAGS_NAME, tag_name);
+        db.update(DbHelper.DB_TABLE_TAGS, values, DbHelper.DB_TAGS_ID + "='" + tag_id + "'", null);
+        db.close();
+    }
 }

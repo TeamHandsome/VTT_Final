@@ -2,6 +2,7 @@ package example.com.demoapp.adapter;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import example.com.demoapp.R;
 import example.com.demoapp.activity.TagPagerActivity;
 import example.com.demoapp.extend.ConfirmDeleteDialog;
+import example.com.demoapp.extend.EditTagDialog;
 import example.com.demoapp.model.DAO.TagDAO;
 import example.com.demoapp.model.TagItem;
 import example.com.demoapp.utility.Common;
@@ -136,9 +138,32 @@ public class TagListAdapter extends ArraySwipeAdapter<TagItem> {
         holder.bt_Edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                setUpEditTagDialog(position);
             }
         });
+    }
+
+    //Setting up for confirm delete dialog
+    private void setUpEditTagDialog(final int position) {
+        String tag_name = listTags.get(position).getNameTag();
+        EditTagDialog dialog = new EditTagDialog(context,tag_name) {
+            @Override
+            public void onClickAccept() {
+                String tag_name = getTag_name();
+                String message = validate(tag_name);
+                if (message.equalsIgnoreCase("")) {
+                    TagDAO dao = new TagDAO(context);
+                    dao.updateTagName(listTags.get(position).getId(), tag_name);
+                    listTags.get(position).setNameTag(tag_name);
+                    TagListAdapter.this.notifyDataSetChanged();
+                    setClose(true);
+                }else{
+                    setEt_Error(message);
+                    setClose(false);
+                }
+            }
+        };
+        dialog.show();
     }
 
     //Setting up for Tag button
@@ -167,5 +192,30 @@ public class TagListAdapter extends ArraySwipeAdapter<TagItem> {
             }
         };
         dialog.show();
+    }
+
+    private boolean isDuplicateTag(String tagName) {   //handle exception if duplicate available Tag
+        for (TagItem i : listTags) {
+            if (i.getNameTag().equalsIgnoreCase(tagName))
+                return false;
+        }
+        return true;
+    }
+
+    private String validate(String tag_name){
+        String message = "";
+        if (tag_name == null || tag_name.trim().isEmpty()){
+            message = Message.MUST_NOT_EMPTY(Consts.TAG_NAME);
+            return message;
+        }
+        if(!isDuplicateTag(tag_name)){
+            message = Message.ITEM_IS_DUPLICATED(tag_name);
+            return message;
+        };
+        if(tag_name.length() > Consts.MAX_TAGNAME_LENGTH){
+            message = Message.MAX_CHARACTER_LENGTH(Consts.TAG_NAME, Consts.MAX_TAGNAME_LENGTH);
+            return message;
+        }
+        return message;
     }
 }

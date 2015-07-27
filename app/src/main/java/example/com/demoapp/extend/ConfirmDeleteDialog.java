@@ -14,9 +14,8 @@ import example.com.demoapp.utility.Message;
 /**
  * Created by Tony on 27/7/2015.
  */
-public abstract class ConfirmDeleteDialog extends Dialog {
+public class ConfirmDeleteDialog extends BaseDialog {
     private TextView tv_Message, tv_Title;
-    private ImageButton accept, cancel;
     private String title,message;
 
     public ConfirmDeleteDialog(Activity activity,String title, String message) {
@@ -26,35 +25,20 @@ public abstract class ConfirmDeleteDialog extends Dialog {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initView();
-        tv_Message.setText(message);
-        tv_Title.setText(title);
-        accept = (ImageButton) findViewById(R.id.bt_accept);
-        cancel = (ImageButton) findViewById(R.id.bt_cancel);
-        accept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onClickAccept();
-                dismiss();
-            }
-        });
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
-    }
-
-    private void initView(){
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setBackgroundDrawableResource(R.drawable.back_pop_up);
-        setContentView(R.layout.custom_dialog_confirm_delete);
+    protected void initView() {
+        super.initView();
         tv_Message = (TextView) findViewById(R.id.tv_Message);
         tv_Title = (TextView) findViewById(R.id.tv_Title);
+        tv_Message.setText(message);
+        tv_Title.setText(title);
     }
 
-    public abstract void  onClickAccept();
+    @Override
+    public void onClickAccept() {
+    }
+
+    @Override
+    protected int setContentViewLayout(){
+        return R.layout.custom_dialog_confirm_delete;
+    }
 }

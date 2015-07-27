@@ -12,18 +12,18 @@
         android:layout_height="wrap_content"
         android:gravity="center">
         <ImageButton
-            android:id="@+id/bt_Edit"
-            android:layout_width="70dp"
-            android:layout_height="64dp"
-            android:background="#7abeff"
-            android:src="@mipmap/ic_image_edit"/>
-
-        <ImageButton
             android:id="@+id/bt_Delete"
             android:layout_width="70dp"
             android:layout_height="64dp"
-            android:background="#FF4444"
+            android:background="@color/red"
             android:src="@mipmap/ic_action_delete" />
+
+        <ImageButton
+            android:id="@+id/bt_Edit"
+            android:layout_width="70dp"
+            android:layout_height="64dp"
+            android:background="@color/green"
+            android:src="@mipmap/ic_image_edit"/>
     </LinearLayout>
 
 
