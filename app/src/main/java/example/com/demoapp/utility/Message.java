@@ -28,7 +28,10 @@ public final class Message {
 
     //Message info
     public static final String ITEM_IS_DELETED(String name){
-        return String.format("%sが削除されました。",name);
+        return String.format("「%s」が削除されました。",name);
+    }
+    public static final String ITEM_WILL_BE_DELETE(String name){
+        return String.format("「%s」が削除されます。",name);
     }
     //Message error
     public static final String MAX_CHARACTER_LENGTH (String name, int length){

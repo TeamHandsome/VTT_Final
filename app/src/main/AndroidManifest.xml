@@ -65,11 +65,6 @@
             android:name=".activity.RecordActivity"
             android:label="@string/title_activity_record" />
         <activity
-            android:name=".activity.PopUpMySenActivity"
-            android:label="@string/title_activity_pop_up_my_sen"
-            android:theme="@style/AppDialogTheme">
-        </activity>
-        <activity
             android:name=".activity.TagPagerActivity"
             android:label="List by Tag"></activity>
     </application>

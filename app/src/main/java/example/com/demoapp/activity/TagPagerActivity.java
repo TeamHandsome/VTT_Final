@@ -1,17 +1,11 @@
 package example.com.demoapp.activity;
 
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import example.com.demoapp.R;
-import example.com.demoapp.adapter.ViewPagerAdapter;
-import example.com.demoapp.tabs.SlidingTabLayout;
 import example.com.demoapp.utility.Consts;
-import example.com.demoapp.utility.StringUtils;
 
 /**
  * Created by Tony on 26/7/2015.

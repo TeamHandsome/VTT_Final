@@ -69,24 +69,6 @@ public class TagFragment extends Fragment {
         listTags = tagDAO.getAllTagFromTags();  //gán dữ liệu từ database vào mảng ArrayList
         mTagListAdapter = new TagListAdapter(getActivity(), R.layout.fragment_tag_item, listTags); //gán qua Adapter
         lv_tags.setAdapter(mTagListAdapter);  //từ Adapter lên listview
-        this.setOnclickOnListView();
         mTagListAdapter.setMode(Attributes.Mode.Single);
-    }
-
-    private void setOnclickOnListView(){
-        lv_tags.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Intent intent = new Intent(getActivity(), TagPagerActivity.class);
-                TagItem item = listTags.get(position);
-                //send tag id
-                intent.putExtra(Consts.TAG_ID, item.getId());
-                //send navigation text
-                String text = Consts.TAG + "-" + item.getNameTag();
-                text = StringUtils.addSpaceBetweenChar(text);
-                intent.putExtra(Consts.NAVIGATION_TEXT, text);
-
-                startActivity(intent);
-            }
-        });
     }
 }
