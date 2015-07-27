@@ -1,4 +1,4 @@
-package example.com.demoapp.activity;
+package example.com.demoapp.extend;
 
 import android.content.Context;
 import android.graphics.Bitmap;
