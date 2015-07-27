@@ -32,7 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/japanese"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/colorAccent"
                     android:textSize="20sp"/>
 
                 <EditText
@@ -55,7 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/vietnamese"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/colorAccent"
                     android:textSize="20sp"/>
 
                 <EditText
@@ -78,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/tag"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/colorAccent"
                     android:textSize="20sp"/>
 
                 <LinearLayout
@@ -91,7 +91,7 @@
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/imgbt_addtag"
-                        android:src="@mipmap/ic_addmysen_addtag"
+                        android:src="@mipmap/ic_action_add"
                         android:layout_margin="5dp"/>
 
                     <com.example.tony.taglibrary.TagView
@@ -121,7 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/record"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/colorAccent"
                     android:textSize="20sp"/>
 
                 <LinearLayout
@@ -182,7 +182,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/photo"
-                    android:textColor="@color/colorPrimaryText"
+                    android:textColor="@color/colorAccent"
                     android:textSize="20sp"/>
 
                 <LinearLayout
@@ -222,7 +222,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginBottom="100dp"
-                    android:src="@drawable/ccccc" />
+                    android:src="@drawable/default_image" />
 
             </LinearLayout>
         </LinearLayout>
@@ -241,7 +241,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/bt_accept_cancel"
-            android:src="@mipmap/ic_addmysen_cancel"
+            android:src="@mipmap/ic_action_cancel"
             android:gravity="center" />
 
         <ImageButton
@@ -250,7 +250,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/bt_accept_cancel"
-            android:src="@mipmap/ic_addmysen_accept"
+            android:src="@mipmap/ic_action_accept"
             android:ellipsize="marquee"
             android:gravity="center" />
     </LinearLayout>

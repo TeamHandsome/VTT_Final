@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/bt_accept_cancel"
-            android:src="@mipmap/ic_addmysen_cancel"
+            android:src="@mipmap/ic_action_cancel"
             android:gravity="center" />
 
         <ImageButton
@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/bt_accept_cancel"
-            android:src="@mipmap/ic_addmysen_accept"
+            android:src="@mipmap/ic_action_accept"
             android:ellipsize="marquee"
             android:gravity="center" />
     </LinearLayout>
