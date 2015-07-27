@@ -8,90 +8,112 @@
     tools:context="example.com.demoapp.activity.AddEditTagActivity">
 
     <LinearLayout
-        android:id="@+id/header"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/body"
+        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/header"
-        android:orientation="horizontal">
+        android:weightSum="10">
 
         <LinearLayout
+            android:id="@+id/header"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            >
-
-            <AutoCompleteTextView
-                android:id="@+id/autoComplete"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/autocomplete_dropdown"
-                android:ems="10"
-                android:hint="@string/search_hint_tag"
-                android:popupBackground="@drawable/autocomplete_popup" />
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="10dp"
-                android:background="#B6B6B6" />
+            android:layout_height="wrap_content">
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar" />
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/bt_addtag1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/bt_addtag"
-            android:layout_weight="2"
-
-            android:src="@mipmap/ic_action_add"
-            android:textColor="#ffffff"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/container_TagView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/body"
-        android:orientation="vertical">
-
-        <com.example.tony.taglibrary.TagView
-            android:id="@+id/tagview"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            app:lineMargin="5dp"
-            app:tagMargin="3dp"
-            app:textPaddingBottom="3dp"
-            app:textPaddingLeft="10dp"
-            app:textPaddingRight="10dp"
-            app:textPaddingTop="3dp"></com.example.tony.taglibrary.TagView>
+            android:layout_weight="9"
+            android:weightSum="4">
 
+            <LinearLayout
+                android:id="@+id/body"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/header"
+                android:orientation="horizontal"
+                android:background="#f1f2f2"
+                android:layout_weight="2"
+                android:weightSum="4"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/autoComplete"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:ems="10"
+                        android:hint="@string/search_hint_tag"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textColorHint="@color/colorSecondText"
+                        android:background="@drawable/back_autocomplete_dropdown"
+                        android:popupBackground="@drawable/back_autocomplete_popup" />
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:background="#B6B6B6"
+                        android:gravity="right"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="3"
+                    android:paddingRight="10dp">
+                    <ImageButton
+                        android:id="@+id/bt_addtag1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@drawable/back_bt_add_tag"
+                        android:src="@mipmap/ic_action_add"
+                        android:textColor="#ffffff"
+                        android:gravity="center"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/container_TagView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/body"
+                android:orientation="vertical"
+                android:layout_weight="4"
+                android:paddingLeft="10dp">
+
+                <com.example.tony.taglibrary.TagView
+                    android:id="@+id/tagview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    app:lineMargin="5dp"
+                    app:tagMargin="3dp"
+                    app:textPaddingBottom="3dp"
+                    app:textPaddingLeft="10dp"
+                    app:textPaddingRight="10dp"
+                    app:textPaddingTop="3dp"></com.example.tony.taglibrary.TagView>
+
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
@@ -99,20 +121,26 @@
         <ImageButton
             android:id="@+id/bt_cancel1"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="65dp"
             android:layout_weight="1"
-            android:background="@drawable/bt_accept_cancel"
+            android:background="@drawable/state_btn_footer"
             android:src="@mipmap/ic_action_cancel"
             android:gravity="center" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF" />
 
         <ImageButton
             android:id="@+id/bt_accept"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="65dp"
             android:layout_weight="1"
-            android:background="@drawable/bt_accept_cancel"
+            android:background="@drawable/state_btn_footer"
             android:src="@mipmap/ic_action_accept"
             android:ellipsize="marquee"
             android:gravity="center" />
     </LinearLayout>
+
 </RelativeLayout>

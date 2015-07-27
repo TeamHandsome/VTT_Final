@@ -77,18 +77,23 @@
         <ImageButton
             android:id="@+id/bt_cancel_record"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="65dp"
             android:layout_weight="1"
-            android:background="@drawable/bt_accept_cancel"
+            android:background="@drawable/state_btn_footer"
             android:src="@mipmap/ic_action_cancel"
             android:gravity="center" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF" />
 
         <ImageButton
             android:id="@+id/bt_accept_record"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="65dp"
             android:layout_weight="1"
-            android:background="@drawable/bt_accept_cancel"
+            android:background="@drawable/state_btn_footer"
             android:src="@mipmap/ic_action_accept"
             android:ellipsize="marquee"
             android:gravity="center" />
