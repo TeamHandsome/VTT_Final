@@ -18,7 +18,6 @@ import example.com.demoapp.R;
 import example.com.demoapp.activity.AddEditMySentencesActivity;
 import example.com.demoapp.activity.AddEditTagActivity;
 import example.com.demoapp.extend.ConfirmDeleteDialog;
-import example.com.demoapp.activity.PopUpMySenActivity;
 import example.com.demoapp.model.DAO.FavoriteDAO;
 import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.activity.PopupActivity;
@@ -112,26 +111,6 @@ public abstract class BaseSentencesAdapter extends ArraySwipeAdapter<SentenceIte
                 }
                 mLastClickTime = SystemClock.elapsedRealtime();
                 Intent i = new Intent(context, PopupActivity.class);
-                i.putExtra("position", soundPath);
-                i.putExtra("vn_name", vn_name);
-                i.putExtra("img", img);
-                context.startActivity(i);
-            }
-        });
-    }
-    protected void setUpSoundSen(final ViewHolder holder,final int position){
-        final String soundPath = listSentences.get(position).getSound();
-        final String vn_name = listSentences.get(position).getNameVn();
-        final String img = listSentences.get(position).getImage();
-        holder.swipeLayout.getSurfaceView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle prevent click many times
-                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
-                    return;
-                }
-                mLastClickTime = SystemClock.elapsedRealtime();
-                Intent i = new Intent(context, PopUpMySenActivity.class);
                 i.putExtra("position", soundPath);
                 i.putExtra("vn_name", vn_name);
                 i.putExtra("img", img);
