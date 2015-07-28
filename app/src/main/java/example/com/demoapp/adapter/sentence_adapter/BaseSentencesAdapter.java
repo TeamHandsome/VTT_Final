@@ -19,6 +19,7 @@ import example.com.demoapp.activity.AddEditMySentencesActivity;
 import example.com.demoapp.activity.AddEditTagActivity;
 import example.com.demoapp.extend.ConfirmDeleteDialog;
 import example.com.demoapp.model.DAO.FavoriteDAO;
+import example.com.demoapp.model.DAO.HistoryDAO;
 import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.activity.PopupActivity;
 import example.com.demoapp.utility.Common;
@@ -110,13 +111,19 @@ public abstract class BaseSentencesAdapter extends ArraySwipeAdapter<SentenceIte
                     return;
                 }
                 mLastClickTime = SystemClock.elapsedRealtime();
+                addToHistory(listSentences.get(position).getId());
                 Intent i = new Intent(context, PopupActivity.class);
+                i.putExtra(Consts.ACTION_TYPE, Consts.POP_UP_MYSEN);
                 i.putExtra("position", soundPath);
                 i.putExtra("vn_name", vn_name);
                 i.putExtra("img", img);
                 context.startActivity(i);
             }
         });
+    }
+    protected void addToHistory(String sentences_id){
+        HistoryDAO dao = new HistoryDAO(context);
+        dao.addHistory(sentences_id);
     }
 
     //Setting up for Favorite button

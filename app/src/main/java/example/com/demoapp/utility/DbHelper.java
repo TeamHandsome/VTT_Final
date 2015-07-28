@@ -44,6 +44,7 @@ public class DbHelper extends SQLiteOpenHelper{
     public static String DB_TABLE_SENTENCES = "sentences";
     public static String DB_TABLE_SENTENCES_ID = "_ids";
     public static String DB_TABLE_HISTORY = "history";
+    public static String DB_HISTORY_ID = "_id";
     public static String DB_HISTORY_SENTENCES_ID = "sentences_id";
 
     private Context context;
