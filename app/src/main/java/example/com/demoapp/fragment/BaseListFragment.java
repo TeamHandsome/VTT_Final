@@ -26,6 +26,9 @@ public abstract class BaseListFragment extends Fragment{
     protected Context context;
     protected int pager_parent = Consts.NOT_FOUND;
 
+    public BaseListFragment() {
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
