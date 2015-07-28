@@ -22,10 +22,13 @@ public abstract class BasePagerActivity extends ActionBarActivity {
     protected CharSequence Titles[]={StringUtils.addSpaceBetweenChar(Consts.SENTENCE_LIST),
             StringUtils.addSpaceBetweenChar(Consts.IMAGE_LIST)};
     protected int Numboftabs =2;
-    protected int pager_tag = -1;
+    protected int pager_parent = -1;
+    protected int current_item = 0;
 
     protected String navigation_text = "";
     protected String navigation_image = "";
+
+    protected Bundle bundle = new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +58,13 @@ public abstract class BasePagerActivity extends ActionBarActivity {
     protected void slidingTab(){
         // // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
         adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs,
-                pager_tag);
+                pager_parent);
+        adapter.setBundle(bundle);
 
         // Assigning ViewPager View and setting the adapter
-        this.assignViewPager();
+        pager = (ViewPager) findViewById(R.id.pager);
+        pager.setAdapter(adapter);
+        pager.setCurrentItem(current_item);
 
         // Assiging the Sliding Tab Layout View
         tabs = (SlidingTabLayout) findViewById(R.id.tabs);
@@ -74,13 +80,5 @@ public abstract class BasePagerActivity extends ActionBarActivity {
 
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
-    }
-
-    // Assigning ViewPager View and setting the adapter
-    protected void assignViewPager(){
-        pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(adapter);
-        pager.setTag(pager_tag);
-        pager.setCurrentItem(0);
     }
 }

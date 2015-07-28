@@ -86,7 +86,6 @@ public class MysentencesFragment extends Fragment {private ViewPager pager;
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) view.findViewById(R.id.pagerMS);
         pager.setAdapter(adapter);
-        pager.setTag(Consts.MY_SENTENCE_LIST);
         // Assiging the Sliding Tab Layout View
         tabs = (SlidingTabLayout) view.findViewById(R.id.tabMS);
         tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width

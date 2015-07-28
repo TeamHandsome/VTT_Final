@@ -59,9 +59,7 @@ public class FavoriteDAO extends BaseDAO {
     public void addToFavorite(String sentences_id) {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         long countId = countFav() + 1;
-        Log.d("count: ",countId+"");
         ContentValues values = new ContentValues();
-        values.put(DbHelper.DB_FAVORITE_ID, countId);
         values.put(DbHelper.DB_FAVORITE_SENTENCES_ID, sentences_id);
         db.insert(DbHelper.DB_TABLE_FAVORITE, null, values);
         db.close();

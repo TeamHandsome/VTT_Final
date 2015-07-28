@@ -40,7 +40,6 @@ public class HistoryFragment extends Fragment {
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) view.findViewById(R.id.pagerH);
         pager.setAdapter(adapter);
-        pager.setTag(Consts.HISTORY);
 
         // Assiging the Sliding Tab Layout View
         tabs = (SlidingTabLayout) view.findViewById(R.id.tabH);

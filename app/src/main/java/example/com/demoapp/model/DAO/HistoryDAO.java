@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import example.com.demoapp.model.SentenceItem;
+import example.com.demoapp.utility.Consts;
 import example.com.demoapp.utility.DbHelper;
 
 /**
@@ -64,7 +65,7 @@ public class HistoryDAO extends BaseDAO {
             values.put(DbHelper.DB_HISTORY_SENTENCES_ID, sentences_id);
             db.insert(DbHelper.DB_TABLE_HISTORY, null, values);
         }
-        if (countId()==51){
+        if (countId() > Consts.MAX_HISTORY_LENGTH){
             statement = database.compileStatement("delete from history where _id = '"+ findLastIDHistory() + "'");
             statement.execute();
         }

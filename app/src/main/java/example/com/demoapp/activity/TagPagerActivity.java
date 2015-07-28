@@ -11,20 +11,20 @@ import example.com.demoapp.utility.Consts;
  * Created by Tony on 26/7/2015.
  */
 public class TagPagerActivity extends BasePagerActivity {
-    public static String tag_id = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        tag_id = getIntent().getStringExtra(Consts.TAG_ID);
+        String tag_id = getIntent().getStringExtra(Consts.TAG_ID);
+        bundle.putString(Consts.TAG_ID,tag_id);
     }
 
     @Override
     protected void initFirstValue() {
         navigation_text = getIntent().getStringExtra(Consts.NAVIGATION_TEXT);
         navigation_image = "";
-        pager_tag = Consts.SENTENCE_LIST_BY_TAG;
+        pager_parent = Consts.SENTENCE_LIST_BY_TAG;
     }
 
     @Override

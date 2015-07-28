@@ -54,6 +54,14 @@ public abstract class BaseListAdapter extends ArraySwipeAdapter<SentenceItem>{
         this.listSentences = listSentences;
     }
 
+    public ArrayList<SentenceItem> getListSentences() {
+        return listSentences;
+    }
+
+    public void setListSentences(ArrayList<SentenceItem> listSentences) {
+        this.listSentences = listSentences;
+    }
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         Point size = Common.getScreenSizeInPixels(parent.getContext());
@@ -78,14 +86,6 @@ public abstract class BaseListAdapter extends ArraySwipeAdapter<SentenceItem>{
             holder = (ViewHolder) convertView.getTag();
 
         return convertView;
-    }
-
-    public ArrayList<SentenceItem> getListSentences() {
-        return listSentences;
-    }
-
-    public void setListSentences(ArrayList<SentenceItem> listSentences) {
-        this.listSentences = listSentences;
     }
 
     @Override
@@ -130,9 +130,9 @@ public abstract class BaseListAdapter extends ArraySwipeAdapter<SentenceItem>{
 
                 Intent i = new Intent(context, PopupActivity.class);
                 i.putExtra(Consts.ACTION_TYPE, Consts.POP_UP_MYSEN);
-                i.putExtra("position", soundPath);
-                i.putExtra("vn_name", vn_name);
-                i.putExtra("img", img);
+                i.putExtra(Consts.SOUND_PATH, soundPath);
+                i.putExtra(Consts.NAME_VN, vn_name);
+                i.putExtra(Consts.URI, img);
                 context.startActivity(i);
             }
         });

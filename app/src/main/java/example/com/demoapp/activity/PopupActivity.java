@@ -30,51 +30,43 @@ public class PopupActivity extends Activity {
     MediaPlayer mPlayer;
     private int action_type = -1;
 
+    TextView tv_vn;
+    ImageView img_body;
+    ImageButton bt_cancel,bt_replay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PopupActivity.this.getWindow().setBackgroundDrawableResource(R.drawable.back_pop_up);
-        this.action_type = getIntent().getIntExtra(Consts.ACTION_TYPE, Consts.NOT_FOUND);
-
         setContentView(R.layout.activity_popup);
+        PopupActivity.this.getWindow().setBackgroundDrawableResource(R.drawable.back_pop_up);
+
+        this.action_type = getIntent().getIntExtra(Consts.ACTION_TYPE, Consts.NOT_FOUND);
         mPlayer = new MediaPlayer();
         Bundle extras = getIntent().getExtras();
+
         if (extras != null) {
+            soundPath = extras.getString(Consts.SOUND_PATH);
+            vn_name = extras.getString(Consts.NAME_VN);
+            img = extras.getString(Consts.URI);
+
+            this.setTextView();
             if (action_type == Consts.POP_UP_MYSEN) {
-                soundPath = extras.getString(Consts.POSITION);
-                vn_name = extras.getString("vn_name");
-                img = extras.getString("img");
                 ///////
                 if (soundPath != null) {
                     try {
                         mPlayer.setDataSource(soundPath);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    try {
                         mPlayer.prepare();
+                        if (mPlayer.isPlaying()) {
+                            mPlayer.stop();
+                        }
+                        mPlayer.start();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    mPlayer.start();
                 }
                 //////
-                ImageView img_body = (ImageView) findViewById(R.id.img_body);
-                TextView tv_vn = (TextView) findViewById(R.id.tv_vn);
-                tv_vn.setText(vn_name);
-                //////
-                if (!img.isEmpty()) {
-                    Picasso.with(this)
-                            .load(img)
-                            .resize(360, 360)
-                            .centerCrop()
-                            .into(img_body);
-
-                }
+                this.setImageViewURI(img);
             } else {
-                soundPath = extras.getString(Consts.POSITION);
-                vn_name = extras.getString("vn_name");
-                img = extras.getString("img");
                 ///////
                 if (soundPath != null) {
                     Uri uri = StringUtils.buildRawUri(this.getPackageName(), soundPath);
@@ -84,31 +76,14 @@ public class PopupActivity extends Activity {
                     }
                     mPlayer.start();
                 }
-                //////
-                TextView tv_vn = (TextView) findViewById(R.id.tv_vn);
-                tv_vn.setText(vn_name.toUpperCase());
-                //////
-                Point size = Common.getScreenSizeInPixels(PopupActivity.this);
-                int width = size.x;
-                int y = width / 2;
 
-                ImageView img_body = (ImageView) findViewById(R.id.img_body);
-                img_body.setMaxHeight(y);
-                img_body.setMaxWidth(y);
-                img_body.setMinimumWidth(y);
-                img_body.setMinimumHeight(y);
-                img_body.setScaleType(ImageView.ScaleType.FIT_XY);
-
-                Uri uri1 = StringUtils.buildDrawableUri(this.getPackageName(), img);
-
-                Picasso.with(this)
-                        .load(uri1)
-                        .resize(360, 360)
-                        .centerCrop()
-                        .into(img_body);
+                Uri uri = StringUtils.buildDrawableUri(this.getPackageName(), img);
+                this.setImageViewURI(uri);
             }
         }
-        ImageButton bt_cancel = (ImageButton) findViewById(R.id.bt_cancel);
+
+        //set button cancel
+        bt_cancel = (ImageButton) findViewById(R.id.bt_cancel);
         bt_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +93,8 @@ public class PopupActivity extends Activity {
                 finish();
             }
         });
-        ImageButton bt_replay = (ImageButton) findViewById(R.id.bt_replay);
+        //set button replay
+        bt_replay = (ImageButton) findViewById(R.id.bt_replay);
         bt_replay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,4 +145,42 @@ public class PopupActivity extends Activity {
     }
 
 
+    private void setTextView(){
+        tv_vn = (TextView) findViewById(R.id.tv_vn);
+        tv_vn.setText(vn_name.toUpperCase());
+    }
+
+    private void setImageViewURI(Uri uri){
+        this.intImageView();
+        Picasso.with(this)
+                .load(uri)
+                .resize(360, 360)
+                .centerCrop()
+                .into(this.img_body);
+    }
+
+    private void setImageViewURI(String uri){
+        this.intImageView();
+
+        if (!uri.isEmpty()) {
+            Picasso.with(this)
+                    .load(uri)
+                    .resize(360, 360)
+                    .centerCrop()
+                    .into(this.img_body);
+        }
+    }
+
+    private void intImageView(){
+        Point size = Common.getScreenSizeInPixels(PopupActivity.this);
+        int width = size.x;
+        int y = width / 2;
+
+        img_body = (ImageView) findViewById(R.id.img_body);
+        img_body.setMaxHeight(y);
+        img_body.setMaxWidth(y);
+        img_body.setMinimumWidth(y);
+        img_body.setMinimumHeight(y);
+        img_body.setScaleType(ImageView.ScaleType.FIT_XY);
+    }
 }

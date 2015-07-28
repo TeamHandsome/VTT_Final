@@ -5,7 +5,7 @@ package example.com.demoapp.utility;
  */
 public final class Consts {
 
-    //Common variable name when put in Intent
+    //key name when put in Intent and Bundle
     public static final String POSITION = "position";
     public static final String CATEGORY_ID = "category_id";
     public static final String CATEGORY_NAME = "category_name";
@@ -20,6 +20,9 @@ public final class Consts {
     public static final String NAVIGATION_TEXT ="navigation_text";
     public static final String NAVIGATION_IMAGE ="navigation_image";
     public static final String TAG_ID = "tag_id";
+    public static final String PAGER_PARENT = "pager_parent";
+    public static final String URI = "uri";
+    public static final String SOUND_PATH = "sound_path";
 
     //action type
     public static final int EDIT_TAG_NORMAL = 10;
@@ -49,6 +52,7 @@ public final class Consts {
     public static final int MAX_JAP_CHAR_LENGTH = 13;
     public static final int MAX_VIE_CHAR_LENGTH = 17;
     public static final int MAX_IMAGE_LENGTH = 2;
+    public static final int MAX_HISTORY_LENGTH = 50;
 
     //type
     public static final String MByte = "MB";

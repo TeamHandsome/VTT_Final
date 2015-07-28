@@ -50,7 +50,6 @@ public class FavoriteFragment extends Fragment {
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) view.findViewById(R.id.pager1);
         pager.setAdapter(adapter);
-        pager.setTag(Consts.FAVORITE);
 
         // Assiging the Sliding Tab Layout View
         tabs = (SlidingTabLayout) view.findViewById(R.id.tabs1);

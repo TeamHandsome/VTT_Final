@@ -24,7 +24,6 @@ import example.com.demoapp.utility.Consts;
  */
 public class ImageListFragment extends BaseListFragment {
     private GridView gridView;
-    private BaseImageAdapter imageAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,10 +38,10 @@ public class ImageListFragment extends BaseListFragment {
     }
 
     private void setGridView(){
-        ImageView no_data = (ImageView) view.findViewById(R.id.no_data);
-        gridView.setEmptyView(no_data);
-        gridView.setAdapter(imageAdapter);  //apply adapter to gridview
-        imageAdapter.setMode(Attributes.Mode.Multiple);
+        this.setNoData_view();
+        gridView.setEmptyView(noData_view);
+        gridView.setAdapter(listAdapter);  //apply adapter to gridview
+        listAdapter.setMode(Attributes.Mode.Multiple);
     }
 
     @Override
@@ -52,28 +51,29 @@ public class ImageListFragment extends BaseListFragment {
 
     @Override
     protected void initListBySubView(){
-        imageAdapter = new ImageAdapter(getActivity(), R.layout.custom_row_img_f_t, listSentences);
+        listAdapter = new ImageAdapter(getActivity(), R.layout.custom_row_img_f_t, listSentences);
     }
 
     @Override
     protected void initHistoryView(){
-        imageAdapter = new HistoryImageAdapter(getActivity(), R.layout.custom_row_img_d, listSentences);
+        listAdapter = new HistoryImageAdapter(getActivity(), R.layout.custom_row_img_d, listSentences);
     }
 
     @Override
     protected void initFavoriteView(){
-        imageAdapter = new FavoriteImageAdapter(getActivity(), R.layout.custom_row_img_d, listSentences);
+        listAdapter = new FavoriteImageAdapter(getActivity(), R.layout.custom_row_img_d, listSentences);
     }
 
     @Override
     protected void initListByTagView(){
-        imageAdapter = new TagImageAdapter(getActivity(),R.layout.custom_row_img_f_d,
-                listSentences, TagPagerActivity.tag_id);
+        String tag_id = bundle.getString(Consts.TAG_ID);
+        listAdapter = new TagImageAdapter(getActivity(),R.layout.custom_row_img_f_d,
+                listSentences, tag_id);
     }
 
     @Override
     protected void initMySentenceView(){
-        imageAdapter = new MyImageAdapter(getActivity(), R.layout.custom_row_img_f_d_e, listSentences);
+        listAdapter = new MyImageAdapter(getActivity(), R.layout.custom_row_img_f_d_e, listSentences);
     }
 
     @Override
@@ -83,6 +83,18 @@ public class ImageListFragment extends BaseListFragment {
             this.initMySentenceList();
             this.initMySentenceView();
             this.setGridView();
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        // Make sure that we are currently visible
+        if (this.isVisible() && isVisibleToUser) {
+            // If we are becoming invisible, then...
+            if (!isVisibleToUser) {
+
+            }
         }
     }
 }

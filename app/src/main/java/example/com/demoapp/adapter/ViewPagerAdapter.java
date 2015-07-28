@@ -1,5 +1,6 @@
 package example.com.demoapp.adapter;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -18,16 +19,24 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     CharSequence Titles[]; // This will Store the Titles of the Tabs which are Going to be passed when ViewPagerAdapter is created
     int NumbOfTabs; // Store the number of tabs, this will also be passed when the ViewPagerAdapter is created
-    public static int pager_parent = -1;
+    private int pager_parent = -1;
+    Bundle bundle = new Bundle();;
 
     // Build a Constructor and assign the passed Values to appropriate values in the class
     public ViewPagerAdapter(FragmentManager fm, CharSequence[] mTitles, int mNumbOfTabsumb,
                             int pager_parent) {
         super(fm);
-
         this.Titles = mTitles;
         this.NumbOfTabs = mNumbOfTabsumb;
         this.pager_parent = pager_parent;
+    }
+
+    public Bundle getBundle() {
+        return bundle;
+    }
+
+    public void setBundle(Bundle bundle) {
+        this.bundle = bundle;
     }
 
     //This method return the fragment for the every position in the View Pager
@@ -87,6 +96,9 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                     break;
             }
         }
+        //Put bundle and send to fragment tab
+        bundle.putInt(Consts.PAGER_PARENT, pager_parent);
+        tab.setArguments(bundle);
         return tab;
     }
 
@@ -103,4 +115,5 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return NumbOfTabs;
     }
+
 }

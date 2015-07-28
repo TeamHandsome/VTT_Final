@@ -23,8 +23,7 @@ import example.com.demoapp.utility.Consts;
  * Created by Tony on 23/7/2015.
  */
 public class SentenceListFragment extends BaseListFragment {
-    ListView listView;
-    BaseSentencesAdapter sentencesAdapter;
+    private ListView listView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,10 +39,10 @@ public class SentenceListFragment extends BaseListFragment {
     }
 
     private void setListView(){
-        ImageView no_data = (ImageView) view.findViewById(R.id.no_data);
-        listView.setEmptyView(no_data);
-        listView.setAdapter(sentencesAdapter);  //apply adapter into listView
-        sentencesAdapter.setMode(Attributes.Mode.Single);
+        this.setNoData_view();
+        listView.setEmptyView(noData_view);
+        listView.setAdapter(listAdapter);  //apply adapter into listView
+        listAdapter.setMode(Attributes.Mode.Single);
     }
 
     @Override
@@ -53,28 +52,29 @@ public class SentenceListFragment extends BaseListFragment {
 
     @Override
     protected void initListBySubView(){
-        sentencesAdapter = new SentencesAdapter(getActivity(), R.layout.custom_row_sen_f_t, listSentences);
+        listAdapter = new SentencesAdapter(getActivity(), R.layout.custom_row_sen_f_t, listSentences);
     }
 
     @Override
     protected void initHistoryView(){
-        sentencesAdapter = new HistorySentencesAdapter(getActivity(), R.layout.custom_row_sen_d, listSentences);
+        listAdapter = new HistorySentencesAdapter(getActivity(), R.layout.custom_row_sen_d, listSentences);
     }
 
     @Override
     protected void initFavoriteView(){
-        sentencesAdapter = new FavoriteSentencesAdapter(getActivity(), R.layout.custom_row_sen_d, listSentences);
+        listAdapter = new FavoriteSentencesAdapter(getActivity(), R.layout.custom_row_sen_d, listSentences);
     }
 
     @Override
     protected void initListByTagView(){
-        sentencesAdapter = new TagSentenceAdapter(getActivity(),R.layout.custom_row_sen_f_d,
-                listSentences, TagPagerActivity.tag_id);
+        String tag_id = bundle.getString(Consts.TAG_ID);
+        listAdapter = new TagSentenceAdapter(getActivity(),R.layout.custom_row_sen_f_d,
+                listSentences, tag_id);
     }
 
     @Override
     protected void initMySentenceView(){
-        sentencesAdapter = new MySentencesAdapter(getActivity(), R.layout.custom_row_sen_f_d_e, listSentences);
+        listAdapter = new MySentencesAdapter(getActivity(), R.layout.custom_row_sen_f_d_e, listSentences);
     }
 
     @Override
@@ -84,6 +84,18 @@ public class SentenceListFragment extends BaseListFragment {
             this.initMySentenceList();
             this.initMySentenceView();
             this.setListView();
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        // Make sure that we are currently visible
+        if (this.isVisible() && isVisibleToUser) {
+            // If we are becoming invisible, then...
+            if (!isVisibleToUser) {
+
+            }
         }
     }
 }
