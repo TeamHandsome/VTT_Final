@@ -64,7 +64,7 @@ public class HistoryDAO extends BaseDAO {
             values.put(DbHelper.DB_HISTORY_SENTENCES_ID, sentences_id);
             db.insert(DbHelper.DB_TABLE_HISTORY, null, values);
         }
-        if (countId()==21){
+        if (countId()==51){
             statement = database.compileStatement("delete from history where _id = '"+ findLastIDHistory() + "'");
             statement.execute();
         }
