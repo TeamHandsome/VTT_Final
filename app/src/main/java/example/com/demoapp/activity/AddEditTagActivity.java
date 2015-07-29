@@ -1,6 +1,6 @@
 package example.com.demoapp.activity;
 
-import android.content.Context;
+import android.app.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.CompleteTagAdapter;
+import example.com.demoapp.extend.CustomToast;
 import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Consts;
 import example.com.demoapp.model.DAO.TagDAO;
@@ -79,7 +80,7 @@ public class AddEditTagActivity extends ActionBarActivity {
             public void onTagDeleted(Tag tag, int position) {
                 String tag_name = tag_list.get(position);
                 String mess = Message.ITEM_IS_DELETED(tag_name+Consts.TAG);
-                Common.showToastMessage(AddEditTagActivity.this,mess);
+                Common.showToast(AddEditTagActivity.this, mess, CustomToast.INFO);
                 tag_list.remove(position);
             }
         });
@@ -154,20 +155,20 @@ public class AddEditTagActivity extends ActionBarActivity {
 
     private boolean validate(String tag_name){
         String message = "";
-        Context con = AddEditTagActivity.this;
+        Activity con = AddEditTagActivity.this;
         if (tag_name == null || tag_name.trim().isEmpty()){
             message = Message.MUST_NOT_EMPTY(Consts.TAG_NAME);
-            Common.showToastMessage(con, message);
+            Common.showToast(con, message,CustomToast.ERROR);
             return false;
         }
         if(!isDuplicateTag(tag_name)){
             message = Message.ITEM_IS_DUPLICATED(tag_name);
-            Common.showToastMessage(con,message);
+            Common.showToast(con, message,CustomToast.ERROR);
             return false;
         };
         if(tag_name.length() > Consts.MAX_TAGNAME_LENGTH){
             message = Message.MAX_CHARACTER_LENGTH(Consts.TAG_NAME, Consts.MAX_TAGNAME_LENGTH);
-            Common.showToastMessage(con, message);
+            Common.showToast(con, message,CustomToast.ERROR);
             return false;
         }
         return true;

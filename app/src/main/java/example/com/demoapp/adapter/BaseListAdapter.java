@@ -1,7 +1,6 @@
 package example.com.demoapp.adapter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.SystemClock;
@@ -159,12 +158,10 @@ public abstract class BaseListAdapter extends ArraySwipeAdapter<SentenceItem>{
                     dao.addToFavorite(item.getId());
                     setCheckedBtnFavorite(holder.btFavorite);
                     item.setFavorite(true);
-                    Common.showToastMessage(getContext(), Message.FAVORITE_SIGN_UP);
                 } else {
                     dao.removeFromFavorite(item.getId());
                     setUnCheckedBtnFavorite(holder.btFavorite);
                     item.setFavorite(false);
-                    Common.showToastMessage(getContext(), Message.FAVORITE_UN_SIGN);
                 }
             }
         });

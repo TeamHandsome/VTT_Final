@@ -36,13 +36,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.sentence_adapter.BaseSentencesAdapter;
-import example.com.demoapp.adapter.sentence_adapter.MySentencesAdapter;
-import example.com.demoapp.fragment.SentenceListFragment;
+import example.com.demoapp.extend.CustomToast;
 import example.com.demoapp.model.DAO.SentencesDAO;
 import example.com.demoapp.model.DAO.TagDAO;
 import example.com.demoapp.model.SentenceItem;
@@ -191,7 +188,7 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
                     bt_recordPlay.setClickable(false);
                     bt_record.setClickable(true);
                     bt_recordPath.setClickable(true);
-                    Common.showToastMessage(getApplicationContext(), Message.ITEM_IS_DELETED(Consts.AUDIO));
+                    Common.showToast(AddEditMySentencesActivity.this, Message.ITEM_IS_DELETED(Consts.AUDIO));
                     break;
                 case R.id.bt_takephoto:
                     dispatchTakePictureIntent();
@@ -203,7 +200,7 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
                     if (takingPhoto != null || selectedImage != null) {
                         file = new File(Environment.getExternalStorageDirectory() + File.separator + folder_main + image_namefile);
                         file.delete();
-                        Common.showToastMessage(getApplicationContext(), Message.ITEM_IS_DELETED(Consts.IMAGE));
+                        Common.showToast(AddEditMySentencesActivity.this, Message.ITEM_IS_DELETED(Consts.IMAGE));
                         takingPhoto = null;
                         selectedImage = null;
                         img_photo.setImageResource(android.R.color.transparent);
@@ -459,20 +456,20 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
 
     private boolean validateSentence(SentenceItem sen) {
         String message = "";
-        Context con = AddEditMySentencesActivity.this;
+        Activity con = AddEditMySentencesActivity.this;
         if (sen.getNameJp() == null || sen.getNameJp().trim().isEmpty()) {
             message = Message.MUST_NOT_EMPTY(Consts.JAPANESE);
-            Common.showToastMessage(con, message);
+            Common.showToast(con, message,CustomToast.ERROR);
             return false;
         }
         if (sen.getNameVn().length() > Consts.MAX_VIE_CHAR_LENGTH) {
             message = Message.MAX_CHARACTER_LENGTH(sen.getNameVn(), Consts.MAX_VIE_CHAR_LENGTH);
-            Common.showToastMessage(con, message);
+            Common.showToast(con, message,CustomToast.ERROR);
             return false;
         }
         if (sen.getNameJp().length() > Consts.MAX_JAP_CHAR_LENGTH) {
             message = Message.MAX_CHARACTER_LENGTH(sen.getNameJp(), Consts.MAX_JAP_CHAR_LENGTH);
-            Common.showToastMessage(con, message);
+            Common.showToast(con, message,CustomToast.ERROR);
             return false;
         }
         return true;
