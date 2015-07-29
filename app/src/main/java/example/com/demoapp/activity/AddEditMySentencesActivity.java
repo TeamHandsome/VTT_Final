@@ -243,6 +243,17 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
                         }else  {
                             invalidInput();
                         }
+                    }else {
+                        saveData();
+                        if (vn.length() > 0 && jp_hiragana.length() > 0) {
+                            int countId = addNewSenDAO.findLastIDMySenNumber() + 1;
+                            String id = "s" + countId;
+                            addNewSenDAO.addSentences(id, vn, jp_hiragana, audio, image_d);
+                            addtagMySenDAO.addTagToTags(id, resultTag);
+                            finish();
+                        } else {
+                            invalidInput();
+                        }
                     }
                     break;
             }

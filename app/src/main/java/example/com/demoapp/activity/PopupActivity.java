@@ -68,7 +68,7 @@ public class PopupActivity extends Activity {
                 this.setImageViewURI(img);
             } else {
                 ///////
-                if (!soundPath.isEmpty()) {
+                if (!soundPath.isEmpty() && soundPath !=null) {
                     Uri uri = StringUtils.buildRawUri(this.getPackageName(), soundPath);
                     mPlayer = MediaPlayer.create(PopupActivity.this, uri);
                     if (mPlayer.isPlaying()) {
