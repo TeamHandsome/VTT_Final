@@ -15,8 +15,7 @@
         android:focusable="true"
         android:gravity="center"
         android:numColumns="2"
-        android:stretchMode="columnWidth">
-    </GridView>
+        android:stretchMode="columnWidth"></GridView>
 
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/menu_fab"
@@ -24,36 +23,48 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:paddingRight="10dp"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        fab:menu_backgroundColor="#ccffffff"
+        fab:menu_colorNormal="#00bcd4"
+        fab:menu_colorPressed="@color/colorPrimaryDark"
+        fab:menu_colorRipple="#99FFFFFF"
         fab:menu_labels_ellipsize="end"
-        fab:menu_labels_singleLine="false"
-        fab:menu_backgroundColor="#ccffffff">
+        fab:menu_labels_singleLine="false">
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_addmysen_camera"
-            fab:fab_size="mini"
-            fab:fab_label="撮影" />
+            fab:fab_colorNormal="#00bcd4"
+            fab:fab_colorPressed="@color/colorPrimaryDark"
+            fab:fab_colorRipple="#99FFFFFF"
+            fab:fab_label="撮影"
+            fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_record"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_addmysen_record"
-            fab:fab_size="mini"
-            fab:fab_label="レコーダー" />
+            fab:fab_colorNormal="#00bcd4"
+            fab:fab_colorPressed="@color/colorPrimaryDark"
+            fab:fab_colorRipple="#99FFFFFF"
+            fab:fab_label="レコーダー"
+            fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_addnew"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_image_edit"
-            fab:fab_size="mini"
-            fab:fab_label="新しい文章" />
+            fab:fab_colorNormal="#00bcd4"
+            fab:fab_colorPressed="@color/colorPrimaryDark"
+            fab:fab_colorRipple="#99FFFFFF"
+            fab:fab_label="新しい文章"
+            fab:fab_size="mini" />
 
     </com.github.clans.fab.FloatingActionMenu>
 </RelativeLayout>

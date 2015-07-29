@@ -68,14 +68,11 @@ public class DrawerMenuItemAdapter extends BaseAdapter{
         tvTitle.setText(item.getText());
 
         if (position == mSelectedItem){
-            int newColor = mContext.getResources().getColor(R.color.colorPrimary);
-            imgIcon.setColorFilter(newColor, PorterDuff.Mode.SRC_ATOP);
-            tvTitle.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
-            tvTitle.setTypeface(Typeface.DEFAULT_BOLD);
-        }else {
-            tvTitle.setTextColor(mContext.getResources().getColor(R.color.colorSecondText));
-            int oldColor = mContext.getResources().getColor(R.color.colorSecondText);
-            imgIcon.setColorFilter(oldColor, PorterDuff.Mode.SRC_ATOP);
+            int newColor = mContext.getResources().getColor(R.color.colorPrimaryLight);
+
+//            imgIcon.setColorFilter(newColor, PorterDuff.Mode.SRC_ATOP);
+//            tvTitle.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
+//            tvTitle.setTypeface(Typeface.DEFAULT_BOLD);
         }
 
         return convertView;
