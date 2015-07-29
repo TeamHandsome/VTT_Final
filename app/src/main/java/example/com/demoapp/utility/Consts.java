@@ -78,6 +78,8 @@ public final class Consts {
     public static final String DELETE_TAG = "タグを削除";
     public static final String DELETE_SEN_FROM_TAG = "タグから削除";
 
+    //record value
+    public static final int MAX_RECORD_TIME_MILLISECOND = 5000;
     /**
      * Opposite of {@link #FAILS}.
      */

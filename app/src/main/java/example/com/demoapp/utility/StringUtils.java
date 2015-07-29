@@ -26,6 +26,22 @@ public final class StringUtils {
         return uri;
     }
 
+    //build String time clock from millisecond
+    public static String buildStringTime(int millisecond){
+        String time = "00:00";
+        millisecond = millisecond/1000;
+        int minute = millisecond/60;
+        int modulusSecond = millisecond%60;
+        if (minute >=0 && minute < 60) {
+            time = String.format("%02d", minute);
+            time +=":";
+            if (modulusSecond>0) {
+                time += String.format("%02d", modulusSecond);
+            }
+        }
+        return time;
+    }
+
     public StringUtils() {
         //this prevents even the native class from
         //calling this constructor as well :

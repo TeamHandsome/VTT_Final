@@ -27,12 +27,17 @@ import java.util.concurrent.TimeUnit;
 
 import at.markushi.ui.CircleButton;
 import example.com.demoapp.R;
+import example.com.demoapp.utility.Consts;
+import example.com.demoapp.utility.StringUtils;
 
 public class RecordActivity extends ActionBarActivity {
     CircleButton bt_record_record, bt_record_play, bt_record_stop;
     ImageButton bt_cancel_record, bt_accept_record;
     EditText ed_nameRecord;
     TextView tv_showtime;
+    CounterClass timer;
+
+    final String MAX_RECORD_TIME = StringUtils.buildStringTime(Consts.MAX_RECORD_TIME_MILLISECOND);
 
     private MediaRecorder myAudioRecorder;
     private String outputFile;
@@ -73,9 +78,9 @@ public class RecordActivity extends ActionBarActivity {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.bt_circle_record:
-                    bt_record_record.setVisibility(View.INVISIBLE);
+                    bt_record_record.setVisibility(View.GONE);
                     bt_record_stop.setVisibility(View.VISIBLE);
-                    final CounterClass timer = new CounterClass(5000, 1000);
+                    timer = new CounterClass(Consts.MAX_RECORD_TIME_MILLISECOND, 1000);
                     timer.start();
 
                     PackageManager pmanager = getApplicationContext().getPackageManager();
@@ -89,7 +94,7 @@ public class RecordActivity extends ActionBarActivity {
                             myAudioRecorder.setOutputFile(outputFile);
                             myAudioRecorder.prepare();
                             myAudioRecorder.start();
-                            new Auto_Stop_Task().execute();  // call this function to automatically after 5s
+//                            new Auto_Stop_Task().execute();  // call this function to automatically after 5s
                         } catch (IllegalStateException e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();
@@ -104,6 +109,10 @@ public class RecordActivity extends ActionBarActivity {
                     }
 
                     break;
+                case R.id.bt_circle_stop:
+                    stopRecording();
+                    timer.cancel();
+                    break;
                 case R.id.bt_play:
                     // Handle prevent click many times
                     if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
@@ -113,10 +122,6 @@ public class RecordActivity extends ActionBarActivity {
                     MediaPlayer m = new MediaPlayer();
                     try {
                         m.setDataSource(outputFile);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    try {
                         m.prepare();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -132,7 +137,7 @@ public class RecordActivity extends ActionBarActivity {
                     break;
                 case R.id.bt_accept_record:
                     Intent intent = new Intent();
-                    intent.putExtra("data", outputFile);
+                    intent.putExtra(Consts.DATA, outputFile);
                     setResult(AddEditMySentencesActivity.RESULT_CODE_RECORD, intent);
                     finish();
                     break;
@@ -140,13 +145,14 @@ public class RecordActivity extends ActionBarActivity {
             }
         }
     };
+
     public class Auto_Stop_Task extends AsyncTask<Void,Void, Integer> {
         //int flag=0;
         @Override
         protected Integer doInBackground(Void... arg0) {
 
             try {
-                Thread.sleep(5000);
+                Thread.sleep(Consts.MAX_RECORD_TIME_MILLISECOND);
                 myAudioRecorder.stop();
                 myAudioRecorder.reset();
                 //flag=1;
@@ -166,7 +172,8 @@ public class RecordActivity extends ActionBarActivity {
 
         @Override
         public void onFinish() {
-            tv_showtime.setText("Completed.");
+            tv_showtime.setText("00:00");
+            stopRecording();
         }
 
         @SuppressLint("NewApi")
@@ -177,7 +184,6 @@ public class RecordActivity extends ActionBarActivity {
             String hms = String.format("%02d:%02d",
                     TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
                     TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
-            System.out.println(hms);
             tv_showtime.setText(hms);
         }
     }
@@ -201,5 +207,13 @@ public class RecordActivity extends ActionBarActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void stopRecording(){
+        bt_record_stop.setVisibility(View.GONE);
+        bt_record_record.setVisibility(View.VISIBLE);
+        myAudioRecorder.stop();
+        myAudioRecorder.reset();
+        tv_showtime.setText(MAX_RECORD_TIME);
     }
 }

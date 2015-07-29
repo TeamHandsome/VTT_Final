@@ -8,71 +8,103 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
-
-    <EditText
-        android:id="@+id/ed_nameRecord"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="7"
         android:layout_below="@+id/toolbar"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
+        android:background="#FFFFFF">
+        <LinearLayout
+            android:id="@+id/frame_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:background="#f1f2f2"
+            android:layout_weight="0.89">
+            <EditText
+                android:id="@+id/ed_nameRecord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:hint="@string/audio_name_hint"
+                android:textColorHint="@color/colorSecondText"
+                android:gravity="bottom"/>
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_showtime"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ed_nameRecord"
-        android:gravity="center"
-        android:text="00:05"
-        android:textSize="20sp"
-        android:textColor="@color/colorAccent" />
+        <LinearLayout
+            android:id="@+id/frame_time"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.91">
+            <TextView
+                android:id="@+id/tv_showtime"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:text="@string/record_max_time"
+                android:textSize="51sp"
+                android:textColor="@color/colorAccent" />
+        </LinearLayout>
 
-    <at.markushi.ui.CircleButton
-        android:id="@+id/bt_circle_record"
-        android:layout_below="@+id/tv_showtime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/record_activity"
-        app:cb_color="#99CC00"
-        app:cb_pressedRingWidth="80dip"
-        android:layout_above="@+id/bt_play" />
+        <LinearLayout
+            android:id="@+id/frame_record"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2.96">
+            <at.markushi.ui.CircleButton
+                android:id="@+id/bt_circle_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/record_activity"
+                app:cb_color="#99CC00"
+                app:cb_pressedRingWidth="80dip"
+                android:layout_gravity="center"/>
 
-    <at.markushi.ui.CircleButton
-        android:id="@+id/bt_circle_stop"
-        android:layout_below="@+id/tv_showtime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/record_stop"
-        app:cb_color="#99CC00"
-        app:cb_pressedRingWidth="80dip"
-        android:layout_above="@+id/bt_play"
-        android:visibility="invisible"/>
+            <at.markushi.ui.CircleButton
+                android:id="@+id/bt_circle_stop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/record_stop"
+                app:cb_color="#99CC00"
+                app:cb_pressedRingWidth="80dip"
+                android:visibility="invisible"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.72"
+            android:weightSum="1">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.86"
+                />
+            <at.markushi.ui.CircleButton
+                android:id="@+id/bt_play"
+                android:layout_width="51dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/record_play_bt"
+                app:cb_color="#99CC00"
+                app:cb_pressedRingWidth="80dip" />
+        </LinearLayout>
+    </LinearLayout>
 
-    <at.markushi.ui.CircleButton
-        android:id="@+id/bt_play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/record_play_bt"
-        android:layout_above="@+id/linearLayout"
-        android:layout_alignRight="@+id/bt_circle_record"
-        android:layout_alignEnd="@+id/bt_circle_record"
-        android:layout_marginBottom="10dp"
-        app:cb_color="#99CC00"
-        app:cb_pressedRingWidth="80dip"/>
-
+    //Footer button
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:id="@+id/linearLayout">
+        android:id="@+id/linearLayout"
+        android:background="@color/colorPrimary">
 
         <ImageButton
             android:id="@+id/bt_cancel_record"
@@ -81,13 +113,27 @@
             android:layout_weight="1"
             android:background="@drawable/state_btn_footer"
             android:src="@mipmap/ic_action_cancel"
-            android:gravity="center" />
-
-        <View
+            android:gravity="center"
+            android:padding="1dp"/>
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="#FFFFFF" />
-
+            android:weightSum="10">
+            <View
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"/>
+            <View
+                android:layout_weight="8"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="#FFFFFF" />
+            <View
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"/>
+        </LinearLayout>
         <ImageButton
             android:id="@+id/bt_accept_record"
             android:layout_width="fill_parent"
@@ -95,9 +141,7 @@
             android:layout_weight="1"
             android:background="@drawable/state_btn_footer"
             android:src="@mipmap/ic_action_accept"
-            android:ellipsize="marquee"
-            android:gravity="center" />
+            android:gravity="center"
+            android:padding="1dp"/>
     </LinearLayout>
-
-
 </RelativeLayout>
