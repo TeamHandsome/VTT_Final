@@ -116,6 +116,7 @@ public abstract class BaseListAdapter extends ArraySwipeAdapter<SentenceItem>{
         final String soundPath = listSentences.get(position).getSound();
         final String vn_name = listSentences.get(position).getNameVn();
         final String img = listSentences.get(position).getImage();
+        final String sentences_id = listSentences.get(position).getId();
         holder.swipeLayout.getSurfaceView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,10 +127,12 @@ public abstract class BaseListAdapter extends ArraySwipeAdapter<SentenceItem>{
                 mLastClickTime = SystemClock.elapsedRealtime();
 
                 HistoryDAO dao = new HistoryDAO(context);
-                dao.addHistory(listSentences.get(position).getId());
+                dao.addHistory(sentences_id);
 
                 Intent i = new Intent(context, PopupActivity.class);
-                i.putExtra(Consts.ACTION_TYPE, Consts.POP_UP_MYSEN);
+                if (sentences_id.contains("s")){
+                    i.putExtra(Consts.ACTION_TYPE, Consts.POP_UP_MYSEN);
+                }
                 i.putExtra(Consts.SOUND_PATH, soundPath);
                 i.putExtra(Consts.NAME_VN, vn_name);
                 i.putExtra(Consts.URI, img);
