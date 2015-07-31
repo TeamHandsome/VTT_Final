@@ -19,16 +19,20 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 
 import example.com.demoapp.R;
+import example.com.demoapp.extend.Speaker;
+import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Consts;
 import example.com.demoapp.utility.StringUtils;
 
 public class PopupActivity extends Activity {
+    SentenceItem item;
     String soundPath;
     String vn_name;
     String img;
     MediaPlayer mPlayer;
     private int action_type = -1;
+    Speaker speaker;
 
     TextView tv_vn;
     ImageView img_body;
@@ -40,17 +44,17 @@ public class PopupActivity extends Activity {
         setContentView(R.layout.activity_popup);
         PopupActivity.this.getWindow().setBackgroundDrawableResource(R.drawable.back_pop_up);
 
-        this.action_type = getIntent().getIntExtra(Consts.ACTION_TYPE, Consts.NOT_FOUND);
         mPlayer = new MediaPlayer();
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-            soundPath = extras.getString(Consts.SOUND_PATH);
-            vn_name = extras.getString(Consts.NAME_VN);
-            img = extras.getString(Consts.URI);
+            item = extras.getParcelable(Consts.DATA);
+            soundPath = item.getSound();
+            img = item.getImage();
+            vn_name = item.getNameVn();
 
             this.setTextView();
-            if (action_type == Consts.POP_UP_MYSEN) {
+            if (item.getId().contains("s")) {
                 ///////
                 if (soundPath != null) {
                     try {

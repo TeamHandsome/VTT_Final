@@ -3,6 +3,7 @@ package example.com.demoapp.adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
+import android.os.Parcelable;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -109,10 +110,7 @@ public abstract class BaseListAdapter extends ArraySwipeAdapter<SentenceItem>{
 
     //Setting up sound for a sentence
     protected void setUpSound(final ViewHolder holder,final int position){
-        final String soundPath = listSentences.get(position).getSound();
-        final String vn_name = listSentences.get(position).getNameVn();
-        final String img = listSentences.get(position).getImage();
-        final String sentences_id = listSentences.get(position).getId();
+        final SentenceItem item = listSentences.get(position);
         holder.swipeLayout.getSurfaceView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,16 +121,11 @@ public abstract class BaseListAdapter extends ArraySwipeAdapter<SentenceItem>{
                 mLastClickTime = SystemClock.elapsedRealtime();
 
                 HistoryDAO dao = new HistoryDAO();
-                dao.addHistory(sentences_id);
+                dao.addHistory(item.getId());
 
-                Intent i = new Intent(context, PopupActivity.class);
-                if (sentences_id.contains("s")){
-                    i.putExtra(Consts.ACTION_TYPE, Consts.POP_UP_MYSEN);
-                }
-                i.putExtra(Consts.SOUND_PATH, soundPath);
-                i.putExtra(Consts.NAME_VN, vn_name);
-                i.putExtra(Consts.URI, img);
-                context.startActivity(i);
+                Intent intent = new Intent(context, PopupActivity.class);
+                intent.putExtra(Consts.DATA,item);
+                context.startActivity(intent);
             }
         });
     }

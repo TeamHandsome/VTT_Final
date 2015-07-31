@@ -1,22 +1,16 @@
 package example.com.demoapp.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
  * Created by Long on 6/22/2015.
  */
-public class SentenceItem {
+public class SentenceItem implements Parcelable{
     String id;
     private String nameJp;
-
-    public String getNameFull() {
-        return nameFull;
-    }
-
-    public void setNameFull(String nameFull) {
-        this.nameFull = nameFull;
-    }
-
     private String nameFull;
     private String nameVn;
     private String sound;
@@ -80,6 +74,23 @@ public class SentenceItem {
         this.tag_list = tag_list;
     }
 
+    public String getNameFull() {
+        return nameFull;
+    }
+
+    public void setNameFull(String nameFull) {
+        this.nameFull = nameFull;
+    }
+
+    public SentenceItem(Parcel source) {
+        this.id = source.readString();
+        this.nameJp = source.readString();
+        this.nameVn = source.readString();
+        this.nameFull = source.readString();
+        this.sound = source.readString();
+        this.image = source.readString();
+    }
+
     public SentenceItem(String id, String nameJp, String nameFull, String nameVn, String sound, String image) {
         this.id = id;
         this.nameJp = nameJp;
@@ -110,7 +121,7 @@ public class SentenceItem {
     }
 
     public SentenceItem() {
-        this.id = id;
+        this.id = "";
         this.nameJp = "";
         this.nameJp = "";
         this.sound = "";
@@ -118,4 +129,30 @@ public class SentenceItem {
         this.nameFull = "";
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(nameJp);
+        parcel.writeString(nameVn);
+        parcel.writeString(nameFull);
+        parcel.writeString(sound);
+        parcel.writeString(image);
+    }
+
+    public static final Parcelable.Creator<SentenceItem> CREATOR
+            = new Parcelable.Creator<SentenceItem>() {
+
+        public SentenceItem createFromParcel(Parcel in) {
+            return new SentenceItem(in);
+        }
+
+        public SentenceItem[] newArray(int size) {
+            return new SentenceItem[size];
+        }
+    };
 }

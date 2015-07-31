@@ -30,7 +30,6 @@ public final class Consts {
     public static final int EDIT_TAG_MOD_SEN = 22;
     public static final int ADD_MY_SEN = 31;
     public static final int EDIT_MY_SEN = 32;
-    public static final int POP_UP_MYSEN = 33;
 
     //item's name
     public static final String TAG_NAME = "タグ名";
