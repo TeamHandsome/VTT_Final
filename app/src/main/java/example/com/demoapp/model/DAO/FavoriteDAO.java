@@ -20,8 +20,9 @@ public class FavoriteDAO extends BaseDAO {
     }
     public ArrayList<SentenceItem> getAllFavorite(){
         ArrayList<SentenceItem> arrayList = null;
-        String query ="SELECT * FROM "+DbHelper.DB_TABLE_SENTENCES+", "+DbHelper.DB_TABLE_HISTORY+" " +
-                "WHERE sentences._ids = favorite.sentences_id";
+        String query ="SELECT * FROM "+DbHelper.DB_TABLE_SENTENCES+", "+DbHelper.DB_TABLE_FAVORITE+
+                " WHERE "+DbHelper.DB_TABLE_SENTENCES+"."+DbHelper.DB_SENTENCES_ID+" = " +
+                " "+DbHelper.DB_TABLE_FAVORITE+"."+DbHelper.DB_FAVORITE_SENTENCES_ID;
         this.query(query);
 
         if(cursor.moveToFirst())

@@ -109,12 +109,12 @@ public class TagDAO extends BaseDAO {
 
         ArrayList<TagItem> arrayList = null;
         //Build query
-        String query = "select name from tags";
+        String query = "select "+DbHelper.DB_TAGS_NAME+" from "+DbHelper.DB_TABLE_TAGS;
         if (items.size() > 0) {
             query += " where ";
             String condition = " And ";
             for (String i : items) {
-                query += "name !='" + i + "'" + condition;
+                query += DbHelper.DB_TAGS_NAME+" !='" + i + "'" + condition;
             }
             query = query.substring(0, query.length() - condition.length());
         }
@@ -124,7 +124,6 @@ public class TagDAO extends BaseDAO {
             arrayList = new ArrayList<>();
             do {
                 TagItem item = new TagItem();
-                //item.setId(cursor.getInt((cursor.getColumnIndex(DbHelper.DB_TAGS_ID))));
                 item.setNameTag(cursor.getString(cursor.getColumnIndex(DbHelper.DB_TAGS_NAME)));
 
                 arrayList.add(item);
@@ -137,10 +136,10 @@ public class TagDAO extends BaseDAO {
     //////////LIST TAGS HERE!!!!!!!!!
     public ArrayList<TagItem> getAllTagFromTags(){
         ArrayList<TagItem> arrayTag = null;
-        String query = "SELECT * FROM tags";
+        String query = "SELECT * FROM "+DbHelper.DB_TABLE_TAGS;
         this.query(query);
         if (cursor.moveToFirst()){
-            arrayTag = new ArrayList<TagItem>();
+            arrayTag = new ArrayList<>();
             do
             {
                 TagItem item = new TagItem();
@@ -155,7 +154,7 @@ public class TagDAO extends BaseDAO {
     }
     public ArrayList<String> getIdFromTags(){
         ArrayList<String> arrayList = new ArrayList<>();
-        String query = "SELECT * FROM tags";
+        String query = "SELECT * FROM "+DbHelper.DB_TABLE_TAGS;
         this.query(query);
         while (cursor.moveToNext()) {
             String tag = cursor.getString(cursor.getColumnIndex(DbHelper.DB_TAGS_ID));
@@ -167,7 +166,7 @@ public class TagDAO extends BaseDAO {
     }
     public ArrayList<String> getIdFromTagging(){
         ArrayList<String> arrayList = new ArrayList<>();
-        String query = "SELECT * FROM tagging";
+        String query = "SELECT * FROM "+DbHelper.DB_TABLE_TAGGING;
         this.query(query);
         while (cursor.moveToNext()) {
             String tag = cursor.getString(cursor.getColumnIndex(DbHelper.DB_TAGGING_TAG_ID));
@@ -178,7 +177,8 @@ public class TagDAO extends BaseDAO {
     }
     public ArrayList<String> listSentencesFollowTagId(String tagId){
         ArrayList<String> arrayList = new ArrayList<>();
-        String query = "SELECT * FROM tagging WHERE tag_id ='"+tagId+"'";
+        String query = "SELECT * FROM "+DbHelper.DB_TABLE_TAGGING+
+                " WHERE "+DbHelper.DB_TAGGING_TAG_ID+" ='"+tagId+"'";
         this.query(query);
         while (cursor.moveToNext()) {
             String tag = cursor.getString(cursor.getColumnIndex(DbHelper.DB_TAGGING_SENTENCES_ID));
@@ -197,7 +197,7 @@ public class TagDAO extends BaseDAO {
     public void removeTagByID(String tag_id){
         //remove all tag match tag_id on tagging
         this.delete(DbHelper.DB_TABLE_TAGGING,
-                        DbHelper.DB_TAGGING_TAG_ID + "='" + tag_id + "'");
+                DbHelper.DB_TAGGING_TAG_ID + "='" + tag_id + "'");
         //remove tag match tag_id on tags
         this.delete(DbHelper.DB_TABLE_TAGS,
                 DbHelper.DB_TAGS_ID + "='" + tag_id + "'");
