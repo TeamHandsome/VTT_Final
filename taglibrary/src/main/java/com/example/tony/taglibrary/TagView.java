@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -200,7 +201,11 @@ public class TagView extends RelativeLayout {
 			});
 
 			// calculate　of tag layout width
-			float tagWidth = tagView.getPaint().measureText(tag.text) + textPaddingLeft + textPaddingRight;
+			TextView tv_img = (TextView) tagLayout.findViewById(R.id.img_tag);
+			tv_img.measure(0,0);
+			float imgWidth = tv_img.getMeasuredWidth();
+			float tagWidth = tagView.getPaint().measureText(tag.text) + textPaddingLeft + textPaddingRight + imgWidth;
+
 			// tagView padding (left & right)
 
 			// deletable text
