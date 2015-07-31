@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import example.com.demoapp.activity.TagPagerActivity;
 import example.com.demoapp.extend.ConfirmDeleteDialog;
 import example.com.demoapp.extend.EditTagDialog;
 import example.com.demoapp.model.DAO.TagDAO;
+import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.model.TagItem;
 import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Consts;
@@ -37,6 +39,7 @@ public class TagListAdapter extends ArraySwipeAdapter<TagItem> {
     Activity context;
     int idLayoutResource;
     ArrayList<TagItem> listTags;
+    ArrayList<TagItem> listAll;
     TagDAO tagDAO = null;
 
     public TagListAdapter(Activity context, int idLayoutResource, ArrayList<TagItem> listTags) {
@@ -75,7 +78,7 @@ public class TagListAdapter extends ArraySwipeAdapter<TagItem> {
         }
         holder = (ViewHolder) convertView.getTag();
 
-        this.setUpListView(holder,convertView,position);
+        this.setUpListView(holder, convertView, position);
         this.setOnclickOnItemListView(holder, position);
         this.setUpBtnEdit(holder, convertView, position);
         this.setUpBtnDelete(holder,convertView,position);
@@ -221,5 +224,41 @@ public class TagListAdapter extends ArraySwipeAdapter<TagItem> {
             return message;
         }
         return message;
+    }
+    // Filter Class
+    public Filter getFilter() {
+        return new Filter() {
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                final FilterResults oReturn = new FilterResults();
+                final ArrayList<TagItem> results = new ArrayList<TagItem>();
+                if (listAll == null)
+                    listAll = listTags;
+                if (constraint != null) {
+                    if (listAll != null && listAll.size() > 0) {
+                        for (final TagItem g : listAll) {
+                            if (g.getNameTag().toLowerCase().contains(constraint.toString()))
+
+                                results.add(g);
+                        }
+                    }
+                    oReturn.values = results;
+                }
+                return oReturn;
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint,
+                                          FilterResults results) {
+                listTags = (ArrayList<TagItem>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
     }
 }

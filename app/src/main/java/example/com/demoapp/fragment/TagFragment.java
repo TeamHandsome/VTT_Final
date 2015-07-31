@@ -1,14 +1,25 @@
 package example.com.demoapp.fragment;
 
+import android.annotation.TargetApi;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.daimajia.swipe.util.Attributes;
@@ -17,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import example.com.demoapp.R;
+import example.com.demoapp.activity.AddEditMySentencesActivity;
 import example.com.demoapp.activity.TagPagerActivity;
 import example.com.demoapp.adapter.TagListAdapter;
 import example.com.demoapp.model.DAO.TagDAO;
@@ -44,8 +56,68 @@ public class TagFragment extends Fragment {
         initView();
 
 
-
+        setHasOptionsMenu(true);
         return view;
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        inflater.inflate(R.menu.menu_tag, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        item.setVisible(false);
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        searchView.setIconified(true);
+        searchView.setFocusable(true);
+        searchView.requestFocusFromTouch();
+
+        //change default button close
+        int id = searchView.getContext().getResources().getIdentifier("android:id/search_close_btn", null, null);
+        ImageView imageView = (ImageView) searchView.findViewById(id);
+        imageView.setImageDrawable(getResources().getDrawable(R.mipmap.ic_action_navigation_close));
+        //change default icon search
+        int id1 = searchView.getContext().getResources().getIdentifier("android:id/search_button", null, null);
+        ImageView imageView1 = (ImageView) searchView.findViewById(id1);
+        if (imageView1!=null){
+            imageView1.setImageDrawable(getResources().getDrawable(R.mipmap.ic_action_search));
+        }
+
+        //Set the plate color to White
+        int linlayId = getResources().getIdentifier("android:id/search_plate", null, null);
+        View view = searchView.findViewById(linlayId);
+        Drawable drawColor = getResources().getDrawable(R.drawable.searchcolor);
+        view.setBackground(drawColor);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (TextUtils.isEmpty(newText)) {
+                    lv_tags.clearTextFilter();
+                } else {
+                    lv_tags.setFilterText(newText);
+                }
+                return true;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void initView() {
@@ -54,6 +126,7 @@ public class TagFragment extends Fragment {
         listTags = tagDAO.getAllTagFromTags();  //gán dữ liệu từ database vào mảng ArrayList
         mTagListAdapter = new TagListAdapter(getActivity(), R.layout.fragment_tag_item, listTags); //gán qua Adapter
         lv_tags.setAdapter(mTagListAdapter);  //từ Adapter lên listview
+        lv_tags.setTextFilterEnabled(true);
         mTagListAdapter.setMode(Attributes.Mode.Single);
     }
 

@@ -9,15 +9,15 @@ public class SentenceItem {
     String id;
     private String nameJp;
 
-    public String getNameJpHira() {
-        return nameJpHira;
+    public String getNameFull() {
+        return nameFull;
     }
 
-    public void setNameJpHira(String nameJpHira) {
-        this.nameJpHira = nameJpHira;
+    public void setNameFull(String nameFull) {
+        this.nameFull = nameFull;
     }
 
-    private String nameJpHira;
+    private String nameFull;
     private String nameVn;
     private String sound;
     private String image;
@@ -80,9 +80,10 @@ public class SentenceItem {
         this.tag_list = tag_list;
     }
 
-    public SentenceItem(String id, String nameJp, String nameVn, String sound, String image) {
+    public SentenceItem(String id, String nameJp, String nameFull, String nameVn, String sound, String image) {
         this.id = id;
         this.nameJp = nameJp;
+        this.nameFull = nameFull;
         this.nameVn = nameVn;
         this.sound = sound;
         this.image = image;
@@ -114,6 +115,7 @@ public class SentenceItem {
         this.nameJp = "";
         this.sound = "";
         this.image = "";
+        this.nameFull = "";
     }
 
 }

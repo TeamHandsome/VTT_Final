@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -89,7 +90,7 @@ public class SentencesDAO extends BaseDAO {
                 SentenceItem item = new SentenceItem();
                 item.setId(cursor.getString((cursor.getColumnIndex(DbHelper.DB_SENTENCES_ID))));
                 item.setNameJp(cursor.getString(cursor.getColumnIndex(DbHelper.DB_SENTENCES_JP)));
-                item.setNameJpHira(cursor.getString(cursor.getColumnIndex(DbHelper.DB_SENTENCES_JPHIRA)));
+                item.setNameFull(cursor.getString(cursor.getColumnIndex(DbHelper.DB_SENTENCES_JPHIRA)));
                 item.setNameVn(cursor.getString(cursor.getColumnIndex(DbHelper.DB_SENTENCES_VN)));
                 item.setSound(cursor.getString(cursor.getColumnIndex(DbHelper.DB_SENTENCES_SOUND)));
                 if (cursor.getString(cursor.getColumnIndex(DbHelper.DB_SENTENCES_IMAGE)) != null) {
@@ -116,7 +117,7 @@ public class SentencesDAO extends BaseDAO {
                 SentenceItem item = new SentenceItem();
                 item.setId(cursor.getString((cursor.getColumnIndex(DbHelper.DB_SENTENCES_ID))));
                 item.setNameJp(cursor.getString(cursor.getColumnIndex(DbHelper.DB_SENTENCES_JP)));
-                item.setNameJpHira(cursor.getString(cursor.getColumnIndex(DbHelper.DB_SENTENCES_JPHIRA)));
+                item.setNameFull(cursor.getString(cursor.getColumnIndex(DbHelper.DB_SENTENCES_JPHIRA)));
                 item.setNameVn(cursor.getString(cursor.getColumnIndex(DbHelper.DB_SENTENCES_VN)));
                 item.setSound(cursor.getString(cursor.getColumnIndex(DbHelper.DB_SENTENCES_SOUND)));
                 if (cursor.getString(cursor.getColumnIndex(DbHelper.DB_SENTENCES_IMAGE)) != null) {
