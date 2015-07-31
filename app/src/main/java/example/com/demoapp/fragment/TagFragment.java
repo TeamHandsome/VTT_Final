@@ -43,22 +43,7 @@ public class TagFragment extends Fragment {
         tv_noUseTag = (TextView) view.findViewById(R.id.tv_noUseTag);
         initView();
 
-        ArrayList<String> IdTags = tagDAO.getIdFromTags();
-        ArrayList<String> IdTagging = tagDAO.getIdFromTagging();
-        List result = new ArrayList(IdTags);
-        result.removeAll(IdTagging);
-        Log.d("RESULT : ", result+"");
-        int sizeNoUse = result.size();
-        if (sizeNoUse < 10 ){
-            tv_noUseTag.setText("0"+sizeNoUse);
-        }else {
-            tv_noUseTag.setText(sizeNoUse+"");
-        }
-        if (IdTags.size() < 10 ){
-            tv_usedTag.setText("0"+IdTags.size());
-        }else{
-            tv_usedTag.setText(IdTags.size()+"");
-        }
+
 
         return view;
     }
@@ -76,8 +61,27 @@ public class TagFragment extends Fragment {
     public void onResume() {
         super.onResume();
         listTags = tagDAO.getAllTagFromTags();
-        mTagListAdapter = new TagListAdapter(getActivity(), R.layout.fragment_tag_item, listTags); //gán qua Adapter
-        lv_tags.setAdapter(mTagListAdapter);
-        mTagListAdapter.setMode(Attributes.Mode.Single);
+        mTagListAdapter.setListTags(listTags);
+        mTagListAdapter.notifyDataSetChanged();
+        setHeaderView();
+    }
+
+    private void setHeaderView(){
+        ArrayList<String> IdTags = tagDAO.getIdFromTags();
+        ArrayList<String> IdTagging = tagDAO.getIdFromTagging();
+        List result = new ArrayList(IdTags);
+        result.removeAll(IdTagging);
+        Log.d("RESULT : ", result+"");
+        int sizeNoUse = result.size();
+        if (sizeNoUse < 10 ){
+            tv_noUseTag.setText("0"+sizeNoUse);
+        }else {
+            tv_noUseTag.setText(sizeNoUse+"");
+        }
+        if (IdTags.size() < 10 ){
+            tv_usedTag.setText("0"+IdTags.size());
+        }else{
+            tv_usedTag.setText(IdTags.size()+"");
+        }
     }
 }

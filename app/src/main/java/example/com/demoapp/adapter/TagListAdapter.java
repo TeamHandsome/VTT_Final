@@ -52,9 +52,13 @@ public class TagListAdapter extends ArraySwipeAdapter<TagItem> {
         SwipeLayout swipeLayout;
     }
 
+    public void setListTags(ArrayList<TagItem> listTags) {
+        this.listTags = listTags;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = null;
+        ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
             LayoutInflater inflater = context.getLayoutInflater();
