@@ -17,18 +17,12 @@ import example.com.demoapp.utility.StringUtils;
 public class SubPagerActivity extends BasePagerActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        int subCategory_id = getIntent().getIntExtra(Consts.SUBCATEGORY_ID, Consts.NOT_FOUND);
-        bundle.putInt(Consts.SUBCATEGORY_ID,subCategory_id);
-    }
-
-    @Override
     protected void initFirstValue() {
         navigation_text = getIntent().getStringExtra(Consts.NAVIGATION_TEXT);
         navigation_image = getIntent().getStringExtra(Consts.NAVIGATION_IMAGE);
         pager_parent = Consts.SENTENCE_LIST_BY_SUB;
+        int subCategory_id = getIntent().getIntExtra(Consts.SUBCATEGORY_ID, Consts.NOT_FOUND);
+        bundle.putInt(Consts.SUBCATEGORY_ID,subCategory_id);
     }
 
     @Override

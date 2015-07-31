@@ -27,6 +27,7 @@ import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Consts;
 import example.com.demoapp.utility.Message;
+import example.com.demoapp.utility.MySingleton;
 
 /**
  * Created by Tony on 28/7/2015.
@@ -63,10 +64,6 @@ public abstract class BaseListAdapter extends ArraySwipeAdapter<SentenceItem>{
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        Point size = Common.getScreenSizeInPixels(parent.getContext());
-        int width = size.x;
-        int y = width/2;
-
         if (convertView == null) {
             holder = new ViewHolder();
             LayoutInflater inflater = context.getLayoutInflater();
@@ -218,7 +215,8 @@ public abstract class BaseListAdapter extends ArraySwipeAdapter<SentenceItem>{
             public void onClickAccept() {
                 onclickDelete(position);
                 listSentences.remove(position);
-                BaseListAdapter.this.notifyDataSetChanged();
+                MySingleton.getInstance().setSentenceList(listSentences);
+                notifyDataSetChanged();
             }
         };
         dialog.show();

@@ -1,6 +1,7 @@
 package example.com.demoapp.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import example.com.demoapp.adapter.image_adapter.ImageAdapter;
 import example.com.demoapp.adapter.image_adapter.MyImageAdapter;
 import example.com.demoapp.adapter.image_adapter.TagImageAdapter;
 import example.com.demoapp.utility.Consts;
+import example.com.demoapp.utility.MySingleton;
 
 /**
  * Created by Tony on 23/7/2015.
@@ -91,12 +93,10 @@ public class ImageListFragment extends BaseListFragment {
         // Make sure that we are currently visible
         if (this.isVisible() && isVisibleToUser) {
             // If we are becoming invisible, then...
-            if (!isVisibleToUser) {
-                if (listSentences!=null) {
-                    listSentences = SentenceListFragment.sentencesAdapter.getListSentences();
-                    imageAdapter.setListSentences(listSentences);
-                    this.setGridView();
-                }
+            if (listSentences!=null) {
+                listSentences = MySingleton.getInstance().getSentenceList();;
+                imageAdapter.setListSentences(listSentences);
+                imageAdapter.notifyDataSetChanged();
             }
         }
     }

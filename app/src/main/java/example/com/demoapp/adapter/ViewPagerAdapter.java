@@ -1,16 +1,22 @@
 package example.com.demoapp.adapter;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 
+import java.util.ArrayList;
+
+import example.com.demoapp.fragment.BaseListFragment;
 import example.com.demoapp.fragment.CategoryFragment;
 import example.com.demoapp.fragment.SuggestFragment;
 import example.com.demoapp.fragment.ImageListFragment;
 import example.com.demoapp.fragment.SentenceListFragment;
+import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.utility.Consts;
+import example.com.demoapp.utility.MySingleton;
 
 /**
  * Created by Tony on 23/7/2015.
@@ -29,6 +35,18 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         this.Titles = mTitles;
         this.NumbOfTabs = mNumbOfTabsumb;
         this.pager_parent = pager_parent;
+        this.setData();
+    }
+
+    // Build a Constructor and assign the passed Values to appropriate values in the class
+    public ViewPagerAdapter(FragmentManager fm, CharSequence[] mTitles, int mNumbOfTabsumb,
+                            int pager_parent, Bundle bundle) {
+        super(fm);
+        this.Titles = mTitles;
+        this.NumbOfTabs = mNumbOfTabsumb;
+        this.pager_parent = pager_parent;
+        this.bundle = bundle;
+        this.setData();
     }
 
     public Bundle getBundle() {
@@ -114,6 +132,38 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         return NumbOfTabs;
+    }
+
+    private void setData(){
+        BaseListFragment fragment = new SentenceListFragment();
+        ArrayList<SentenceItem> sentenceList = null;
+        switch (pager_parent){
+            case Consts.HOME:
+                sentenceList = fragment.initRecommendationList();
+                break;
+            case Consts.SENTENCE_LIST_BY_SUB:
+                int sub_id = bundle.getInt(Consts.SUBCATEGORY_ID,Consts.NOT_FOUND);
+                sentenceList = fragment.initListBySubList(sub_id);
+                break;
+            case Consts.FAVORITE:
+                sentenceList  = fragment.initFavoriteList();
+                break;
+            case Consts.HISTORY:
+                sentenceList = fragment.initHistoryList();
+                break;
+            case Consts.SENTENCE_LIST_BY_TAG:
+                String tag_id = bundle.getString(Consts.TAG_ID);
+                sentenceList = fragment.initListByTagList(tag_id);
+                break;
+            case Consts.MY_SENTENCE_LIST:
+                sentenceList = fragment.initMySentenceList();
+                break;
+            default:
+                Log.e("Parent haven't set yet","please set pager parent now");
+                break;
+        }
+        //set to singleton for global use
+        MySingleton.getInstance().setSentenceList(sentenceList);
     }
 
 }

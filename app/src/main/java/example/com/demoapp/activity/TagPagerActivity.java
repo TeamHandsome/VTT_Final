@@ -13,18 +13,12 @@ import example.com.demoapp.utility.Consts;
 public class TagPagerActivity extends BasePagerActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        String tag_id = getIntent().getStringExtra(Consts.TAG_ID);
-        bundle.putString(Consts.TAG_ID,tag_id);
-    }
-
-    @Override
     protected void initFirstValue() {
         navigation_text = getIntent().getStringExtra(Consts.NAVIGATION_TEXT);
         navigation_image = "";
         pager_parent = Consts.SENTENCE_LIST_BY_TAG;
+        String tag_id = getIntent().getStringExtra(Consts.TAG_ID);
+        bundle.putString(Consts.TAG_ID,tag_id);
     }
 
     @Override

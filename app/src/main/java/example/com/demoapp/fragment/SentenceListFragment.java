@@ -1,6 +1,7 @@
 package example.com.demoapp.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import example.com.demoapp.adapter.sentence_adapter.SentencesAdapter;
 import example.com.demoapp.adapter.sentence_adapter.FavoriteSentencesAdapter;
 import example.com.demoapp.adapter.sentence_adapter.TagSentenceAdapter;
 import example.com.demoapp.utility.Consts;
+import example.com.demoapp.utility.MySingleton;
 
 /**
  * Created by Tony on 23/7/2015.
@@ -91,14 +93,11 @@ public class SentenceListFragment extends BaseListFragment {
         super.setUserVisibleHint(isVisibleToUser);
         // Make sure that we are currently visible
         if (this.isVisible() && isVisibleToUser) {
-            // If we are becoming invisible, then...
-            if (!isVisibleToUser) {
                 if (listSentences!=null) {
-                    listSentences = ImageListFragment.imageAdapter.getListSentences();
+                    listSentences = MySingleton.getInstance().getSentenceList();
                     sentencesAdapter.setListSentences(listSentences);
-                    this.setListView();
+                    sentencesAdapter.notifyDataSetChanged();
                 }
-            }
         }
     }
 }

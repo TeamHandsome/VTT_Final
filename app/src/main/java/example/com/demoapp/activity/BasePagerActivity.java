@@ -58,8 +58,7 @@ public abstract class BasePagerActivity extends ActionBarActivity {
     protected void slidingTab(){
         // // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
         adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs,
-                pager_parent);
-        adapter.setBundle(bundle);
+                pager_parent,bundle);
 
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) findViewById(R.id.pager);
