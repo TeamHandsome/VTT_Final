@@ -17,6 +17,7 @@ import com.example.tony.taglibrary.OnTagClickListener;
 import com.example.tony.taglibrary.TagView;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.CompleteTagAdapter;
@@ -37,9 +38,10 @@ public class AddEditTagActivity extends ActionBarActivity {
     private CompleteTagAdapter mCompleteTagAdapter;
     String sentences_id;
     final TagDAO tagDAO = new TagDAO();
-    private int actionType= -1;
+    private int actionType = -1;
 
     TagView tagView;
+    Stack<String> stacklist;
 
 
     @Override
@@ -76,10 +78,12 @@ public class AddEditTagActivity extends ActionBarActivity {
                 autoComplete.setText("");
             }
         });
+        stacklist = new Stack<String>();
         tagView.setOnTagClickListener(new OnTagClickListener() {
             @Override
             public void onTagClick(Tag tag, int position) {
                 String tag_name = tag_list.get(position);
+                stacklist.push(tag_name);
                 String mess = Message.ITEM_IS_DELETED(tag_name + Consts.TAG);
                 Common.showToast(AddEditTagActivity.this, mess, CustomToast.INFO);
                 tagView.remove(position);
@@ -98,11 +102,11 @@ public class AddEditTagActivity extends ActionBarActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.bt_accept:
-                    if(actionType==Consts.EDIT_TAG_NORMAL) {
+                    if (actionType == Consts.EDIT_TAG_NORMAL) {
                         Log.d("Count all tags: ", tagDAO.countTags() + "");
                         tagDAO.addTagToTags(sentences_id, tag_list);
                         finish();
-                    }else{
+                    } else {
                         sendToAddNewMySentences(AddEditMySentencesActivity.RESULT_CODE_ADD_TAG);
                     }
                     break;
@@ -137,6 +141,18 @@ public class AddEditTagActivity extends ActionBarActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.revert_bt:
+                if (!stacklist.empty()) {
+                    String reverted_tag = stacklist.pop();
+                    Common.addNewTagToTagView(AddEditTagActivity.this, tagView, reverted_tag);
+                    tag_list.add(reverted_tag);
+                    reloadArrayTagForAutocompleteBox();
+                } else {
+                    String mess = Message.NO_DATA;
+                    Common.showToast(AddEditTagActivity.this, mess, CustomToast.INFO);
+                }
+
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -156,37 +172,38 @@ public class AddEditTagActivity extends ActionBarActivity {
         return true;
     }
 
-    private boolean validate(String tag_name){
+    private boolean validate(String tag_name) {
         String message = "";
         Activity con = AddEditTagActivity.this;
-        if (tag_name == null || tag_name.trim().isEmpty()){
+        if (tag_name == null || tag_name.trim().isEmpty()) {
             message = Message.MUST_NOT_EMPTY(Consts.TAG_NAME);
-            Common.showToast(con, message,CustomToast.ERROR);
+            Common.showToast(con, message, CustomToast.ERROR);
             return false;
         }
-        if(!isDuplicateTag(tag_name)){
+        if (!isDuplicateTag(tag_name)) {
             message = Message.ITEM_IS_DUPLICATED(tag_name);
-            Common.showToast(con, message,CustomToast.ERROR);
+            Common.showToast(con, message, CustomToast.ERROR);
             return false;
-        };
-        if(tag_name.length() > Consts.MAX_TAGNAME_LENGTH){
+        }
+        ;
+        if (tag_name.length() > Consts.MAX_TAGNAME_LENGTH) {
             message = Message.MAX_CHARACTER_LENGTH(Consts.TAG_NAME, Consts.MAX_TAGNAME_LENGTH);
-            Common.showToast(con, message,CustomToast.ERROR);
+            Common.showToast(con, message, CustomToast.ERROR);
             return false;
         }
         return true;
     }
 
-    private void loadTagsAtFirst(){
-        if(actionType==Consts.EDIT_TAG_NORMAL){
+    private void loadTagsAtFirst() {
+        if (actionType == Consts.EDIT_TAG_NORMAL) {
             //list tag available from DB
             tag_list = tagDAO.getTagsFromTagging(sentences_id);
-        }else if (actionType==Consts.EDIT_TAG_ADD_SEN){
+        } else if (actionType == Consts.EDIT_TAG_ADD_SEN) {
             tag_list = getIntent().getStringArrayListExtra(Consts.AVAILABLE_TAG);
-        }else if (actionType==Consts.EDIT_TAG_MOD_SEN){
+        } else if (actionType == Consts.EDIT_TAG_MOD_SEN) {
             tag_list = getIntent().getStringArrayListExtra(Consts.AVAILABLE_TAG);
-        }else{
-            Log.e("action type","can not find action type");
+        } else {
+            Log.e("action type", "can not find action type");
         }
         //show tag
         for (String tag : tag_list) {
