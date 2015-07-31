@@ -17,23 +17,21 @@ import example.com.demoapp.model.SentenceItem;
  * Created by Tony on 6/7/2015.
  */
 public class SentencesDAO extends BaseDAO {
-    DbHelper mDbHelper;
 
-    public SentencesDAO(Context context) {
-        try {
-            mDbHelper = new DbHelper(context);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public SentencesDAO() {
+        super();
     }
 
     public ArrayList<SentenceItem> getAllSentenceBySub(int subcategories_id) {
         ArrayList<SentenceItem> arrayList = new ArrayList<>();
         ArrayList<String> favoriteList = getAllFavoriteSentenceID();
-        String query = "SELECT * FROM sentences INNER JOIN subcategories" +
-                " ON sentences.subcategories_id = subcategories._id" +
-                " WHERE sentences.subcategories_id='" + subcategories_id + "'";
-        this.rawQueryReadonly(query);
+        String query = "SELECT * FROM "+DbHelper.DB_TABLE_SENTENCES +
+                " INNER JOIN "+DbHelper.DB_TABLE_SUBCATEGORY +
+                " ON "+DbHelper.DB_TABLE_SENTENCES+"."+DbHelper.DB_SENTENCES_SUBCAT+" =" +
+                " "+DbHelper.DB_TABLE_SUBCATEGORY+"."+DbHelper.DB_SUBCATEGORIES_ID +
+                " WHERE "+DbHelper.DB_TABLE_SENTENCES+"."+DbHelper.DB_SENTENCES_SUBCAT+"=" +
+                "'" + subcategories_id + "'";
+        this.query(query);
 
         if (cursor.moveToFirst()) {
             arrayList = new ArrayList<>();
@@ -51,14 +49,15 @@ public class SentencesDAO extends BaseDAO {
                 arrayList.add(item);
             } while (cursor.moveToNext());
         }
-        close();
+        this.closeCursor();
         return arrayList;
     }
 
-    public ArrayList getAllFavoriteSentenceID() {
+    public ArrayList<String> getAllFavoriteSentenceID() {
         ArrayList<String> arrayList = new ArrayList<>();
-        String query = "SElECT " + DbHelper.DB_FAVORITE_SENTENCES_ID + " From favorite";
-        this.rawQueryReadonly(query);
+        String query = "SElECT " + DbHelper.DB_FAVORITE_SENTENCES_ID + " " +
+                "From "+DbHelper.DB_TABLE_FAVORITE;
+        this.query(query);
         if (cursor.moveToFirst()) {
             arrayList = new ArrayList<>();
             do {
@@ -66,6 +65,7 @@ public class SentencesDAO extends BaseDAO {
                 arrayList.add(id);
             } while (cursor.moveToNext());
         }
+        this.closeCursor();
         return arrayList;
     }
 
@@ -80,8 +80,8 @@ public class SentencesDAO extends BaseDAO {
 
     public ArrayList<SentenceItem> getAllSentences() {
         ArrayList<SentenceItem> arrayList = new ArrayList<>();
-        String query = "SELECT * FROM sentences";
-        this.rawQueryReadonly(query);
+        String query = "SELECT * FROM "+DbHelper.DB_TABLE_SENTENCES;
+        this.query(query);
 
         if (cursor.moveToFirst()) {
             arrayList = new ArrayList<>();
@@ -99,15 +99,16 @@ public class SentencesDAO extends BaseDAO {
                 arrayList.add(item);
             } while (cursor.moveToNext());
         }
-        close();
+        this.closeCursor();
         return arrayList;
     }
 
     public ArrayList<SentenceItem> getAllMySentence() {
         ArrayList<String> favoriteList = getAllFavoriteSentenceID();
         ArrayList<SentenceItem> arrayList = new ArrayList<>();
-        String query = "SELECT * FROM sentences WHERE sentences._ids like 's%'";
-        this.rawQueryReadonly(query);
+        String query = "SELECT * FROM "+DbHelper.DB_TABLE_SENTENCES+" "+
+                "WHERE "+DbHelper.DB_SENTENCES_ID+" like 's%'";
+        this.query(query);
 
         if (cursor.moveToFirst()) {
             arrayList = new ArrayList<>();
@@ -125,60 +126,59 @@ public class SentencesDAO extends BaseDAO {
                 arrayList.add(item);
             } while (cursor.moveToNext());
         }
-        close();
+        this.closeCursor();
         return arrayList;
     }
 
     public void removeSentence(String id) {
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        db.delete(DbHelper.DB_TABLE_SENTENCES, DbHelper.DB_SENTENCES_ID + "='" + id + "'", null);
-        db.close();
+        String whereClause = DbHelper.DB_SENTENCES_ID + "='" + id + "'";
+        this.delete(DbHelper.DB_TABLE_SENTENCES, whereClause);
     }
 
     public int findLastIDMySenNumber() {
         int number = 0;
-        String query = "SELECT substr(_ids,2) as last_id_num \n" +
-                "FROM sentences where sentences._ids like \"s%\" \n" +
-                "ORDER By cast(last_id_num as unsigned) DESC \n" +
+        String query = "SELECT substr(_ids,2) as "+DbHelper.LAST_ID_NUM+" \n" +
+                "FROM "+DbHelper.DB_TABLE_SENTENCES+"\n" +
+                "where "+DbHelper.DB_SENTENCES_ID+" like \"s%\" \n" +
+                "ORDER By cast("+DbHelper.LAST_ID_NUM+" as unsigned) DESC \n" +
                 "LIMIT 1";
-        this.rawQueryReadonly(query);
+        this.query(query);
         if (cursor.moveToFirst()) {
             String id = cursor.getString(cursor.getColumnIndex(DbHelper.LAST_ID_NUM));
             number = Integer.parseInt(id);
         }
+        this.closeCursor();
         return number;
     }
 
     public void addSentences(String id, String vn, String jp, String audio, String image_d) {
-        database = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DbHelper.DB_SENTENCES_ID, id);
         values.put(DbHelper.DB_SENTENCES_VN, vn);
         values.put(DbHelper.DB_SENTENCES_SOUND, audio);
         values.put(DbHelper.DB_SENTENCES_IMAGE, image_d);
         values.put(DbHelper.DB_SENTENCES_JP, jp);
-        database.insert(DbHelper.DB_TABLE_SENTENCES, null, values);
-        database.close();
+        this.insert(DbHelper.DB_TABLE_SENTENCES, values);
     }
 
     public void updateSentences(String id, String vn, String jp, String audio, String image_d) {
-        database = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DbHelper.DB_SENTENCES_VN, vn);
         values.put(DbHelper.DB_SENTENCES_SOUND, audio);
         values.put(DbHelper.DB_SENTENCES_IMAGE, image_d);
         values.put(DbHelper.DB_SENTENCES_JP, jp);
-        database.update(DbHelper.DB_TABLE_SENTENCES, values, DbHelper.DB_SENTENCES_ID + "='" + id + "'", null);
-        database.close();
+        this.update(DbHelper.DB_TABLE_SENTENCES, values, DbHelper.DB_SENTENCES_ID + "='" + id + "'");
     }
 
     public ArrayList getAllSentenceByTagID(String tag_id) {
         ArrayList<String> favoriteList = getAllFavoriteSentenceID();
         ArrayList<SentenceItem> arrayList = new ArrayList<>();
-        String query = "SELECT * FROM sentences INNER JOIN tagging" +
-                " ON sentences." + DbHelper.DB_SENTENCES_ID + " = tagging." + DbHelper.DB_TAGGING_SENTENCES_ID +
-                " WHERE tagging." + DbHelper.DB_TAGGING_TAG_ID + "='" + tag_id + "'";
-        this.rawQueryReadonly(query);
+        String query = "SELECT * FROM "+DbHelper.DB_TABLE_SENTENCES+" " +
+                "INNER JOIN "+DbHelper.DB_TABLE_TAGGING +
+                " ON "+DbHelper.DB_TABLE_SENTENCES+"." + DbHelper.DB_SENTENCES_ID + " = " +
+                DbHelper.DB_TABLE_TAGGING+"." + DbHelper.DB_TAGGING_SENTENCES_ID +
+                " WHERE "+DbHelper.DB_TABLE_TAGGING+"." + DbHelper.DB_TAGGING_TAG_ID + "='" + tag_id + "'";
+        this.query(query);
 
         if (cursor.moveToFirst()) {
             arrayList = new ArrayList<>();
@@ -195,7 +195,7 @@ public class SentencesDAO extends BaseDAO {
                 arrayList.add(item);
             } while (cursor.moveToNext());
         }
-        close();
+        this.closeCursor();
         return arrayList;
     }
 

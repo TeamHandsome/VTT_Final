@@ -35,7 +35,7 @@ public class TagSentenceAdapter extends BaseSentencesAdapter {
 
     @Override
     protected void onclickDelete(int position) {
-        TagDAO dao = new TagDAO(context);
+        TagDAO dao = new TagDAO();
         SentenceItem item = listSentences.get(position);
         dao.removeSentenceFromTag(tag_id, item.getId());
     }

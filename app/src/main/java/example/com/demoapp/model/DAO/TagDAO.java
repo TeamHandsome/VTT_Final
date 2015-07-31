@@ -17,54 +17,49 @@ import example.com.demoapp.utility.StringUtils;
  * Created by Long on 7/8/2015.
  */
 public class TagDAO extends BaseDAO {
-    DbHelper mDbHelper;
 
-    public TagDAO(Context context) {
-        try {
-            mDbHelper = new DbHelper(context);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public TagDAO() {
+        super();
     }
 
     public long countTags() {
-        database = mDbHelper.getReadableDatabase();
-        String sql = "SELECT COUNT(*) FROM tags";
-        statement = database.compileStatement(sql);
-        long count = statement.simpleQueryForLong();
+        String query = "SELECT COUNT(*) FROM "+DbHelper.DB_TABLE_TAGS;
+        long count = this.simpleQueryForLong(query);
         return count;
     }
 
     public int findLastIDTagNumber(){
         int number = 0;
-        String query = "SELECT substr(_id,2) as last_id_num \n" +
-                "FROM tags where tags._id like \"t%\" \n" +
-                "ORDER By cast(last_id_num as unsigned) DESC \n" +
+        String query = "SELECT substr(_id,2) as "+DbHelper.LAST_ID_NUM+" \n" +
+                "FROM "+DbHelper.DB_TABLE_TAGS+" " +
+                "where "+DbHelper.DB_TAGS_ID+" like \"t%\" \n" +
+                "ORDER By cast("+DbHelper.LAST_ID_NUM+" as unsigned) DESC \n" +
                 "LIMIT 1";
-        this.rawQueryReadonly(query);
+        this.query(query);
         if (cursor.moveToFirst()) {
             String id = cursor.getString(cursor.getColumnIndex(DbHelper.LAST_ID_NUM));
             number = Integer.parseInt(id);
         }
+        this.closeCursor();
         return number;
     }
 
     public void addTagToTags(String sentences_id, List<String> tagNamelist) {
-        SQLiteDatabase dbWriteAble = mDbHelper.getWritableDatabase();
         List<String> tagIdList = new ArrayList<>();
 
         int countId = this.findLastIDTagNumber() + 1;
         ContentValues values = new ContentValues();
         for (String tag_name : tagNamelist) {
-            String query = "SELECT * FROM tags WHERE name ='" + tag_name + "'";
-            this.rawQueryReadonly(query);
+            String query = "SELECT * FROM "+DbHelper.DB_TABLE_TAGS+"" +
+                    " WHERE "+DbHelper.DB_TAGS_NAME+" ='" + tag_name + "'";
+            this.query(query);
             Log.d("Cursor Count : ", cursor.getCount() + "");
             if (cursor.getCount() == 0) {
                 String tag_id = "t"+(countId++);
                 values.put(DbHelper.DB_TAGS_ID, tag_id);
                 tagIdList.add(tag_id);
                 values.put(DbHelper.DB_TAGS_NAME, tag_name);
-                dbWriteAble.insert(DbHelper.DB_TABLE_TAGS, null, values);
+                this.insert(DbHelper.DB_TABLE_TAGS, values);
             } else {
                 while (cursor.moveToNext()) {
                     String tag_id = cursor.getString((cursor.getColumnIndex(DbHelper.DB_TAGS_ID)));
@@ -80,31 +75,32 @@ public class TagDAO extends BaseDAO {
         for (String i : tagIdList) {
             values1.put(DbHelper.DB_TAGGING_TAG_ID, i);
             values1.put(DbHelper.DB_TAGGING_SENTENCES_ID, sentences_id);
-            database.insert(DbHelper.DB_TABLE_TAGGING, null, values1);
+            this.insert(DbHelper.DB_TABLE_TAGGING, values1);
 
         }
 
-        close();
+        this.closeCursor();
     }
 
-    public void clearTags(String i) {
-        database = mDbHelper.getWritableDatabase();
-        statement = database.compileStatement("delete from tagging where sentences_id='"+ i + "'");
-        statement.execute();
+    public void clearTags(String sentence_id) {
+        String whereClause = DbHelper.DB_TAGGING_SENTENCES_ID+"='"+sentence_id+"'";
+        this.delete(DbHelper.DB_TABLE_TAGGING, whereClause);
     }
 
     public ArrayList<String> getTagsFromTagging(String sentences_id) {
         ArrayList<String> tagList = new ArrayList<>();
 
-        String query = "select * from tagging,tags " +
-                "where tagging.sentences_id='" + sentences_id + "' and tags._id = tagging.tag_id";
-        this.rawQueryReadonly(query);
+        String query = "select * " +
+                " from "+DbHelper.DB_TABLE_TAGGING+","+DbHelper.DB_TABLE_TAGS+
+                " where "+DbHelper.DB_TABLE_TAGGING+".sentences_id ='" + sentences_id + "' " +
+                " and "+DbHelper.DB_TABLE_TAGS+"._id = "+DbHelper.DB_TABLE_TAGGING+".tag_id";
+        this.query(query);
 
         while (cursor.moveToNext()) {
             String tag = cursor.getString(cursor.getColumnIndex(DbHelper.DB_TAGS_NAME));
             tagList.add(tag);
         }
-        cursor.close();
+        this.closeCursor();
         return tagList;
 
     }
@@ -122,7 +118,7 @@ public class TagDAO extends BaseDAO {
             }
             query = query.substring(0, query.length() - condition.length());
         }
-        this.rawQueryReadonly(query);
+        this.query(query);
 
         if (cursor.moveToFirst()) {
             arrayList = new ArrayList<>();
@@ -134,14 +130,15 @@ public class TagDAO extends BaseDAO {
                 arrayList.add(item);
             } while (cursor.moveToNext());
         }
-        close();
+
+        this.closeCursor();
         return arrayList;
     }
     //////////LIST TAGS HERE!!!!!!!!!
     public ArrayList<TagItem> getAllTagFromTags(){
         ArrayList<TagItem> arrayTag = null;
         String query = "SELECT * FROM tags";
-        this.rawQueryReadonly(query);
+        this.query(query);
         if (cursor.moveToFirst()){
             arrayTag = new ArrayList<TagItem>();
             do
@@ -153,67 +150,62 @@ public class TagDAO extends BaseDAO {
                 arrayTag.add(item);
             }while(cursor.moveToNext());
         }
+        this.closeCursor();
         return arrayTag;
     }
     public ArrayList<String> getIdFromTags(){
         ArrayList<String> arrayList = new ArrayList<>();
         String query = "SELECT * FROM tags";
-        this.rawQueryReadonly(query);
+        this.query(query);
         while (cursor.moveToNext()) {
             String tag = cursor.getString(cursor.getColumnIndex(DbHelper.DB_TAGS_ID));
             arrayList.add(tag);
         }
-        cursor.close();
+        this.closeCursor();
         return arrayList;
 
     }
     public ArrayList<String> getIdFromTagging(){
         ArrayList<String> arrayList = new ArrayList<>();
         String query = "SELECT * FROM tagging";
-        this.rawQueryReadonly(query);
+        this.query(query);
         while (cursor.moveToNext()) {
             String tag = cursor.getString(cursor.getColumnIndex(DbHelper.DB_TAGGING_TAG_ID));
             arrayList.add(tag);
         }
-        cursor.close();
+        this.closeCursor();
         return arrayList;
     }
     public ArrayList<String> listSentencesFollowTagId(String tagId){
         ArrayList<String> arrayList = new ArrayList<>();
         String query = "SELECT * FROM tagging WHERE tag_id ='"+tagId+"'";
-        this.rawQueryReadonly(query);
+        this.query(query);
         while (cursor.moveToNext()) {
             String tag = cursor.getString(cursor.getColumnIndex(DbHelper.DB_TAGGING_SENTENCES_ID));
             arrayList.add(tag);
         }
-        cursor.close();
+        this.closeCursor();
         return arrayList;
     }
 
     public void removeSentenceFromTag(String tag_id, String sentence_id){
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        db.delete(DbHelper.DB_TABLE_TAGGING,
-                DbHelper.DB_TAGGING_SENTENCES_ID + "='" + sentence_id + "'" +
-                        " AND " + DbHelper.DB_TAGGING_TAG_ID + "='" + tag_id + "'", null);
-        db.close();
+        String whereClause = DbHelper.DB_TAGGING_SENTENCES_ID + "='" + sentence_id + "'" +
+                " AND " + DbHelper.DB_TAGGING_TAG_ID + "='" + tag_id + "'";
+        this.delete(DbHelper.DB_TABLE_TAGGING, whereClause);
     }
 
     public void removeTagByID(String tag_id){
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
         //remove all tag match tag_id on tagging
-        db.delete(DbHelper.DB_TABLE_TAGGING,
-                        DbHelper.DB_TAGGING_TAG_ID + "='" + tag_id + "'", null);
+        this.delete(DbHelper.DB_TABLE_TAGGING,
+                        DbHelper.DB_TAGGING_TAG_ID + "='" + tag_id + "'");
         //remove tag match tag_id on tags
-        db.delete(DbHelper.DB_TABLE_TAGS,
-                DbHelper.DB_TAGS_ID + "='" + tag_id + "'", null);
-        db.close();
+        this.delete(DbHelper.DB_TABLE_TAGS,
+                DbHelper.DB_TAGS_ID + "='" + tag_id + "'");
     }
 
     public void updateTagName(String tag_id,String tag_name){
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DbHelper.DB_TAGS_NAME, tag_name);
-        db.update(DbHelper.DB_TABLE_TAGS, values, DbHelper.DB_TAGS_ID + "='" + tag_id + "'", null);
-        db.close();
+        this.update(DbHelper.DB_TABLE_TAGS, values, DbHelper.DB_TAGS_ID + "='" + tag_id + "'");
     }
 }

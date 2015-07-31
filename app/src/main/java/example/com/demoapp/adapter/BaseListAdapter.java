@@ -125,7 +125,7 @@ public abstract class BaseListAdapter extends ArraySwipeAdapter<SentenceItem>{
                 }
                 mLastClickTime = SystemClock.elapsedRealtime();
 
-                HistoryDAO dao = new HistoryDAO(context);
+                HistoryDAO dao = new HistoryDAO();
                 dao.addHistory(sentences_id);
 
                 Intent i = new Intent(context, PopupActivity.class);
@@ -142,7 +142,7 @@ public abstract class BaseListAdapter extends ArraySwipeAdapter<SentenceItem>{
 
     //Setting up for Favorite button
     protected void setUpBtnFavorite(final ViewHolder holder,View convertView,final int position){
-        final FavoriteDAO dao = new FavoriteDAO(getContext());
+        final FavoriteDAO dao = new FavoriteDAO();
         final SentenceItem item = listSentences.get(position);
 
         holder.btFavorite = (ImageButton) convertView.findViewById(R.id.btFavorite);

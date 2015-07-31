@@ -34,7 +34,7 @@ public class HistorySentencesAdapter extends BaseSentencesAdapter {
 
     @Override
     protected void onclickDelete(int position) {
-        HistoryDAO dao = new HistoryDAO(context);
+        HistoryDAO dao = new HistoryDAO();
         SentenceItem item = listSentences.get(position);
         dao.removeFromHistory(item.getId());
     }

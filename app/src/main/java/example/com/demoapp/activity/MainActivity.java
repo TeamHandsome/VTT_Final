@@ -33,6 +33,7 @@ import example.com.demoapp.fragment.MysentencesFragment;
 import example.com.demoapp.fragment.TagFragment;
 import example.com.demoapp.model.DrawerMenuItem;
 import example.com.demoapp.utility.DbHelper;
+import example.com.demoapp.utility.MySingleton;
 
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -195,6 +196,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         try {
             DbHelper db = new DbHelper(this.getApplicationContext());
             db.createdatabase();
+            MySingleton.getInstance().setDb(db);
         } catch (IOException e) {
             e.printStackTrace();
         }

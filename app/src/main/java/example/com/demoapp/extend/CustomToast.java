@@ -1,17 +1,13 @@
 package example.com.demoapp.extend;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-
 import example.com.demoapp.R;
-import example.com.demoapp.utility.StringUtils;
 
 /**
  * Created by Tony on 29/7/2015.

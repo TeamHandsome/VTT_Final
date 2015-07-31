@@ -4,13 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.daimajia.swipe.util.Attributes;
 
 import example.com.demoapp.R;
-import example.com.demoapp.activity.TagPagerActivity;
 import example.com.demoapp.adapter.sentence_adapter.BaseSentencesAdapter;
 import example.com.demoapp.adapter.sentence_adapter.HistorySentencesAdapter;
 import example.com.demoapp.adapter.sentence_adapter.MySentencesAdapter;
@@ -24,6 +22,7 @@ import example.com.demoapp.utility.Consts;
  */
 public class SentenceListFragment extends BaseListFragment {
     private ListView listView;
+    public static BaseSentencesAdapter sentencesAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,8 +40,8 @@ public class SentenceListFragment extends BaseListFragment {
     private void setListView(){
         this.setNoData_view();
         listView.setEmptyView(noData_view);
-        listView.setAdapter(listAdapter);  //apply adapter into listView
-        listAdapter.setMode(Attributes.Mode.Single);
+        listView.setAdapter(sentencesAdapter);  //apply adapter into listView
+        sentencesAdapter.setMode(Attributes.Mode.Single);
     }
 
     @Override
@@ -52,29 +51,29 @@ public class SentenceListFragment extends BaseListFragment {
 
     @Override
     protected void initListBySubView(){
-        listAdapter = new SentencesAdapter(getActivity(), R.layout.custom_row_sen_f_t, listSentences);
+        sentencesAdapter = new SentencesAdapter(getActivity(), R.layout.custom_row_sen_f_t, listSentences);
     }
 
     @Override
     protected void initHistoryView(){
-        listAdapter = new HistorySentencesAdapter(getActivity(), R.layout.custom_row_sen_d, listSentences);
+        sentencesAdapter = new HistorySentencesAdapter(getActivity(), R.layout.custom_row_sen_d, listSentences);
     }
 
     @Override
     protected void initFavoriteView(){
-        listAdapter = new FavoriteSentencesAdapter(getActivity(), R.layout.custom_row_sen_d, listSentences);
+        sentencesAdapter = new FavoriteSentencesAdapter(getActivity(), R.layout.custom_row_sen_d, listSentences);
     }
 
     @Override
     protected void initListByTagView(){
         String tag_id = bundle.getString(Consts.TAG_ID);
-        listAdapter = new TagSentenceAdapter(getActivity(),R.layout.custom_row_sen_f_d,
+        sentencesAdapter = new TagSentenceAdapter(getActivity(),R.layout.custom_row_sen_f_d,
                 listSentences, tag_id);
     }
 
     @Override
     protected void initMySentenceView(){
-        listAdapter = new MySentencesAdapter(getActivity(), R.layout.custom_row_sen_f_d_e, listSentences);
+        sentencesAdapter = new MySentencesAdapter(getActivity(), R.layout.custom_row_sen_f_d_e, listSentences);
     }
 
     @Override
@@ -94,7 +93,11 @@ public class SentenceListFragment extends BaseListFragment {
         if (this.isVisible() && isVisibleToUser) {
             // If we are becoming invisible, then...
             if (!isVisibleToUser) {
-
+                if (listSentences!=null) {
+                    listSentences = ImageListFragment.imageAdapter.getListSentences();
+                    sentencesAdapter.setListSentences(listSentences);
+                    this.setListView();
+                }
             }
         }
     }

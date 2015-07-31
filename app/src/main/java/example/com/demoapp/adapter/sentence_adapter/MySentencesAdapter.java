@@ -35,7 +35,7 @@ public class MySentencesAdapter extends BaseSentencesAdapter {
 
     @Override
     protected void onclickDelete(int position) {
-        SentencesDAO dao = new SentencesDAO(context);
+        SentencesDAO dao = new SentencesDAO();
         SentenceItem item = listSentences.get(position);
         dao.removeSentence(item.getId());
     }

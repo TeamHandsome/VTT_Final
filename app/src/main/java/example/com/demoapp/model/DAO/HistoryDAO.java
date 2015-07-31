@@ -15,18 +15,14 @@ import example.com.demoapp.utility.DbHelper;
  * Created by dmonkey on 7/24/2015.
  */
 public class HistoryDAO extends BaseDAO {
-    DbHelper mDbHelper;
-    public HistoryDAO(Context context) {
-        try {
-            mDbHelper = new DbHelper(context);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public HistoryDAO() {
+        super();
     }
+
     public ArrayList<SentenceItem> getAllHistory(){
         ArrayList<SentenceItem> arrayList = null;
         String query ="SELECT * FROM sentences, history WHERE sentences._ids = history.sentences_id ORDER BY _id DESC";
-        this.rawQueryReadonly(query);
+        this.query(query);
 
         if(cursor.moveToFirst())
         {
@@ -44,55 +40,55 @@ public class HistoryDAO extends BaseDAO {
                 arrayList.add(item);
             }while(cursor.moveToNext());
         }
-        close();
+        this.closeCursor();
         return arrayList;
     }
+
     public void removeFromHistory(String id){
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        db.delete(DbHelper.DB_TABLE_HISTORY, DbHelper.DB_HISTORY_SENTENCES_ID + "='" + id + "'", null);
-        db.close();
+        String whereClause = DbHelper.DB_HISTORY_SENTENCES_ID + "='" + id + "'";
+        this.delete(DbHelper.DB_TABLE_HISTORY, whereClause);
     }
+
     public void addHistory(String sentences_id){
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         String query = "SELECT * FROM history WHERE sentences_id = '" + sentences_id + "'";
-        this.rawQueryReadonly(query);
+        this.query(query);
+
         if (cursor.getCount() == 0){
             values.put(DbHelper.DB_HISTORY_SENTENCES_ID, sentences_id);
-            db.insert(DbHelper.DB_TABLE_HISTORY, null, values);
+            this.insert(DbHelper.DB_TABLE_HISTORY, values);
         }else {
-            removeIdhistory(sentences_id);
+            removeHistoryBySenID(sentences_id);
             values.put(DbHelper.DB_HISTORY_SENTENCES_ID, sentences_id);
-            db.insert(DbHelper.DB_TABLE_HISTORY, null, values);
+            this.insert(DbHelper.DB_TABLE_HISTORY, values);
         }
         if (countId() > Consts.MAX_HISTORY_LENGTH){
-            statement = database.compileStatement("delete from history where _id = '"+ findLastIDHistory() + "'");
-            statement.execute();
+            String whereClause =  DbHelper.DB_HISTORY_ID + "=" + findLastIDHistory();
+            this.delete(DbHelper.DB_TABLE_HISTORY, whereClause);
         }
-        cursor.close();
-        db.close();
+        this.closeCursor();
+    }
 
+    public void removeHistoryBySenID(String sentences_id){
+        String whereClause =  DbHelper.DB_HISTORY_SENTENCES_ID + "='" + sentences_id+"'";
+        this.delete(DbHelper.DB_TABLE_HISTORY, whereClause);
     }
-    public void removeIdhistory(String sentences_id){
-        database = mDbHelper.getWritableDatabase();
-        statement = database.compileStatement("delete from history where sentences_id='"+ sentences_id + "'");
-        statement.execute();
-    }
+
     public long countId(){
-        database = mDbHelper.getReadableDatabase();
-        String sql = "SELECT COUNT(*) FROM history";
-        statement = database.compileStatement(sql);
-        long count = statement.simpleQueryForLong();
+        String query = "SELECT COUNT(*) FROM "+DbHelper.DB_TABLE_HISTORY;
+        long count = this.simpleQueryForLong(query);
         return count;
     }
+
     public int findLastIDHistory() {
         int number = 0;
         String query = "SELECT _id FROM history ORDER BY _id ASC LIMIT 0 , 1";
-        this.rawQueryReadonly(query);
+        this.query(query);
         if (cursor.moveToFirst()) {
             String id = cursor.getString(cursor.getColumnIndex(DbHelper.DB_HISTORY_ID));
             number = Integer.parseInt(id);
         }
+        this.closeCursor();
         return number;
     }
 }

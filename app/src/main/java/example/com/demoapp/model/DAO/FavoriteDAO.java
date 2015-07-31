@@ -15,18 +15,14 @@ import example.com.demoapp.utility.DbHelper;
  * Created by dmonkey on 7/15/2015.
  */
 public class FavoriteDAO extends BaseDAO {
-    DbHelper mDbHelper;
-    public FavoriteDAO(Context context) {
-        try {
-            mDbHelper = new DbHelper(context);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public FavoriteDAO() {
+        super();
     }
     public ArrayList<SentenceItem> getAllFavorite(){
         ArrayList<SentenceItem> arrayList = null;
-        String query ="SELECT * FROM sentences, favorite WHERE sentences._ids = favorite.sentences_id";
-        this.rawQueryReadonly(query);
+        String query ="SELECT * FROM "+DbHelper.DB_TABLE_SENTENCES+", "+DbHelper.DB_TABLE_HISTORY+" " +
+                "WHERE sentences._ids = favorite.sentences_id";
+        this.query(query);
 
         if(cursor.moveToFirst())
         {
@@ -44,30 +40,18 @@ public class FavoriteDAO extends BaseDAO {
                 arrayList.add(item);
             }while(cursor.moveToNext());
         }
-        close();
+        this.closeCursor();
         return arrayList;
     }
 
-    public long countFav() {
-        database = mDbHelper.getReadableDatabase();
-        String sql = "SELECT COUNT(*) FROM favorite";
-        statement = database.compileStatement(sql);
-        long count = statement.simpleQueryForLong();
-        return count;
-    }
-
     public void addToFavorite(String sentences_id) {
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        long countId = countFav() + 1;
         ContentValues values = new ContentValues();
         values.put(DbHelper.DB_FAVORITE_SENTENCES_ID, sentences_id);
-        db.insert(DbHelper.DB_TABLE_FAVORITE, null, values);
-        db.close();
+        this.insert(DbHelper.DB_TABLE_FAVORITE, values);
     }
 
     public void removeFromFavorite(String id){
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        db.delete(DbHelper.DB_TABLE_FAVORITE,DbHelper.DB_FAVORITE_SENTENCES_ID+"='"+id+"'",null);
-        db.close();
+        String whereClause =  DbHelper.DB_FAVORITE_SENTENCES_ID + "='" + id + "'";
+        this.delete(DbHelper.DB_TABLE_FAVORITE,whereClause);
     }
 }

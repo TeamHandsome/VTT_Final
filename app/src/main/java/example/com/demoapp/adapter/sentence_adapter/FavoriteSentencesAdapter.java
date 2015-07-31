@@ -34,7 +34,7 @@ public class FavoriteSentencesAdapter extends BaseSentencesAdapter {
 
     @Override
     protected void onclickDelete(int position) {
-        FavoriteDAO dao = new FavoriteDAO(context);
+        FavoriteDAO dao = new FavoriteDAO();
         SentenceItem item = listSentences.get(position);
         dao.removeFromFavorite(item.getId());
     }

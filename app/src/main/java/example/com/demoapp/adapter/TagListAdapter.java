@@ -102,7 +102,7 @@ public class TagListAdapter extends ArraySwipeAdapter<TagItem> {
         holder.tv_nameTag.setText(listTags.get(position).getNameTag());
 
         String tagId = listTags.get(position).getId();
-        tagDAO = new TagDAO(context);
+        tagDAO = new TagDAO();
         ArrayList<String> listSentencesByTagId = tagDAO.listSentencesFollowTagId(tagId);
         holder.tv_countTag.setText(listSentencesByTagId.size() + "文");
 
@@ -152,7 +152,7 @@ public class TagListAdapter extends ArraySwipeAdapter<TagItem> {
                 String tag_name = getTag_name();
                 String message = validate(tag_name);
                 if (message.equalsIgnoreCase("")) {
-                    TagDAO dao = new TagDAO(context);
+                    TagDAO dao = new TagDAO();
                     dao.updateTagName(listTags.get(position).getId(), tag_name);
                     listTags.get(position).setNameTag(tag_name);
                     TagListAdapter.this.notifyDataSetChanged();
@@ -185,7 +185,7 @@ public class TagListAdapter extends ArraySwipeAdapter<TagItem> {
         ConfirmDeleteDialog dialog = new ConfirmDeleteDialog(context,title,message) {
             @Override
             public void onClickAccept() {
-                TagDAO dao = new TagDAO(context);
+                TagDAO dao = new TagDAO();
                 dao.removeTagByID(listTags.get(position).getId());
                 listTags.remove(position);
                 TagListAdapter.this.notifyDataSetChanged();

@@ -36,7 +36,7 @@ public class AddEditTagActivity extends ActionBarActivity {
     private ArrayList<String> tag_list;    //to handle tag available
     private CompleteTagAdapter mCompleteTagAdapter;
     String sentences_id;
-    final TagDAO tagDAO = new TagDAO(this);
+    final TagDAO tagDAO = new TagDAO();
     private int actionType= -1;
 
     TagView tagView;

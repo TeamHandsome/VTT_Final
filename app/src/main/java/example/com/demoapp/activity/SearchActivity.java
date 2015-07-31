@@ -55,7 +55,7 @@ public class SearchActivity extends AppCompatActivity implements AbsListView.OnS
         View footer = getLayoutInflater().inflate(R.layout.progress_bar_footer, null);
         progressBar = (ProgressBar) footer.findViewById(R.id.progressBar);
         //  searchView = (SearchView) findViewById(R.id.searchView1);
-        sentencesDAO = new SentencesDAO(context);
+        sentencesDAO = new SentencesDAO();
         values = sentencesDAO.getAllSentences();
         searchAdapter = new SearchAdapter(this, values, 20, 10);
         listView.setAdapter(searchAdapter);

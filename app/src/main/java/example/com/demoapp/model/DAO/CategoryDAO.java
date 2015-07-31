@@ -10,15 +10,16 @@ import example.com.demoapp.utility.DbHelper;
  * Created by Tony on 22/7/2015.
  */
 public class CategoryDAO extends BaseDAO {
-    public CategoryDAO() {
-    }
 
+    public CategoryDAO() {
+        super();
+    }
 
     public ArrayList<CategoryItem> getAllCategories()
     {
         ArrayList<CategoryItem> arrayList = null;
-        String query = "select * from categories";
-        this.rawQueryReadonly(query);
+        String query = "select * from "+DbHelper.DB_TABLE_CATEGORIES;
+        this.query(query);
 
         //kiểm tra cursor có dữ liệu không? Nếu có, thưc hiện lấy dữ liệu từ cursor cho vào
         //mảng arrayList
@@ -35,7 +36,8 @@ public class CategoryDAO extends BaseDAO {
                 arrayList.add(item);
             }while(cursor.moveToNext());
         }
-        close();
+
+        this.closeCursor();
         return arrayList;
     }
 }

@@ -32,7 +32,6 @@ public abstract class BaseListFragment extends Fragment{
     protected View view;
     protected ArrayList<SentenceItem> listSentences;
     protected Context context;
-    protected BaseListAdapter listAdapter;
     protected int pager_parent;
     protected Bundle bundle;
     protected ImageView noData_view;
@@ -91,7 +90,7 @@ public abstract class BaseListFragment extends Fragment{
 
     //get sentence list by sub list from DB
     protected void initListBySubList(){
-        SentencesDAO dao = new SentencesDAO(context);
+        SentencesDAO dao = new SentencesDAO();
         int subCategory_id = bundle.getInt(Consts.SUBCATEGORY_ID, Consts.NOT_FOUND);
         listSentences = dao.getAllSentenceBySub(subCategory_id);
     };
@@ -101,7 +100,7 @@ public abstract class BaseListFragment extends Fragment{
 
     //get history list from DB
     protected void initHistoryList(){
-        HistoryDAO dao = new HistoryDAO(context);
+        HistoryDAO dao = new HistoryDAO();
         listSentences = dao.getAllHistory();
     };
 
@@ -110,7 +109,7 @@ public abstract class BaseListFragment extends Fragment{
 
     //get favorite list from DB
     protected void initFavoriteList(){
-        FavoriteDAO dao = new FavoriteDAO(context);
+        FavoriteDAO dao = new FavoriteDAO();
         listSentences = dao.getAllFavorite();
     };
 
@@ -119,7 +118,7 @@ public abstract class BaseListFragment extends Fragment{
 
     //get sentence list by tag list from DB
     protected void initListByTagList(){
-        SentencesDAO dao = new SentencesDAO(context);
+        SentencesDAO dao = new SentencesDAO();
         String tag_id = bundle.getString(Consts.TAG_ID);
         listSentences = dao.getAllSentenceByTagID(tag_id);
     };
@@ -129,7 +128,7 @@ public abstract class BaseListFragment extends Fragment{
 
     //get my sentence list from DB
     protected void initMySentenceList(){
-        SentencesDAO dao = new SentencesDAO(context);
+        SentencesDAO dao = new SentencesDAO();
         listSentences = dao.getAllMySentence();   //get sentence list from DB
     };
 

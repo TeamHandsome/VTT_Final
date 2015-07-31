@@ -25,27 +25,32 @@ public class DbHelper extends SQLiteOpenHelper{
     public static String DB_CATEGORIES_NAME = "name";
     public static String DB_SUBCATEGORIES_ID = "_id";
     public static String DB_SUBCATEGORIES_NAME = "name";
+    public static String DB_SUBCATEGORIES_CATID = "categories_id";
     public static String DB_SENTENCES_ID = "_ids";
     public static String DB_SENTENCES_JP = "jp";
     public static String DB_SENTENCES_JPHIRA = "jp_hiragana";
     public static String DB_SENTENCES_SOUND = "audio";
     public static String DB_SENTENCES_IMAGE = "image_d";
     public static String DB_SENTENCES_VN = "vn";
+    public static String DB_SENTENCES_SUBCAT = "subcategories_id";
     public static String DB_TAGS_NAME ="name";
     public static String DB_TAGS_ID = "_id";
     public static String DB_TAGGING_SENTENCES_ID = "sentences_id";
     public static String DB_FAVORITE_ID = "_id";
     public static String DB_FAVORITE_SENTENCES_ID = "sentences_id";
+    public static String DB_HISTORY_ID = "_id";
+    public static String DB_HISTORY_SENTENCES_ID = "sentences_id";
+    public static String LAST_ID_NUM = "last_id_num";
+
+    public static String DB_TABLE_CATEGORIES = "categories";
+    public static String DB_TABLE_SUBCATEGORY = "subcategories";
     public static String DB_TABLE_TAGS = "tags";
     public static String DB_TABLE_TAGGING = "tagging";
     public static String DB_TAGGING_TAG_ID = "tag_id";
     public static String DB_TABLE_FAVORITE = "favorite";
-    public static String LAST_ID_NUM = "last_id_num";
     public static String DB_TABLE_SENTENCES = "sentences";
-    public static String DB_TABLE_SENTENCES_ID = "_ids";
     public static String DB_TABLE_HISTORY = "history";
-    public static String DB_HISTORY_ID = "_id";
-    public static String DB_HISTORY_SENTENCES_ID = "sentences_id";
+
 
     private Context context;
     private SQLiteDatabase myDataBase;
@@ -55,7 +60,9 @@ public class DbHelper extends SQLiteOpenHelper{
         this.context = context;
     }
 
-
+    public SQLiteDatabase getMyDataBase() {
+        return myDataBase;
+    }
 
     // Creates a empty database on the system and rewrites it with your own database.
     public void createdatabase() throws IOException {

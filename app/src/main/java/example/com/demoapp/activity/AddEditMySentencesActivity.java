@@ -266,8 +266,8 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
         } else {
             image_d = takingPhoto + "";
         }
-        addNewSenDAO = new SentencesDAO(getApplicationContext());
-        addtagMySenDAO = new TagDAO(getApplicationContext());
+        addNewSenDAO = new SentencesDAO();
+        addtagMySenDAO = new TagDAO();
     }
 
     public void invalidInput() {

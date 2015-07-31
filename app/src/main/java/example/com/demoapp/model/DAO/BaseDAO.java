@@ -1,75 +1,76 @@
 package example.com.demoapp.model.DAO;
 
+import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
+import android.support.annotation.Nullable;
 
 import example.com.demoapp.utility.DbHelper;
+import example.com.demoapp.utility.MySingleton;
 
 /**
  * Created by Tony on 6/7/2015.
  */
 public class BaseDAO {
-    protected SQLiteDatabase database = null;
+    private DbHelper dbHelper = null;
     protected Cursor cursor = null;
-    protected SQLiteStatement statement = null;
-    protected String myPath = DbHelper.DB_PATH + DbHelper.DB_NAME;
+    private SQLiteDatabase db = null;
 
-    protected SQLiteDatabase getDatabase() {
-        return database;
+    public BaseDAO() {
+        dbHelper = MySingleton.getInstance().getDb();
+        dbHelper.opendatabase();
+        db = dbHelper.getMyDataBase();
     }
 
-    protected void setDatabase(SQLiteDatabase database) {
-        this.database = database;
-    }
-
-    protected Cursor getCursor() {
-        return cursor;
-    }
-
-    protected void setCursor(Cursor cursor) {
-        this.cursor = cursor;
-    }
-
-    protected SQLiteStatement getStatement() {
-        return statement;
-    }
-
-    protected void setStatement(SQLiteStatement statement) {
-        this.statement = statement;
-    }
-
-    /*Run a sql query on readonly mode of database
-        @query String The sql query will be execute
-         */
-    protected void rawQueryReadonly(String query){
-        this.opendatabase(0);
-        cursor = database.rawQuery(query, null);
-    }
-
-    /*Run a sql query on readwrite mode of database
-    @query String The sql query will be execute
-     */
-    protected void rawQueryReadwrite(String query){
-        this.opendatabase(1);
-        cursor = database.rawQuery(query, null);
-    }
-
-    //Open the database
-    protected void opendatabase(int type) throws SQLException {
-        //Open the database
-        switch (type) {
-            case 1://READWRITE
-                database= SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
-            default://READONLY
-                database = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-        }
-    }
-    /*Close database and cursor
+    /*Insert into DB
     */
-    public void close(){
+    protected long insert(String tableName, ContentValues values){
+        return db.insert(tableName,null,values);
+    }
+    protected long insert(String tableName, ContentValues values, @Nullable String nullColumnHack){
+        return db.insert(tableName,nullColumnHack,values);
+    }
+
+    /*Update DB
+    */
+    protected long update(String tableName, ContentValues values, @Nullable String whereClause){
+        return db.update(tableName, values, whereClause, null);
+    }
+    protected long update(String tableName, ContentValues values, @Nullable String whereClause,
+                          @Nullable String[] whereArgs){
+        return db.update(tableName, values, whereClause,whereArgs);
+    }
+
+    /*Delete from DB
+    */
+    protected long delete(String tableName, @Nullable String whereClause){
+        return db.delete(tableName, whereClause, null);
+    }
+    protected long delete(String tableName, String whereClause,@Nullable String[] whereArgs){
+        return db.delete(tableName, whereClause, whereArgs);
+    }
+
+    /*Raw query
+    */
+    protected Cursor query(String query){
+        return cursor = db.rawQuery(query, null);
+    }
+
+    /*Simple query for long
+    */
+    protected long simpleQueryForLong(String query){
+        return db.compileStatement(query).simpleQueryForLong();
+    }
+
+    /*Simple query for string
+    */
+    protected String simpleQueryForString(String query){
+        return db.compileStatement(query).simpleQueryForString();
+    }
+
+    /*Close cursor only
+        */
+    protected void closeCursor(){
         cursor.close();
-        database.close();
     }
 }

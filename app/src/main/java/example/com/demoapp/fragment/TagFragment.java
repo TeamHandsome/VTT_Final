@@ -64,8 +64,8 @@ public class TagFragment extends Fragment {
     }
 
     public void initView() {
-        tagDAO =  new TagDAO(getActivity().getApplicationContext());
-        TagDAO tagDAO = new TagDAO(getActivity().getApplicationContext());
+        tagDAO =  new TagDAO();
+        TagDAO tagDAO = new TagDAO();
         listTags = tagDAO.getAllTagFromTags();  //gán dữ liệu từ database vào mảng ArrayList
         mTagListAdapter = new TagListAdapter(getActivity(), R.layout.fragment_tag_item, listTags); //gán qua Adapter
         lv_tags.setAdapter(mTagListAdapter);  //từ Adapter lên listview

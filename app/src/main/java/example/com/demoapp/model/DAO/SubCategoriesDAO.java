@@ -10,18 +10,23 @@ import example.com.demoapp.model.SubCategoriesItem;
  */
 public class SubCategoriesDAO extends BaseDAO {
 
+    public SubCategoriesDAO() {
+        super();
+    }
+
     public ArrayList<SubCategoriesItem> getAllSubCategories(int categories_id)
     {
         ArrayList<SubCategoriesItem> arrayList = null;
-        String query = "select * from subcategories where categories_id = "+categories_id;
-        this.rawQueryReadonly(query);
+        String query = "select * from "+DbHelper.DB_TABLE_SUBCATEGORY+" " +
+            "where "+DbHelper.DB_SUBCATEGORIES_CATID+" = "+categories_id;
+        this.query(query);
 
         //kiểm tra cursor có dữ liệu không? Nếu có, thưc hiện lấy dữ liệu từ cursor cho vào
         //mảng arrayList
 
         if(cursor.moveToFirst())
         {
-            arrayList = new ArrayList<SubCategoriesItem>();
+            arrayList = new ArrayList<>();
             do
             {
                 SubCategoriesItem item = new SubCategoriesItem();
@@ -31,7 +36,7 @@ public class SubCategoriesDAO extends BaseDAO {
                 arrayList.add(item);
             }while(cursor.moveToNext());
         }
-        close();
+        this.closeCursor();
         return arrayList;
     }
 }
