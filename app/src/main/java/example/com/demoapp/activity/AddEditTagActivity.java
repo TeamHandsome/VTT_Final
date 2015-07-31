@@ -17,6 +17,7 @@ import com.example.tony.taglibrary.OnTagClickListener;
 import com.example.tony.taglibrary.TagView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 import example.com.demoapp.R;
@@ -42,7 +43,10 @@ public class AddEditTagActivity extends ActionBarActivity {
 
     TagView tagView;
     Stack<String> stacklist;
-
+    String tag_name;
+    int pos_remove;
+    String textTag;
+    List<Tag> listTag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +71,13 @@ public class AddEditTagActivity extends ActionBarActivity {
         bt_addTag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String textTag = autoComplete.getText().toString();
+                textTag = autoComplete.getText().toString();
 
                 if (validate(textTag)) {
+                    stacklist.push(textTag);
                     Common.addNewTagToTagView(AddEditTagActivity.this, tagView, textTag);
+                    listTag = tagView.getTags();
+                    pos_remove = listTag.size()-1;
                     tag_list.add(textTag);
                     reloadArrayTagForAutocompleteBox();
                 }
@@ -82,7 +89,7 @@ public class AddEditTagActivity extends ActionBarActivity {
         tagView.setOnTagClickListener(new OnTagClickListener() {
             @Override
             public void onTagClick(Tag tag, int position) {
-                String tag_name = tag_list.get(position);
+                tag_name = tag_list.get(position);
                 stacklist.push(tag_name);
                 String mess = Message.ITEM_IS_DELETED(tag_name + Consts.TAG);
                 Common.showToast(AddEditTagActivity.this, mess, CustomToast.INFO);
@@ -144,9 +151,17 @@ public class AddEditTagActivity extends ActionBarActivity {
             case R.id.revert_bt:
                 if (!stacklist.empty()) {
                     String reverted_tag = stacklist.pop();
-                    Common.addNewTagToTagView(AddEditTagActivity.this, tagView, reverted_tag);
-                    tag_list.add(reverted_tag);
-                    reloadArrayTagForAutocompleteBox();
+                    if (reverted_tag.equalsIgnoreCase(textTag)){
+                        String mess = Message.ITEM_IS_DELETED(textTag + Consts.TAG);
+                        Common.showToast(AddEditTagActivity.this, mess, CustomToast.INFO);
+                        tagView.remove(pos_remove);
+                        tag_list.remove(pos_remove);
+                    }else {
+                        Common.addNewTagToTagView(AddEditTagActivity.this, tagView, reverted_tag);
+                        tag_list.add(reverted_tag);
+                        reloadArrayTagForAutocompleteBox();
+                    }
+
                 } else {
                     String mess = Message.NO_DATA;
                     Common.showToast(AddEditTagActivity.this, mess, CustomToast.INFO);
