@@ -39,6 +39,7 @@ public abstract class BasePagerActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setElevation(0);
         this.slidingTab();
         initNavigationHeaderView();
     }
