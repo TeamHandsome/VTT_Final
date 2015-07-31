@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 
+import com.example.tony.taglibrary.OnTagClickListener;
 import com.example.tony.taglibrary.TagView;
 
 import java.util.ArrayList;
@@ -75,13 +76,15 @@ public class AddEditTagActivity extends ActionBarActivity {
                 autoComplete.setText("");
             }
         });
-        tagView.setOnTagDeleteListener(new OnTagDeleteListener() {
+        tagView.setOnTagClickListener(new OnTagClickListener() {
             @Override
-            public void onTagDeleted(Tag tag, int position) {
+            public void onTagClick(Tag tag, int position) {
                 String tag_name = tag_list.get(position);
-                String mess = Message.ITEM_IS_DELETED(tag_name+Consts.TAG);
+                String mess = Message.ITEM_IS_DELETED(tag_name + Consts.TAG);
                 Common.showToast(AddEditTagActivity.this, mess, CustomToast.INFO);
+                tagView.remove(position);
                 tag_list.remove(position);
+
             }
         });
         //// Event for Button Accept + Cancel

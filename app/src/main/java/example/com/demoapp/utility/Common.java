@@ -2,6 +2,7 @@ package example.com.demoapp.utility;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.net.Uri;
 import android.view.Display;
@@ -38,11 +39,9 @@ public final class Common {
 
     public static void addNewTagToTagView(Activity activity,TagView tagView, String tagName) {
         Tag tag = new Tag(tagName);
-        tag.layoutBorderSize = 1f;
-        tag.layoutBorderColor = activity.getResources().getColor(R.color.colorPrimary);
-        tag.tagTextSize = 23f;
-        tag.radiusSet = new float[]{30,30,0,0,0,0,30,30};
-        tag.isDeletable = true;
+        tag.layoutColor = Color.parseColor("#00BCD4");
+        tag.tagTextSize = 20f;
+        tag.radiusSet = new float[]{20,20,0,0,0,0,20,20};
 
         tagView.addTag(tag);
     }

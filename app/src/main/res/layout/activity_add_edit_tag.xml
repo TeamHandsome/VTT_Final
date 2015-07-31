@@ -102,10 +102,10 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     app:lineMargin="5dp"
-                    app:tagMargin="3dp"
+                    app:tagMargin="10dp"
                     app:textPaddingBottom="3dp"
-                    app:textPaddingLeft="10dp"
-                    app:textPaddingRight="10dp"
+                    app:textPaddingLeft="5dp"
+                    app:textPaddingRight="5dp"
                     app:textPaddingTop="3dp"></com.example.tony.taglibrary.TagView>
 
             </LinearLayout>
