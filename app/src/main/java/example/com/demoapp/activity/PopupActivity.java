@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -36,11 +38,21 @@ public class PopupActivity extends Activity {
     private String vn_name;
     private String jp_name;
 
+    private boolean soundAvailable = true;
+    private boolean imgAvailable = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_popup);
         PopupActivity.this.getWindow().setBackgroundDrawableResource(R.drawable.back_pop_up);
+        this.setLayoutWidth();
+        //set button cancel
+        bt_cancel = (ImageButton) findViewById(R.id.bt_cancel);
+        bt_cancel.setOnClickListener(listener);
+        //set button replay
+        bt_replay = (ImageButton) findViewById(R.id.bt_replay);
+        bt_replay.setOnClickListener(listener);
 
         speaker = new AndroidMediaPlayer(PopupActivity.this);
         Bundle extras = getIntent().getExtras();
@@ -55,15 +67,11 @@ public class PopupActivity extends Activity {
 
             this.setTextView();
             this.setImageView();
-            speaker.speak(item);
+            soundAvailable = speaker.speak(item);
+            if (!soundAvailable){
+                bt_replay.setEnabled(false);
+            }
         }
-
-        //set button cancel
-        bt_cancel = (ImageButton) findViewById(R.id.bt_cancel);
-        bt_cancel.setOnClickListener(listener);
-        //set button replay
-        bt_replay = (ImageButton) findViewById(R.id.bt_replay);
-        bt_replay.setOnClickListener(listener);
     }
 
     View.OnClickListener listener = new View.OnClickListener() {
@@ -71,13 +79,15 @@ public class PopupActivity extends Activity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.bt_cancel:
-                    if (sound != null) {
+                    if (soundAvailable) {
                         speaker.stopSpeak();
                     }
                     finish();
                     break;
                 case R.id.bt_replay:
-                    speaker.resumeSpeak();
+                    if (soundAvailable) {
+                        speaker.resumeSpeak();
+                    }
                     break;
             }
         }
@@ -86,7 +96,7 @@ public class PopupActivity extends Activity {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN && isOutOfBounds(event)) {
-            if (sound != null) {
+            if (soundAvailable) {
                 speaker.stopSpeak();
             }
             finish();
@@ -125,6 +135,13 @@ public class PopupActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void setLayoutWidth(){
+        Point size = Common.getScreenSizeInPixels(PopupActivity.this);
+        int width = size.x;
+        int y = width * 191 / 216;
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.popup_sen);
+        relativeLayout.getLayoutParams().width = y;
+    }
 
     private void setTextView(){
         tv_vn = (TextView) findViewById(R.id.tv_vn);
@@ -151,7 +168,6 @@ public class PopupActivity extends Activity {
 
     private void setImageViewURI(String uri){
         this.initImageView();
-
         if (!uri.isEmpty()) {
             Picasso.with(this)
                     .load(uri)

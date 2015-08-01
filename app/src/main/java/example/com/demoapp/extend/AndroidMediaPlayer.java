@@ -59,7 +59,7 @@ public class AndroidMediaPlayer implements Speaker {
     @Override
     public boolean resumeSpeak() {
         try {
-            if (!mediaPlayer.isPlaying()) {
+            if (mediaPlayer != null && !mediaPlayer.isPlaying()) {
                 mediaPlayer.start();
             }
         }catch (IllegalStateException e){
@@ -71,7 +71,9 @@ public class AndroidMediaPlayer implements Speaker {
     @Override
     public boolean stopSpeak() {
         try {
-            mediaPlayer.stop();
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+            }
         }catch (IllegalStateException e){
             return false;
         }
@@ -83,7 +85,7 @@ public class AndroidMediaPlayer implements Speaker {
      * @return
      */
     private boolean startMediaPlayerByFilePath(String path){
-        if (!path.isEmpty()) {
+        if (path != null && !path.isEmpty()) {
             try {
                 mediaPlayer.setDataSource(path);
                 mediaPlayer.prepare();
@@ -102,7 +104,7 @@ public class AndroidMediaPlayer implements Speaker {
     }
 
     private boolean startMediaPlayerByRawName(String soundName){
-        if (!soundName.isEmpty()) {
+        if (soundName != null && !soundName.isEmpty()) {
             try {
                 Uri uri = StringUtils.buildRawUri(context.getPackageName(), soundName);
                 mediaPlayer = MediaPlayer.create(context, uri);

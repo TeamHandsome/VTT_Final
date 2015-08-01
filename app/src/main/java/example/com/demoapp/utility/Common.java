@@ -59,11 +59,10 @@ public final class Common {
         Point size = new Point();
         display.getSize(size);
         int width = size.y;
-        int height = size.x/8;
+        int height = size.x*131/960;
         ImageView imageView = (ImageView)view.findViewById(R.id.navigation_back);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        Uri uri=Uri.parse("android.resource://" + context.getPackageName() + "/" +
-                "drawable" + "/" + image);
+        Uri uri=StringUtils.buildDrawableUri(context.getPackageName(),image);
         Picasso.with(context)
                 .load(uri)
                 .resize(width, height)
