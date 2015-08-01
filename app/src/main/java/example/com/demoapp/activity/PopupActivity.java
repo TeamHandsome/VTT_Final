@@ -2,7 +2,6 @@ package example.com.demoapp.activity;
 
 import android.app.Activity;
 import android.graphics.Point;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,9 +15,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-
 import example.com.demoapp.R;
+import example.com.demoapp.extend.AndroidMediaPlayer;
 import example.com.demoapp.extend.Speaker;
 import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.utility.Common;
@@ -26,17 +24,17 @@ import example.com.demoapp.utility.Consts;
 import example.com.demoapp.utility.StringUtils;
 
 public class PopupActivity extends Activity {
-    SentenceItem item;
-    String soundPath;
-    String vn_name;
-    String img;
-    MediaPlayer mPlayer;
-    private int action_type = -1;
-    Speaker speaker;
+    private Speaker speaker;
 
-    TextView tv_vn;
-    ImageView img_body;
-    ImageButton bt_cancel,bt_replay;
+    private TextView tv_vn;
+    private ImageView img_body;
+    private ImageButton bt_cancel,bt_replay;
+
+    private String id;
+    private String sound;
+    private String img;
+    private String vn_name;
+    private String jp_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,73 +42,52 @@ public class PopupActivity extends Activity {
         setContentView(R.layout.activity_popup);
         PopupActivity.this.getWindow().setBackgroundDrawableResource(R.drawable.back_pop_up);
 
-        mPlayer = new MediaPlayer();
+        speaker = new AndroidMediaPlayer(PopupActivity.this);
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-            item = extras.getParcelable(Consts.DATA);
-            soundPath = item.getSound();
+            SentenceItem item = extras.getParcelable(Consts.DATA);
+            id = item.getId();
+            sound = item.getSound();
             img = item.getImage();
             vn_name = item.getNameVn();
+            jp_name = item.getNameJp();
 
             this.setTextView();
-            if (item.getId().contains("s")) {
-                ///////
-                if (soundPath != null) {
-                    try {
-                        mPlayer.setDataSource(soundPath);
-                        mPlayer.prepare();
-                        if (mPlayer.isPlaying()) {
-                            mPlayer.stop();
-                        }
-                        mPlayer.start();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                //////
-                this.setImageViewURI(img);
-            } else {
-                ///////
-                if (!soundPath.isEmpty() && soundPath !=null) {
-                    Uri uri = StringUtils.buildRawUri(this.getPackageName(), soundPath);
-                    mPlayer = MediaPlayer.create(PopupActivity.this, uri);
-                    if (mPlayer.isPlaying()) {
-                        mPlayer.stop();
-                    }
-                    mPlayer.start();
-                }
-
-                Uri uri = StringUtils.buildDrawableUri(this.getPackageName(), img);
-                this.setImageViewURI(uri);
-            }
+            this.setImageView();
+            speaker.speak(item);
         }
 
         //set button cancel
         bt_cancel = (ImageButton) findViewById(R.id.bt_cancel);
-        bt_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (soundPath != null) {
-                    mPlayer.stop();
-                }
-                finish();
-            }
-        });
+        bt_cancel.setOnClickListener(listener);
         //set button replay
         bt_replay = (ImageButton) findViewById(R.id.bt_replay);
-        bt_replay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPlayer.start();
-            }
-        });
+        bt_replay.setOnClickListener(listener);
     }
 
+    View.OnClickListener listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.bt_cancel:
+                    if (sound != null) {
+                        speaker.stopSpeak();
+                    }
+                    finish();
+                    break;
+                case R.id.bt_replay:
+                    speaker.resumeSpeak();
+                    break;
+            }
+        }
+    };
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN && isOutOfBounds(event)) {
-            if (soundPath != null) {
-                mPlayer.stop();
+            if (sound != null) {
+                speaker.stopSpeak();
             }
             finish();
             return true;
@@ -154,8 +131,17 @@ public class PopupActivity extends Activity {
         tv_vn.setText(vn_name.toUpperCase());
     }
 
+    private void setImageView(){
+        if (id.contains("s")) {
+            this.setImageViewURI(img);
+        } else {
+            Uri uri = StringUtils.buildDrawableUri(this.getPackageName(), img);
+            this.setImageViewURI(uri);
+        }
+    }
+
     private void setImageViewURI(Uri uri){
-        this.intImageView();
+        this.initImageView();
         Picasso.with(this)
                 .load(uri)
                 .resize(360, 360)
@@ -164,7 +150,7 @@ public class PopupActivity extends Activity {
     }
 
     private void setImageViewURI(String uri){
-        this.intImageView();
+        this.initImageView();
 
         if (!uri.isEmpty()) {
             Picasso.with(this)
@@ -175,7 +161,7 @@ public class PopupActivity extends Activity {
         }
     }
 
-    private void intImageView(){
+    private void initImageView(){
         Point size = Common.getScreenSizeInPixels(PopupActivity.this);
         int width = size.x;
         int y = width / 2;
