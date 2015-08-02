@@ -88,7 +88,7 @@ public class DisplaySubActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_shopping, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -105,6 +105,9 @@ public class DisplaySubActivity extends ActionBarActivity {
         }
         if (id == R.id.home){
             NavUtils.navigateUpFromSameTask(this); // khi click back icon se go back sourceAcitivy
+        }
+        if (id == R.id.action_search) {
+            startActivity(new Intent(DisplaySubActivity.this, SearchActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

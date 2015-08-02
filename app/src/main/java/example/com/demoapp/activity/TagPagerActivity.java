@@ -1,5 +1,6 @@
 package example.com.demoapp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,6 +35,8 @@ public class TagPagerActivity extends BasePagerActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.search_sen:
+                startActivity(new Intent(TagPagerActivity.this, SearchActivity.class));
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -1,5 +1,6 @@
 package example.com.demoapp.activity;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -38,6 +39,8 @@ public class SubPagerActivity extends BasePagerActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.search_sen:
+                startActivity(new Intent(SubPagerActivity.this, SearchActivity.class));
             default:
                 return super.onOptionsItemSelected(item);
         }
