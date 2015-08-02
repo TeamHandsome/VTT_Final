@@ -4,18 +4,17 @@ import android.app.Activity;
 import android.widget.TextView;
 
 import example.com.demoapp.R;
+import example.com.demoapp.utility.Consts;
+import example.com.demoapp.utility.Message;
 
 /**
- * Created by Tony on 27/7/2015.
+ * Created by Tony on 2/8/2015.
  */
-public class ConfirmDeleteDialog extends BaseDialog {
+public class CancelDialog extends  BaseDialog {
     private TextView tv_Message, tv_Title;
-    private String title,message;
 
-    public ConfirmDeleteDialog(Activity activity,String title, String message) {
+    public CancelDialog(Activity activity) {
         super(activity);
-        this.message = message;
-        this.title = title;
     }
 
     @Override
@@ -23,8 +22,8 @@ public class ConfirmDeleteDialog extends BaseDialog {
         super.initView();
         tv_Message = (TextView) findViewById(R.id.tv_Message);
         tv_Title = (TextView) findViewById(R.id.tv_Title);
-        tv_Message.setText(message);
-        tv_Title.setText(title);
+        tv_Message.setText(Message.CONFIRM_CANCEL);
+        tv_Title.setText(Consts.CONFIRM_CANCEL);
     }
 
     public void setTitle(String title) {
@@ -37,10 +36,11 @@ public class ConfirmDeleteDialog extends BaseDialog {
 
     @Override
     public void onClickAccept() {
+
     }
 
     @Override
-    protected int setContentViewLayout(){
+    protected int setContentViewLayout() {
         return R.layout.custom_dialog_confirm;
     }
 }

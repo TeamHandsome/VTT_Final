@@ -85,6 +85,9 @@ public final class Consts {
 
     //record value
     public static final int MAX_RECORD_TIME_MILLISECOND = 5000;
+
+    //cancel dialog title
+    public static final String CONFIRM_CANCEL = "キャンセルを確認";
     /**
      * Opposite of {@link #FAILS}.
      */

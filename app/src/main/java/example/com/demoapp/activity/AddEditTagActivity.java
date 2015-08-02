@@ -22,6 +22,7 @@ import java.util.Stack;
 
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.CompleteTagAdapter;
+import example.com.demoapp.extend.CancelDialog;
 import example.com.demoapp.extend.CustomToast;
 import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Consts;
@@ -118,7 +119,17 @@ public class AddEditTagActivity extends ActionBarActivity {
                     }
                     break;
                 case R.id.bt_cancel1:
-                    finish();
+                    if(!stacklist.empty()) {
+                        CancelDialog dialog = new CancelDialog(AddEditTagActivity.this) {
+                            @Override
+                            public void onClickAccept() {
+                                finish();
+                            }
+                        };
+                        dialog.show();
+                    }else {
+                        finish();
+                    }
                     break;
             }
         }
