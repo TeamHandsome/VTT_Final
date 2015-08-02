@@ -77,6 +77,12 @@ public final class Consts {
     public static final String DELETE_TAG = "タグを削除";
     public static final String DELETE_SEN_FROM_TAG = "タグから削除";
 
+    //image name in drawable
+    public static final String NAVI_BACK_FAVORITE = "navi_back_favorite";
+    public static final String NAVI_BACK_HISTORY = "navi_back_history";
+    public static final String NAVI_BACK_MYSEN = "navi_back_mysen";
+    public static final String NAVI_BACK_TAG = "navi_back_tag";
+
     //record value
     public static final int MAX_RECORD_TIME_MILLISECOND = 5000;
     /**

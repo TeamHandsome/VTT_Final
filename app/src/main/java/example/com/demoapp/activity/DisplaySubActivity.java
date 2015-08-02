@@ -1,16 +1,24 @@
 package example.com.demoapp.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
+import android.net.Uri;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -28,7 +36,7 @@ public class DisplaySubActivity extends ActionBarActivity {
     private int category_id;
     private String category_name;
     private String navigation_text = "-";
-    private String navigation_back_url = "";
+    private String navigation_image = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +60,10 @@ public class DisplaySubActivity extends ActionBarActivity {
         listView.setAdapter(mSubCategoriesAdapter);
         mSubCategoriesAdapter.notifyDataSetChanged();
 
-        //set navigation text
-        TextView textView = (TextView)findViewById(R.id.navigation_text);
         navigation_text = Consts.CONVERSATION + "-" + category_name;
-        navigation_text = StringUtils.addSpaceBetweenChar(navigation_text);
-        textView.setText(navigation_text);
+        this.initNavigationHeaderView();
+
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -68,9 +75,9 @@ public class DisplaySubActivity extends ActionBarActivity {
                 //send navigation text
                 String text = category_name + "-" + item.getName();
                 text = StringUtils.addSpaceBetweenChar(text);
-                intent.putExtra(Consts.NAVIGATION_TEXT,text);
+                intent.putExtra(Consts.NAVIGATION_TEXT, text);
                 //send navigation image url
-                intent.putExtra(Consts.NAVIGATION_IMAGE,item.getImage_url());
+                intent.putExtra(Consts.NAVIGATION_IMAGE, item.getImage_url());
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
@@ -102,4 +109,24 @@ public class DisplaySubActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    protected void initNavigationHeaderView(){
+        TextView textView = (TextView)findViewById(R.id.navigation_text);
+        textView.setText(StringUtils.addSpaceBetweenChar(navigation_text));
+
+        WindowManager wm = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.y;
+        int height = size.x*407/1920;
+        ImageView imageView = (ImageView)findViewById(R.id.navigation_back);
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        Uri uri=StringUtils.buildDrawableUri(getPackageName(),navigation_image);
+        Picasso.with(this)
+                .load(uri)
+                .resize(width, height)
+                .centerInside()
+                .into(imageView);
+    };
 }

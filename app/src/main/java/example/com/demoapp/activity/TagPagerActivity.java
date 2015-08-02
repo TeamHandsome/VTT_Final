@@ -15,7 +15,7 @@ public class TagPagerActivity extends BasePagerActivity {
     @Override
     protected void initFirstValue() {
         navigation_text = getIntent().getStringExtra(Consts.NAVIGATION_TEXT);
-        navigation_image = "";
+        navigation_image = Consts.NAVI_BACK_TAG;
         pager_parent = Consts.SENTENCE_LIST_BY_TAG;
         String tag_id = getIntent().getStringExtra(Consts.TAG_ID);
         bundle.putString(Consts.TAG_ID,tag_id);

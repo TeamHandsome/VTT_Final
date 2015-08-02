@@ -3,27 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="example.com.demoapp.fragment.FavoriteFragment">
+    tools:context="example.com.demoapp.fragment.BaseListContainerFragment">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:weightSum="4"
         android:layout_height="match_parent">
-
+        <!--<header>-->
         <LinearLayout
             android:orientation="vertical"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:weightSum="3">
-            <!--<header>-->
-            <example.com.demoapp.tabs.SlidingTabLayout
-                android:id="@+id/tabs1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:layout_alignParentTop="true" />
+
             <include
                 android:id="@+id/navigation_header"
                 layout="@layout/navigation_header" />
@@ -36,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp">
             <example.com.demoapp.tabs.CustomViewPager
-                android:id="@+id/pager1"
+                android:id="@+id/pager"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:layout_weight="1">
