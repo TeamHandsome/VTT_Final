@@ -21,6 +21,8 @@
         android:id="@+id/navigation_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:textSize="24sp"
         android:padding="6dip"
         android:textColor="@color/textColorPrimary"
