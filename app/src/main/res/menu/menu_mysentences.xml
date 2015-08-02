@@ -2,7 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="example.com.demoapp.fragment.MysentencesFragment">
-
+    <item
+        android:id="@+id/action_share"
+        android:orderInCategory="150"
+        android:title="シェア"
+        android:icon="@mipmap/ic_action_ic_share"
+        app:showAsAction="always"/>
     <item
         android:id="@+id/action_addNew"
         android:orderInCategory="100"
