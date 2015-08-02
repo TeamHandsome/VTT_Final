@@ -50,7 +50,7 @@ public class SearchAdapter extends BaseSentencesAdapter implements Filterable {
                 if (constraint != null) {
                     if (listAll != null && listAll.size() > 0) {
                         for (final SentenceItem g : listAll) {
-                            if (g.getNameJp().toLowerCase().contains(constraint.toString()))
+                            if (g.getNameFull()!=null && g.getNameFull().toLowerCase().contains(constraint.toString()))
 
                                 results.add(g);
                         }
