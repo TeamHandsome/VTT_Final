@@ -118,8 +118,8 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
         bt_accept2.setOnClickListener(listener);
         bt_cancel2.setOnClickListener(listener);
 
-        bt_recordPlay.setClickable(false);
-        bt_recordDelete.setClickable(false);
+        bt_recordPlay.setEnabled(false);
+        bt_recordDelete.setEnabled(false);
 
         //hanlde for Float Button Record from main
         Intent intent1 = getIntent();
@@ -127,7 +127,7 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
         if (fab_record != null) {
             uri_record = fab_record;
 //            Toast.makeText(getApplicationContext(), "Uri record: "+ uri_record, Toast.LENGTH_SHORT).show();
-            bt_recordPlay.setClickable(true);
+            bt_recordPlay.setEnabled(true);
         }
         ;
         //handle  for Float Button Camera from main
@@ -184,10 +184,10 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
                 case R.id.bt_recordDelete:
                     file = new File(uri_record);
                     file.delete();
-                    bt_recordDelete.setClickable(false);
-                    bt_recordPlay.setClickable(false);
-                    bt_record.setClickable(true);
-                    bt_recordPath.setClickable(true);
+                    bt_recordDelete.setEnabled(false);
+                    bt_recordPlay.setEnabled(false);
+                    bt_record.setEnabled(true);
+                    bt_recordPath.setEnabled(true);
                     Common.showToast(AddEditMySentencesActivity.this, Message.ITEM_IS_DELETED(Consts.AUDIO));
                     break;
                 case R.id.bt_takephoto:
@@ -343,10 +343,10 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
         if (requestCode == REQUEST_CODE_RECORD && resultCode == RESULT_CODE_RECORD) {
             uri_record = data.getStringExtra("data");
             if (uri_record != null) {
-                bt_record.setClickable(false);
-                bt_recordPath.setClickable(false);
-                bt_recordPlay.setClickable(true);
-                bt_recordDelete.setClickable(true);
+                bt_record.setEnabled(false);
+                bt_recordPath.setEnabled(false);
+                bt_recordPlay.setEnabled(true);
+                bt_recordDelete.setEnabled(true);
             }
         }
 

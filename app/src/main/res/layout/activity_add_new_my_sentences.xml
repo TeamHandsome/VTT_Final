@@ -13,18 +13,21 @@
         android:id="@+id/scrollView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/toolbar">
+        android:layout_below="@id/toolbar"
+        android:background="#f9f5ec">
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/japanese"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/layout_addmysentences"
                 android:orientation="vertical">
 
@@ -39,15 +42,17 @@
                     android:id="@+id/ed_japanese"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryText" />
+                    android:textColor="@color/colorPrimaryText"
+                    android:inputType="text"/>
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/vietnamese"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/japanese"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/layout_addmysentences"
                 android:orientation="vertical">
 
@@ -62,15 +67,17 @@
                     android:id="@+id/ed_vietnamese"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryText" />
+                    android:textColor="@color/colorPrimaryText"
+                    android:inputType="text"/>
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/tag"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/vietnamese"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/layout_addmysentences"
                 android:orientation="vertical">
 
@@ -88,9 +95,9 @@
 
                     <ImageButton
                         android:id="@+id/bt_addTagMySentences"
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/imgbt_addtag"
+                        android:layout_width="65dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/state_btn_radi_tl_bl"
                         android:src="@mipmap/ic_action_add"
                         android:layout_margin="5dp"/>
 
@@ -104,7 +111,7 @@
                         app:textPaddingBottom="3dp"
                         app:textPaddingLeft="10dp"
                         app:textPaddingRight="10dp"
-                        app:textPaddingTop="3dp"></com.example.tony.taglibrary.TagView>
+                        app:textPaddingTop="3dp"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -112,8 +119,9 @@
                 android:id="@+id/record"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tag"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/layout_addmysentences"
                 android:orientation="vertical">
 
@@ -130,40 +138,39 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                    android:id="@+id/bt_record"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/imgbt_addtag"
-                    android:src="@mipmap/ic_addmysen_record" />
-
-                    <ImageButton
-                        android:id="@+id/bt_recordPlay"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/bt_record"
+                        android:layout_width="65dp"
+                        android:layout_height="45dp"
                         android:layout_margin="5dp"
                         android:layout_weight="1"
-                        android:background="@drawable/imgbt_addtag"
+                        android:background="@drawable/state_btn_radi_none"
+                        android:src="@mipmap/ic_addmysen_record" />
+
+                    <ImageButton
+                        android:id="@+id/bt_recordPath"
+                        android:layout_width="65dp"
+                        android:layout_height="45dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/state_btn_radi_none"
+                        android:src="@mipmap/ic_addmysen_recordpath" />
+                    <ImageButton
+                        android:id="@+id/bt_recordPlay"
+                        android:layout_width="65dp"
+                        android:layout_height="45dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/state_btn_radi_none"
                         android:src="@mipmap/ic_addmysen_play" />
 
                     <ImageButton
                         android:id="@+id/bt_recordDelete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="65dp"
+                        android:layout_height="45dp"
                         android:layout_margin="5dp"
                         android:layout_weight="1"
-                        android:background="@drawable/imgbt_addtag"
+                        android:background="@drawable/state_btn_radi_none"
                         android:src="@mipmap/ic_addmysen_delete" />
-
-                    <ImageButton
-                        android:id="@+id/bt_recordPath"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/imgbt_addtag"
-                        android:src="@mipmap/ic_addmysen_recordpath" />
 
                 </LinearLayout>
 
@@ -173,8 +180,9 @@
                 android:id="@+id/photo"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/record"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/layout_addmysentences"
                 android:orientation="vertical">
 
@@ -192,39 +200,42 @@
 
                     <ImageButton
                         android:id="@+id/bt_takephoto"
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="65dp"
+                        android:layout_height="45dp"
                         android:layout_margin="5dp"
-                        android:background="@drawable/imgbt_addtag"
+                        android:background="@drawable/state_btn_radi_none"
                         android:src="@mipmap/ic_addmysen_camera" />
 
                     <ImageButton
                         android:id="@+id/bt_gallery"
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="65dp"
+                        android:layout_height="45dp"
                         android:layout_margin="5dp"
-                        android:background="@drawable/imgbt_addtag"
+                        android:background="@drawable/state_btn_radi_none"
                         android:src="@mipmap/ic_addmysen_gallery" />
 
                     <ImageButton
                         android:id="@+id/bt_photodelete"
-                        android:layout_width="75dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="65dp"
+                        android:layout_height="45dp"
                         android:layout_margin="5dp"
-                        android:background="@drawable/imgbt_addtag"
+                        android:background="@drawable/state_btn_radi_none"
                         android:src="@mipmap/ic_addmysen_delete" />
 
                 </LinearLayout>
-
                 <ImageView
                     android:id="@+id/img_photo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="100dp"
-                    android:src="@drawable/default_image" />
-
+                    android:src="@drawable/default_image"
+                    android:adjustViewBounds="true"/>
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="#f9f5ec"/>
         </LinearLayout>
 
     </ScrollView>
