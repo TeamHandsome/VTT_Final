@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
+    android:id="@+id/activity_add_edit_tag"
     tools:context="example.com.demoapp.activity.AddEditTagActivity">
 
     <LinearLayout
@@ -113,7 +114,10 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+    </LinearLayout>
     //Footer button
     <LinearLayout
         android:layout_width="fill_parent"

@@ -9,8 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.tony.taglibrary.OnTagClickListener;
@@ -37,7 +40,6 @@ public class AddEditTagActivity extends ActionBarActivity {
 
     private AutoCompleteTextView autoComplete;
     private ArrayList<String> tag_list;    //to handle tag available
-    private CompleteTagAdapter mCompleteTagAdapter;
     String sentences_id;
     final TagDAO tagDAO = new TagDAO();
     private int actionType = -1;
@@ -57,7 +59,8 @@ public class AddEditTagActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //hien thi icon back
-
+        Common.setupUIForHideSoftKeyBroad(findViewById(R.id.activity_add_edit_tag),
+                AddEditTagActivity.this);
         tagView = (TagView) findViewById(R.id.tagview);
 
         this.actionType = getIntent().getIntExtra(Consts.ACTION_TYPE, Consts.NOT_FOUND);
@@ -186,7 +189,8 @@ public class AddEditTagActivity extends ActionBarActivity {
 
     private void reloadArrayTagForAutocompleteBox() {
         ArrayList<TagItem> arrayTag = tagDAO.getAllTagFromTagsIgnoreItems(tag_list);
-        mCompleteTagAdapter = new CompleteTagAdapter(this, R.layout.activity_add_edit_tag_item_complete, arrayTag);
+        CompleteTagAdapter mCompleteTagAdapter = new CompleteTagAdapter(this,
+                R.layout.activity_add_edit_tag_item_complete, arrayTag);
         autoComplete.setAdapter(mCompleteTagAdapter);
     }
 

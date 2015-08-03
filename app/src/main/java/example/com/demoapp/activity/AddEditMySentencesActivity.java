@@ -91,6 +91,10 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //h
+
+        Common.setupUIForHideSoftKeyBroad(findViewById(R.id.activity_add_edit_my_sentence),
+                AddEditMySentencesActivity.this);
+
         this.action_type = getIntent().getIntExtra(Consts.ACTION_TYPE, Consts.NOT_FOUND);
 
         findViewById(R.id.bt_addTagMySentences).setOnClickListener(listener);

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/activity_add_edit_my_sentence"
     tools:context="example.com.demoapp.activity.AddEditMySentencesActivity">
 
     <include
@@ -235,7 +236,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
-                android:background="#f9f5ec"/>
+                android:background="@color/colorPrimaryLight"/>
         </LinearLayout>
 
     </ScrollView>
