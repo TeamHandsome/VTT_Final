@@ -44,6 +44,7 @@ public class DisplaySubActivity extends ActionBarActivity {
         setContentView(R.layout.activity_subcategories);
         category_id = getIntent().getIntExtra(Consts.CATEGORY_ID, Consts.NOT_FOUND);
         category_name = getIntent().getStringExtra(Consts.CATEGORY_NAME);
+        navigation_image = getIntent().getStringExtra(Consts.NAVIGATION_IMAGE);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -76,7 +77,7 @@ public class DisplaySubActivity extends ActionBarActivity {
                 String text = category_name + "-" + item.getName();
                 intent.putExtra(Consts.NAVIGATION_TEXT, text);
                 //send navigation image url
-                intent.putExtra(Consts.NAVIGATION_IMAGE, item.getImage_url());
+                intent.putExtra(Consts.NAVIGATION_IMAGE, navigation_image);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 

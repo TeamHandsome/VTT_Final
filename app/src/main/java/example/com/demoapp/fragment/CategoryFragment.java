@@ -51,10 +51,10 @@ public class CategoryFragment extends Fragment {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Intent i = new Intent(getActivity(), DisplaySubActivity.class);
-                int category_id = categoryList.get(position).getId();
-                String category_name = categoryList.get(position).getName();
-                i.putExtra(Consts.CATEGORY_ID, category_id);
-                i.putExtra(Consts.CATEGORY_NAME, category_name);
+                CategoryItem item = categoryList.get(position);
+                i.putExtra(Consts.CATEGORY_ID, item.getId());
+                i.putExtra(Consts.CATEGORY_NAME, item.getName());
+                i.putExtra(Consts.NAVIGATION_IMAGE, item.getChildImage());
                 startActivity(i);
             }
         });

@@ -7,6 +7,7 @@ public class CategoryItem {
     int id;
     String name;
     String image;
+    String childImage;
 
     public int getId() {
         return id;
@@ -24,7 +25,6 @@ public class CategoryItem {
         this.name = name;
     }
 
-
     public String getImage() {
         return image;
     }
@@ -33,15 +33,25 @@ public class CategoryItem {
         this.image = image;
     }
 
-    public CategoryItem(int id, String name, String image) {
+    public String getChildImage() {
+        return childImage;
+    }
+
+    public void setChildImage(String childImage) {
+        this.childImage = childImage;
+    }
+
+    public CategoryItem(int id, String name, String image, String childImage) {
         this.id = id;
         this.name = name;
         this.image = image;
+        this.childImage = childImage;
     }
 
     public CategoryItem() {
         this.id = 0;
         this.name ="";
         this.image = "";
+        this.childImage = "";
     }
 }

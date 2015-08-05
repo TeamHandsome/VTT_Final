@@ -33,6 +33,8 @@ public class CategoryDAO extends BaseDAO {
                 item.setId(cursor.getInt((cursor.getColumnIndex(DbHelper.DB_CATEGORIES_ID))));
                 item.setName(cursor.getString(cursor.getColumnIndex(DbHelper.DB_CATEGORIES_NAME)));
                 item.setImage(cursor.getString(cursor.getColumnIndex(DbHelper.DB_CATEGORIES_IMAGE)));
+                item.setChildImage(cursor.getString(cursor.getColumnIndex(DbHelper.DB_CATEGORIES_CHILD_IMAGE)));
+
                 arrayList.add(item);
             }while(cursor.moveToNext());
         }
