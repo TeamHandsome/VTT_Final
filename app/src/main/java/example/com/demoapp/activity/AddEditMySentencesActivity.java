@@ -152,18 +152,34 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
             if (extras != null) {
                 SentenceItem item = extras.getParcelable(Consts.DATA);
                 id_edit = item.getId();
-                audio = item.getSound();
+                uri_record = item.getSound();
                 image_d = item.getImage();
                 vn = item.getNameVn();
                 jp_hiragana = item.getNameJp();
 
                 ed_japanese.setText(jp_hiragana);
                 ed_vietnamese.setText(vn);
+                loadImg_edit(image_d);
+                load_tag(id_edit);
             }
         }
 
     }
-
+    public void loadImg_edit(String img){
+        Picasso.with(this)
+                .load(img)
+                .resize(360, 360)
+                .centerCrop()
+                .into(this.img_photo);
+    }
+    public void load_tag(String sentences_id){
+        ArrayList<String> arrayTag = new ArrayList<String>();
+        TagDAO tagDAO = new TagDAO();
+        resultTag = tagDAO.getTagsFromTagging(sentences_id);
+        for (String tag : resultTag) {
+            Common.addNewTagToTagView(AddEditMySentencesActivity.this, tagView, tag);
+        }
+    }
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -225,6 +241,7 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
                                 Consts.DELETE_PHOTO,Message.CONFIRM_DELETE){
                             @Override
                             public void onClickAccept() {
+                                bt_photodelete.setEnabled(false);
                                 bt_takephoto.setEnabled(true);
                                 bt_gallery.setEnabled(true);
                                 file = new File(Environment.getExternalStorageDirectory() + File.separator + folder_main + image_namefile);
@@ -232,7 +249,7 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
                                 Common.showToast(AddEditMySentencesActivity.this, Message.ITEM_IS_DELETED(Consts.IMAGE));
                                 takingPhoto = null;
                                 selectedImage = null;
-                                img_photo.setImageResource(android.R.color.transparent);
+                                img_photo.setImageResource(R.drawable.default_image);
                             }
                         };
                         confirm1.show();
@@ -269,7 +286,7 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
                         if (validateSentence(item)) {
 
                             addNewSenDAO.updateSentences(id_edit, item);
-                            addtagMySenDAO.addTagToTags(id, resultTag);
+                            addtagMySenDAO.addTagToTags(id_edit, resultTag);
                             finish();
                         }
                     }else {

@@ -53,9 +53,6 @@ public class MysentencesFragment extends BaseListContainerFragment {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
         if (id == R.id.action_addNew){
            Intent intent = new Intent(getActivity().getApplicationContext(), AddEditMySentencesActivity.class);
             intent.putExtra(Consts.ACTION_TYPE, Consts.ADD_MY_SEN);

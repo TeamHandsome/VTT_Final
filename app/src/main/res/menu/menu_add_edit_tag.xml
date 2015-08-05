@@ -3,13 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="example.com.demoapp.activity.AddEditTagActivity">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/revert_bt"
-        android:orderInCategory="200"
         android:title="Revert"
         android:icon="@mipmap/ic_undo"
         app:showAsAction="always"/>

@@ -114,7 +114,11 @@ public class BackgroundFragment extends Fragment {
         fab_addnew.hide(true);
         fab_record.hide(true);
         fab_camera.hide(true);
+        tv_camera.setVisibility(View.INVISIBLE);
+        tv_record.setVisibility(View.INVISIBLE);
+        tv_addnew.setVisibility(View.INVISIBLE);
         mDimmerView.setVisibility(View.GONE);
+        CategoryFragment.fab_menu.setVisibility(View.VISIBLE);
     }
     public void closeFragment(){
         CategoryFragment.fab_menu.setVisibility(View.VISIBLE);
@@ -133,19 +137,19 @@ public class BackgroundFragment extends Fragment {
                     break;
                 case R.id.fab_record:
                     hide();
+                    getView().setBackgroundColor(Color.TRANSPARENT);
                     Intent intent1 = new Intent(getActivity().getApplicationContext(), RecordActivity.class);
                     startActivityForResult(intent1, 1);
-                    closeFragment();
                     break;
                 case R.id.fab_camera:
                     hide();
+                    getView().setBackgroundColor(Color.TRANSPARENT);
                     dispatchTakePictureIntent();
-                    closeFragment();
                     break;
-
             }
         }
     };
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
