@@ -132,7 +132,6 @@ public class TagListAdapter extends ArraySwipeAdapter<TagItem> {
                 intent.putExtra(Consts.TAG_ID, item.getId());
                 //send navigation text
                 String text = Consts.TAG + "-" + item.getNameTag();
-                text = StringUtils.addSpaceBetweenChar(text);
                 intent.putExtra(Consts.NAVIGATION_TEXT, text);
 
                 context.startActivity(intent);

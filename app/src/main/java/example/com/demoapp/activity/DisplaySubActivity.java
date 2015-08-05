@@ -74,7 +74,6 @@ public class DisplaySubActivity extends ActionBarActivity {
                 intent.putExtra(Consts.SUBCATEGORY_ID, item.getId());
                 //send navigation text
                 String text = category_name + "-" + item.getName();
-                text = StringUtils.addSpaceBetweenChar(text);
                 intent.putExtra(Consts.NAVIGATION_TEXT, text);
                 //send navigation image url
                 intent.putExtra(Consts.NAVIGATION_IMAGE, item.getImage_url());
