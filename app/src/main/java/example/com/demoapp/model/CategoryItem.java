@@ -6,6 +6,7 @@ package example.com.demoapp.model;
 public class CategoryItem {
     int id;
     String name;
+    String image;
 
     public int getId() {
         return id;
@@ -23,13 +24,24 @@ public class CategoryItem {
         this.name = name;
     }
 
-    public CategoryItem(int id, String name) {
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public CategoryItem(int id, String name, String image) {
         this.id = id;
         this.name = name;
+        this.image = image;
     }
 
     public CategoryItem() {
-        this.id = id;
+        this.id = 0;
         this.name ="";
+        this.image = "";
     }
 }

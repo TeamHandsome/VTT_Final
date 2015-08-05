@@ -32,7 +32,7 @@ public class CategoryDAO extends BaseDAO {
                 CategoryItem item = new CategoryItem();
                 item.setId(cursor.getInt((cursor.getColumnIndex(DbHelper.DB_CATEGORIES_ID))));
                 item.setName(cursor.getString(cursor.getColumnIndex(DbHelper.DB_CATEGORIES_NAME)));
-
+                item.setImage(cursor.getString(cursor.getColumnIndex(DbHelper.DB_CATEGORIES_IMAGE)));
                 arrayList.add(item);
             }while(cursor.moveToNext());
         }

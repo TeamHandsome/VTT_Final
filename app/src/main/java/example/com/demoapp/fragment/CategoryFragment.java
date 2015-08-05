@@ -47,7 +47,7 @@ public class CategoryFragment extends Fragment {
         categoryList = dao.getAllCategories();
         // Inflate the layout for this fragment
         GridView gridview = (GridView) view.findViewById(R.id.gridViewCategory);
-        gridview.setAdapter(new CategoriesAdapter(getActivity()));
+        gridview.setAdapter(new CategoriesAdapter(getActivity(),categoryList));
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Intent i = new Intent(getActivity(), DisplaySubActivity.class);
@@ -73,6 +73,4 @@ public class CategoryFragment extends Fragment {
 
         return view;
     }
-
-
 }
