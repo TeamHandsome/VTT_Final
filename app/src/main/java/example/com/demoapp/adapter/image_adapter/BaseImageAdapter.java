@@ -20,7 +20,7 @@ import example.com.demoapp.utility.StringUtils;
 /**
  * Created by Tony on 23/7/2015.
  */
-public abstract class BaseImageAdapter extends BaseListAdapter{
+public abstract class BaseImageAdapter extends BaseListAdapter {
 
     public BaseImageAdapter(Activity context, int idLayoutResource, ArrayList<SentenceItem> listSentences) {
         super(context, idLayoutResource, listSentences);
@@ -31,7 +31,7 @@ public abstract class BaseImageAdapter extends BaseListAdapter{
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        convertView = super.getView(position,convertView,parent);
+        convertView = super.getView(position, convertView, parent);
 
         this.setUpGridView(holder, convertView, position);
 
@@ -39,10 +39,10 @@ public abstract class BaseImageAdapter extends BaseListAdapter{
     }
 
     @Override
-    protected ViewHolder buildHolder(ViewHolder holder,View convertView) {
+    protected ViewHolder buildHolder(ViewHolder holder, View convertView) {
         Point size = Common.getScreenSizeInPixels(context);
         int width = size.x;
-        int y = width/2;
+        int y = width / 2;
 
         holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
         holder.imageView.setMaxHeight(y);
@@ -56,15 +56,27 @@ public abstract class BaseImageAdapter extends BaseListAdapter{
     }
 
     //Setting up data to show on Grid view
-    private void setUpGridView(final ViewHolder holder,View convertView,final int position){
+    private void setUpGridView(final ViewHolder holder, View convertView, final int position) {
         String pathImage = listSentences.get(position).getImage();
-        Uri uri = StringUtils.buildDrawableUri(context.getPackageName(), pathImage);
+        if (!pathImage.isEmpty() && pathImage != null) {
+            if (listSentences.get(position).getId().contains("s")) {
+                Picasso.with(context)
+                        .load(pathImage)
+                        .resize(360, 360)
+                        .centerCrop()
+                        .into(holder.imageView);
 
-        Picasso.with(context)
-                .load(uri)
-                .resize(360, 360)
-                .centerCrop()
-                .into(holder.imageView);
+            } else {
+                Uri uri = StringUtils.buildDrawableUri(context.getPackageName(), pathImage);
+                Picasso.with(context)
+                        .load(uri)
+                        .resize(360, 360)
+                        .centerCrop()
+                        .into(holder.imageView);
+            }
+        }
+
+
 //        holder.imageView.setImageResource(context.getResources().getIdentifier(pathImage, "drawable", context.getPackageName()));
     }
 }

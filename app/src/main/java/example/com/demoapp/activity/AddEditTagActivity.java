@@ -47,7 +47,6 @@ public class AddEditTagActivity extends ActionBarActivity {
     TagView tagView;
     Stack<String> stacklist;
     String tag_name;
-    int pos_remove;
     String textTag;
     List<Tag> listTag;
 
@@ -78,10 +77,8 @@ public class AddEditTagActivity extends ActionBarActivity {
                 textTag = autoComplete.getText().toString();
 
                 if (validate(textTag)) {
-                    stacklist.push(textTag);
                     Common.addNewTagToTagView(AddEditTagActivity.this, tagView, textTag);
                     listTag = tagView.getTags();
-                    pos_remove = listTag.size()-1;
                     tag_list.add(textTag);
                     reloadArrayTagForAutocompleteBox();
                 }
@@ -165,22 +162,15 @@ public class AddEditTagActivity extends ActionBarActivity {
             case R.id.revert_bt:
                 if (!stacklist.empty()) {
                     String reverted_tag = stacklist.pop();
-                    if (reverted_tag.equalsIgnoreCase(textTag)){
-                        String mess = Message.ITEM_IS_DELETED(textTag + Consts.TAG);
-                        Common.showToast(AddEditTagActivity.this, mess, CustomToast.INFO);
-                        tagView.remove(pos_remove);
-                        tag_list.remove(pos_remove);
-                    }else {
+                    if (isDuplicateTag(reverted_tag)){
                         Common.addNewTagToTagView(AddEditTagActivity.this, tagView, reverted_tag);
                         tag_list.add(reverted_tag);
                         reloadArrayTagForAutocompleteBox();
                     }
-
                 } else {
                     String mess = Message.NO_DATA;
                     Common.showToast(AddEditTagActivity.this, mess, CustomToast.INFO);
                 }
-
 
             default:
                 return super.onOptionsItemSelected(item);

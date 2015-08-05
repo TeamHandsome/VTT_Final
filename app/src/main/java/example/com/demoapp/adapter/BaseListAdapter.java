@@ -226,13 +226,13 @@ public abstract class BaseListAdapter extends ArraySwipeAdapter<SentenceItem>{
     //Setting up for Edit button
     protected void setUpBtnEdit(final ViewHolder holder, View convertView,final int position){
         holder.btEdit = (ImageButton) convertView.findViewById(R.id.btEdit);
+        final SentenceItem item1 = listSentences.get(position);
         holder.btEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, AddEditMySentencesActivity.class);
-                String sentences_id = listSentences.get(position).getId(); // lay Id cua sentence trong db
                 intent.putExtra(Consts.ACTION_TYPE, Consts.EDIT_MY_SEN);
-                intent.putExtra(Consts.SENTENCE_ID, sentences_id);
+                intent.putExtra(Consts.DATA, item1);
                 context.startActivity(intent);
             }
         });

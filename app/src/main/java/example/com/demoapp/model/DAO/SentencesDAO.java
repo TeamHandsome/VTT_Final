@@ -152,22 +152,22 @@ public class SentencesDAO extends BaseDAO {
         return number;
     }
 
-    public void addSentences(String id, String vn, String jp, String audio, String image_d) {
+    public void addSentences(SentenceItem item) { //String id, String vn, String jp, String audio, String image_d
         ContentValues values = new ContentValues();
-        values.put(DbHelper.DB_SENTENCES_ID, id);
-        values.put(DbHelper.DB_SENTENCES_VN, vn);
-        values.put(DbHelper.DB_SENTENCES_SOUND, audio);
-        values.put(DbHelper.DB_SENTENCES_IMAGE, image_d);
-        values.put(DbHelper.DB_SENTENCES_JP, jp);
+        values.put(DbHelper.DB_SENTENCES_ID, item.getId());
+        values.put(DbHelper.DB_SENTENCES_VN, item.getNameVn());
+        values.put(DbHelper.DB_SENTENCES_SOUND, item.getSound());
+        values.put(DbHelper.DB_SENTENCES_IMAGE, item.getImage());
+        values.put(DbHelper.DB_SENTENCES_JP, item.getNameJp());
         this.insert(DbHelper.DB_TABLE_SENTENCES, values);
     }
 
-    public void updateSentences(String id, String vn, String jp, String audio, String image_d) {
+    public void updateSentences(String id, SentenceItem item) {
         ContentValues values = new ContentValues();
-        values.put(DbHelper.DB_SENTENCES_VN, vn);
-        values.put(DbHelper.DB_SENTENCES_SOUND, audio);
-        values.put(DbHelper.DB_SENTENCES_IMAGE, image_d);
-        values.put(DbHelper.DB_SENTENCES_JP, jp);
+        values.put(DbHelper.DB_SENTENCES_VN, item.getNameVn());
+        values.put(DbHelper.DB_SENTENCES_SOUND, item.getSound());
+        values.put(DbHelper.DB_SENTENCES_IMAGE, item.getImage());
+        values.put(DbHelper.DB_SENTENCES_JP, item.getNameJp());
         this.update(DbHelper.DB_TABLE_SENTENCES, values, DbHelper.DB_SENTENCES_ID + "='" + id + "'");
     }
 

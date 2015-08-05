@@ -76,6 +76,8 @@ public final class Consts {
     public static final String DELETE_FROM_HISTORY = "ヒストリーから削除";
     public static final String DELETE_TAG = "タグを削除";
     public static final String DELETE_SEN_FROM_TAG = "タグから削除";
+    public static final String DELETE_RECORD ="レコーターを削除";
+    public static final String DELETE_PHOTO = "写真を削除";
 
     //image name in drawable
     public static final String NAVI_BACK_FAVORITE = "navi_back_favorite";

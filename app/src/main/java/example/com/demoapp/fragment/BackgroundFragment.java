@@ -103,13 +103,6 @@ public class BackgroundFragment extends Fragment {
             delay1 += 100;
         }
 
-        mDimmerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hide();
-                closeFragment();
-            }
-        });
         view.findViewById(R.id.fab_addnew).setOnClickListener(listener);
         view.findViewById(R.id.fab_record).setOnClickListener(listener);
         view.findViewById(R.id.fab_camera).setOnClickListener(listener);
@@ -142,10 +135,12 @@ public class BackgroundFragment extends Fragment {
                     hide();
                     Intent intent1 = new Intent(getActivity().getApplicationContext(), RecordActivity.class);
                     startActivityForResult(intent1, 1);
+                    closeFragment();
                     break;
                 case R.id.fab_camera:
                     hide();
                     dispatchTakePictureIntent();
+                    closeFragment();
                     break;
 
             }

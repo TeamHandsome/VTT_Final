@@ -68,6 +68,7 @@ public class RecordActivity extends ActionBarActivity {
         bt_accept_record = (ImageButton) findViewById(R.id.bt_accept_record);
         bt_record_record.setOnClickListener(listener);
         bt_record_play.setOnClickListener(listener);
+        bt_record_stop.setOnClickListener(listener);
         bt_cancel_record.setOnClickListener(listener);
         bt_accept_record.setOnClickListener(listener);
 
