@@ -25,10 +25,10 @@ import java.util.List;
 
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.DrawerMenuItemAdapter;
+import example.com.demoapp.fragment.AboutUsFragment;
 import example.com.demoapp.fragment.HomeFragment;
 import example.com.demoapp.fragment.FavoriteFragment;
 import example.com.demoapp.fragment.HistoryFragment;
-import example.com.demoapp.fragment.InterpreterFragment;
 import example.com.demoapp.fragment.MysentencesFragment;
 import example.com.demoapp.fragment.TagFragment;
 import example.com.demoapp.model.DrawerMenuItem;
@@ -126,10 +126,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         setFragment(3, HistoryFragment.class);
                         break;
                     case 4:
-                        setFragment(4, InterpreterFragment.class);
+                        setFragment(4, MysentencesFragment.class);
                         break;
                     case 5:
-                        setFragment(5, MysentencesFragment.class);
+                        setFragment(5, AboutUsFragment.class);
                         break;
                 }
             }

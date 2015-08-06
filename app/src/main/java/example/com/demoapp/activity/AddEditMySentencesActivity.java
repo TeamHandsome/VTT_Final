@@ -136,12 +136,14 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
             uri_record = fab_record;
 //            Toast.makeText(getApplicationContext(), "Uri record: "+ uri_record, Toast.LENGTH_SHORT).show();
             bt_recordPlay.setEnabled(true);
+            bt_recordDelete.setEnabled(true);
         }
         ;
         //handle  for Float Button Camera from main
         uri_fabbutton = getIntent().getData();
         Log.d("aaaaaaaaaaaaa", uri_fabbutton + "");
         if (uri_fabbutton != null) {
+            bt_photodelete.setEnabled(true);
             takingPhoto = uri_fabbutton;
             Picasso.with(this).load(takingPhoto).config(Bitmap.Config.RGB_565).resize(600, 600).centerInside().into(img_photo);
         }
@@ -166,11 +168,15 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
 
     }
     public void loadImg_edit(String img){
-        Picasso.with(this)
-                .load(img)
-                .resize(360, 360)
-                .centerCrop()
-                .into(this.img_photo);
+        if(img !=null && !img.isEmpty()){
+            Picasso.with(this)
+                    .load(img)
+                    .resize(360, 360)
+                    .centerCrop()
+                    .into(this.img_photo);
+        }else {
+            img_photo.setImageResource(R.drawable.default_image);
+        }
     }
     public void load_tag(String sentences_id){
         ArrayList<String> arrayTag = new ArrayList<String>();
@@ -287,6 +293,8 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
                         }
                         finish();
                     }
+                    takingPhoto = null;
+                    selectedImage = null;
                     break;
             }
         }

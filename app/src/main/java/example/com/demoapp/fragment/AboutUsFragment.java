@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 
 import example.com.demoapp.R;
 
-public class InterpreterFragment extends Fragment {
-    public InterpreterFragment(){
+public class AboutUsFragment extends Fragment {
+    public AboutUsFragment(){
 
     }
 

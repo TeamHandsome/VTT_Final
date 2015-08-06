@@ -16,8 +16,8 @@
         <item>タグ</item>
         <item>お気に入り</item>
         <item>ヒストリー</item>
-        <item>通訳</item>
         <item>私の文書</item>
+        <item>作った人</item>
     </string-array>
 
     <!-- Sliding Menu item icons -->
@@ -26,8 +26,8 @@
         <item>@mipmap/ic_action_tag</item>
         <item>@mipmap/ic_action_favorite</item>
         <item>@mipmap/ic_action_history</item>
-        <item>@mipmap/ic_action_interpreter</item>
         <item>@mipmap/ic_action_mysentences</item>
+        <item>@mipmap/ic_about_us</item>
     </array>
 
     <string name="title_activity_conversation">会話集</string>
@@ -60,4 +60,6 @@
     <string name="title_activity_pop_up_my_sen">ベトナム語に訳す</string>
     <string name="record_max_time">00:05</string>
     <string name="audio_name_hint">オーディオ名</string>
+
+    <string name="API_KEY">AIzaSyAH7nWJBI1KJ8yfQtgv3REfBzG-cV733e0</string>
 </resources>
