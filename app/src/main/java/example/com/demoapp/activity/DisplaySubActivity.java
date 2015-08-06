@@ -119,7 +119,7 @@ public class DisplaySubActivity extends ActionBarActivity {
         Point size = new Point();
         display.getSize(size);
         int width = size.y;
-        int height = size.x*407/1920;
+        int height = size.x*420/1920;
         ImageView imageView = (ImageView)findViewById(R.id.navigation_back);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         Uri uri=StringUtils.buildDrawableUri(getPackageName(),navigation_image);

@@ -4,6 +4,7 @@ package example.com.demoapp.utility;
  * Created by Tony on 8/7/2015.
  */
 public final class Consts {
+    public static final String API_KEY = "AIzaSyAH7nWJBI1KJ8yfQtgv3REfBzG-cV733e0";
 
     //key name when put in Intent and Bundle
     public static final String POSITION = "position";
@@ -126,6 +127,8 @@ public final class Consts {
      * <tt>-1</tt> when an item is not found.
      */
     public static final int NOT_FOUND = -1;
+
+    public static final int FOUNDED = 0;
 
     /**
      * System property - <tt>line.separator</tt>
