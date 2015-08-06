@@ -91,6 +91,14 @@ public class SentenceItem implements Parcelable{
         this.image = source.readString();
     }
 
+    public SentenceItem(String id, String nameJp, String nameVn, String sound, String image) {
+        this.id = id;
+        this.nameJp = nameJp;
+        this.nameVn = nameVn;
+        this.sound = sound;
+        this.image = image;
+    }
+
     public SentenceItem(String id, String nameJp, String nameFull, String nameVn, String sound, String image) {
         this.id = id;
         this.nameJp = nameJp;

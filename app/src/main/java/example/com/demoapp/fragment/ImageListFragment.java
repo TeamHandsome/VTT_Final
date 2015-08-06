@@ -1,5 +1,6 @@
 package example.com.demoapp.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -81,9 +82,17 @@ public class ImageListFragment extends BaseListFragment {
     public void onResume() {
         super.onResume();
         if(pager_parent == Consts.MY_SENTENCE_LIST){
-            this.initMySentenceList();
-            this.initMySentenceView();
-            this.setGridView();
+            imageAdapter.setListSentences(listSentences);
+            imageAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(pager_parent == Consts.MY_SENTENCE_LIST && resultCode == Consts.FOUNDED){
+            imageAdapter.setListSentences(listSentences);
+            imageAdapter.notifyDataSetChanged();
         }
     }
 

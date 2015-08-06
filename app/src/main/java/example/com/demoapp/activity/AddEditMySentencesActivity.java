@@ -274,27 +274,18 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
                     break;
                 case R.id.bt_accept2:
                     saveData();
-
-                    if (action_type == Consts.ADD_MY_SEN) {
-                        if (validateSentence(item)) {
+                    if (validateSentence(item)) {
+                        if (action_type == Consts.ADD_MY_SEN) {
                             addNewSenDAO.addSentences(item);
                             addtagMySenDAO.addTagToTags(id, resultTag);
-                            finish();
-                        }
-
-                    } else if (action_type == Consts.EDIT_MY_SEN) {
-                        if (validateSentence(item)) {
-
+                        } else if (action_type == Consts.EDIT_MY_SEN) {
                             addNewSenDAO.updateSentences(id_edit, item);
                             addtagMySenDAO.addTagToTags(id_edit, resultTag);
-                            finish();
-                        }
-                    }else {
-                        if (validateSentence(item)) {
+                        } else {
                             addNewSenDAO.addSentences(item);
                             addtagMySenDAO.addTagToTags(id, resultTag);
-                            finish();
                         }
+                        finish();
                     }
                     break;
             }
@@ -312,29 +303,9 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
         addNewSenDAO = new SentencesDAO();
         addtagMySenDAO = new TagDAO();
 
-        item = new SentenceItem();
         int countId = addNewSenDAO.findLastIDMySenNumber() + 1;
         id= "s" + countId;
-        item.setId(id);
-        item.setNameVn(vn);
-        item.setNameJp(jp_hiragana);
-        item.setSound(audio);
-        item.setImage(image_d);
-    }
-
-    public void invalidInput() {
-        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(AddEditMySentencesActivity.this);
-        alertBuilder.setTitle("Invalid Data");
-        alertBuilder.setMessage("Please, Enter valid data");
-        alertBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-
-            }
-        });
-        AlertDialog dialog = alertBuilder.create();
-        dialog.show();
+        item = new SentenceItem(id,jp_hiragana,vn,audio,image_d);
     }
 
     @Override

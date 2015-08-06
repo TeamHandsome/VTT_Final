@@ -237,9 +237,4 @@ public abstract class BaseListAdapter extends ArraySwipeAdapter<SentenceItem>{
             }
         });
     }
-
-    protected void update(ArrayList<SentenceItem> listSentences){
-        listSentences.clear();
-        notifyDataSetChanged();
-    }
 }

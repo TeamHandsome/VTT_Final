@@ -1,6 +1,7 @@
 package example.com.demoapp.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -139,4 +140,14 @@ public abstract class BaseListFragment extends Fragment{
                 .centerCrop()
                 .into(noData_view);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (pager_parent == Consts.MY_SENTENCE_LIST ) {
+            this.initMySentenceList();
+            MySingleton.getInstance().setSentenceList(listSentences);
+        }
+    }
+
 }
