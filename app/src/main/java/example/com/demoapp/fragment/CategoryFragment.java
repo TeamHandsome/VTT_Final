@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import example.com.demoapp.R;
 import example.com.demoapp.activity.AddEditMySentencesActivity;
 import example.com.demoapp.activity.DisplaySubActivity;
+import example.com.demoapp.activity.LocationActivity;
 import example.com.demoapp.activity.RecordActivity;
 import example.com.demoapp.adapter.CategoriesAdapter;
 import example.com.demoapp.model.CategoryItem;

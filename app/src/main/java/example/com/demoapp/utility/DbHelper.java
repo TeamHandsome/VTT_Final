@@ -52,6 +52,9 @@ public class DbHelper extends SQLiteOpenHelper{
     public static String DB_TABLE_FAVORITE = "favorite";
     public static String DB_TABLE_SENTENCES = "sentences";
     public static String DB_TABLE_HISTORY = "history";
+    public static String DB_TABLE_LOCATING = "locating";
+    public static String DB_LOCATING_LOCATION_ID = "location_id";
+    public static String DB_LOCATING_SENTENCE_ID = "sentence_id";
 
 
     private Context context;

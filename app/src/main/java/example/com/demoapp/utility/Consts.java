@@ -91,6 +91,9 @@ public final class Consts {
 
     //cancel dialog title
     public static final String CONFIRM_CANCEL = "キャンセルを確認";
+
+    //Connect Internet
+    public static final String CONNECT_INTERNET = "インターネット接続おねがいします！";
     /**
      * Opposite of {@link #FAILS}.
      */
