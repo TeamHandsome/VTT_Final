@@ -9,7 +9,10 @@ public final class StringUtils {
 
     //Insert Space after every Character of an existing String
     public static String addSpaceBetweenChar(String string){
-        return string.replaceAll(".(?!$)", "$0 ");
+        string = string.replaceAll(".(?!$)", "$0 ");
+        string = string.replace(" 「", "「");
+        string = string.replace(" ・ ", "・");
+        return string;
     }
 
     //build Uri for resource in drawable folder
