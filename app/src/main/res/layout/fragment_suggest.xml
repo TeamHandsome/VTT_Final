@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="example.com.demoapp.fragment.CategoryFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#FFFFFF">
 
     <ListView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -23,4 +24,11 @@
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp" />
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitXY"
+        android:id="@+id/tv_nodata" />
+
 </RelativeLayout>

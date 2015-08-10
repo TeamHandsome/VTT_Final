@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -19,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +38,7 @@ import com.google.android.gms.location.places.PlaceLikelihood;
 import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +50,8 @@ import example.com.demoapp.model.DAO.LocationDAO;
 import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Consts;
+import example.com.demoapp.utility.MySingleton;
+import example.com.demoapp.utility.StringUtils;
 
 
 public class SuggestFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener,
@@ -58,10 +63,12 @@ public class SuggestFragment extends Fragment implements GoogleApiClient.OnConne
     SentencesAdapter sentencesAdapter;
     ArrayList<SentenceItem> arrayList;
     ListView listView;
+    ImageView imageView;
     LocationDAO dao;
     int type_id = 0;
     private Handler mUiHandler = new Handler();
     ProgressDialog dialog;
+    boolean _areLecturesLoaded = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -70,8 +77,6 @@ public class SuggestFragment extends Fragment implements GoogleApiClient.OnConne
         View view = inflater.inflate(R.layout.fragment_suggest, container, false);
         listView = (ListView) view.findViewById(R.id.lv_suggest);
         dao = new LocationDAO();
-
-
 
         FloatingActionButton bt_gps = (FloatingActionButton) view.findViewById(R.id.bt_GPS);
         bt_gps.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +88,7 @@ public class SuggestFragment extends Fragment implements GoogleApiClient.OnConne
 
         return view;
     }
+
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
@@ -92,56 +98,45 @@ public class SuggestFragment extends Fragment implements GoogleApiClient.OnConne
             return true;
     }
 
-    boolean _areLecturesLoaded = false;
-
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && !_areLecturesLoaded ) {
-            if (isNetworkConnected()){
+        if (isVisibleToUser && !_areLecturesLoaded) {
+            if (isNetworkConnected()) {
+
                 dialog = ProgressDialog.show(SuggestFragment.this.getActivity(), "GPS Location", "Loading...", true);
                 guessCurrentPlace();
                 mUiHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         dialog.dismiss();
-
-                        arrayList = dao.getSentencesByLocation(type_id);
-                        sentencesAdapter = new SentencesAdapter(getActivity(), R.layout.custom_row_sen_f_t, arrayList);
-                        listView.setAdapter(sentencesAdapter);
+                        setListView(type_id);
                     }
-                }, 3500);
-            }else {
-                String mess = Consts.CONNECT_INTERNET ;
+                }, 4000);
+            } else {
+                _setNoData();
+                String mess = Consts.CONNECT_INTERNET;
                 Common.showToast(getActivity(), mess, CustomToast.INFO);
             }
             _areLecturesLoaded = true;
         }
     }
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        mGoogleApiClient = new GoogleApiClient
-                .Builder(getActivity())
-                .addApi(Places.GEO_DATA_API)
-                .addApi(Places.PLACE_DETECTION_API)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
-
+    private void setListView(int id) {
+        arrayList = dao.getSentencesByLocation(id);
+        sentencesAdapter = new SentencesAdapter(getActivity(), R.layout.custom_row_sen_f_t, arrayList);
+        listView.setAdapter(sentencesAdapter);
+        _setNoData();
+        listView.setEmptyView(imageView);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        mGoogleApiClient.connect();
-    }
-
-    @Override
-    public void onStop() {
-        mGoogleApiClient.disconnect();
-        super.onStop();
+    private void _setNoData(){
+        imageView = (ImageView) getActivity().findViewById(R.id.tv_nodata);
+        Picasso.with(getActivity())
+                .load(R.drawable.no_data)
+                .resize(360, 360)
+                .centerCrop()
+                .into(imageView);
     }
 
     private void guessCurrentPlace() {
@@ -177,20 +172,21 @@ public class SuggestFragment extends Fragment implements GoogleApiClient.OnConne
         }
     }
 
-    private void getLocationId(List<Integer> content){
+    private int getLocationId(List<Integer> content) {
         List<Integer> list1 = dao.getLocation_id();
-
         for (Integer id : content) {
             if (list1.contains(id)) {
                 type_id = id;
             }
         }
+
+        return type_id;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PLACE_PICKER_REQUEST && data!=null) {
+        if (requestCode == PLACE_PICKER_REQUEST && data != null) {
             displayPlace(PlacePicker.getPlace(data, getActivity().getApplicationContext()));
         }
     }
@@ -198,16 +194,40 @@ public class SuggestFragment extends Fragment implements GoogleApiClient.OnConne
     private void displayPlace(Place place) {
         if (place == null)
             return;
+        type_id = 0;
         content = place.getPlaceTypes();
         getLocationId(content);
-        arrayList = dao.getSentencesByLocation(type_id);
-        sentencesAdapter = new SentencesAdapter(getActivity(), R.layout.custom_row_sen_f_t, arrayList);
-        listView.setAdapter(sentencesAdapter);
-        sentencesAdapter.notifyDataSetChanged();
+        Log.d("TYPE_ID", type_id +"");
+        if (type_id == 0 ) {
+            setListView(type_id);
+        } else
+            setListView(type_id);
+    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-//        mTextView.setText(content);
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(getActivity())
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
+    }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
