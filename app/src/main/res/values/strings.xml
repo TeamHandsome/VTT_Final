@@ -61,6 +61,7 @@
     <string name="record_max_time">00:05</string>
     <string name="audio_name_hint">オーディオ名</string>
 
-    <string name="API_KEY">AIzaSyBDDTZU_-aJn2VwU-cXmvaiQ3mfjG0qzmI</string>
+    <string name="API_KEY_RELEASE">AIzaSyBDDTZU_-aJn2VwU-cXmvaiQ3mfjG0qzmI</string>
+    <string name="API_KEY_DEBUG">AIzaSyDbowaeYSKpVfjMxQ6QOdX7viKymKnqZic</string>
     <string name="title_activity_location">LocationActivity</string>
 </resources>

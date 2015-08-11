@@ -23,7 +23,10 @@
         android:layout_margin="20dp"
         android:paddingBottom="10dp"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp" />
+        android:paddingRight="10dp"
+        fab:fab_colorNormal="#00bcd4"
+        fab:fab_colorPressed="@color/colorPrimaryDark"
+        fab:fab_colorRipple="#99FFFFFF" />
     <ImageView
         android:layout_width="250dp"
         android:layout_height="250dp"

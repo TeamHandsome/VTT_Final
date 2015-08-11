@@ -32,14 +32,6 @@ public class LocationDAO extends BaseDAO{
     public ArrayList<SentenceItem> getSentencesByLocation(int i) {
         ArrayList<SentenceItem> arrayList = new ArrayList<>();
 
-//        listTypePlaces = new ArrayList<>();
-//        List<Integer> list_Location_id = getLocation_id();
-//        for (Integer id : listTypePlaces){
-//            if (list_Location_id.contains(id)){
-//                type_id = id;
-//            }
-//        }
-
         String query1 = "SELECT * FROM locating, sentences WHERE locating.sentence_id = sentences._ids " +
                 "AND locating.location_id ='"+i+"'";
 

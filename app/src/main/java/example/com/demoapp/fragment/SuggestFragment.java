@@ -50,8 +50,6 @@ import example.com.demoapp.model.DAO.LocationDAO;
 import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Consts;
-import example.com.demoapp.utility.MySingleton;
-import example.com.demoapp.utility.StringUtils;
 
 
 public class SuggestFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener,
@@ -82,7 +80,13 @@ public class SuggestFragment extends Fragment implements GoogleApiClient.OnConne
         bt_gps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                displayPlacePicker();
+                if (isNetworkConnected()){
+                    displayPlacePicker();
+                }else {
+                    String mess = Consts.CONNECT_INTERNET;
+                    Common.showToast(getActivity(), mess, CustomToast.INFO);
+                }
+
             }
         });
 
@@ -104,7 +108,7 @@ public class SuggestFragment extends Fragment implements GoogleApiClient.OnConne
         if (isVisibleToUser && !_areLecturesLoaded) {
             if (isNetworkConnected()) {
 
-                dialog = ProgressDialog.show(SuggestFragment.this.getActivity(), "GPS Location", "Loading...", true);
+                dialog = ProgressDialog.show(SuggestFragment.this.getActivity(), "GPS ロケーション", "ローディング...", true);
                 guessCurrentPlace();
                 mUiHandler.postDelayed(new Runnable() {
                     @Override
