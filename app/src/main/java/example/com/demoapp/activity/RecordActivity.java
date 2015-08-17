@@ -40,6 +40,7 @@ public class RecordActivity extends ActionBarActivity {
     final String MAX_RECORD_TIME = StringUtils.buildStringTime(Consts.MAX_RECORD_TIME_MILLISECOND);
 
     private MediaRecorder myAudioRecorder;
+    private MediaPlayer m;
     private String outputFile;
     private String db_path = "/sdcard/Android/data/com.demoapp.app/";
     private String recording_namefile = System.currentTimeMillis()+"";      //save random name Record
@@ -81,6 +82,10 @@ public class RecordActivity extends ActionBarActivity {
                 case R.id.bt_circle_record:
                     bt_record_record.setVisibility(View.GONE);
                     bt_record_stop.setVisibility(View.VISIBLE);
+                    if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+                        return;
+                    }
+                    mLastClickTime = SystemClock.elapsedRealtime();
                     timer = new CounterClass(Consts.MAX_RECORD_TIME_MILLISECOND, 1000);
                     timer.start();
 
@@ -104,7 +109,7 @@ public class RecordActivity extends ActionBarActivity {
                             e.printStackTrace();
                         }
 
-                        Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "レコーダー　スタート！", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(getApplicationContext(), "This device doesn't have a mic!", Toast.LENGTH_LONG).show();
                     }
@@ -120,7 +125,7 @@ public class RecordActivity extends ActionBarActivity {
                         return;
                     }
                     mLastClickTime = SystemClock.elapsedRealtime();
-                    MediaPlayer m = new MediaPlayer();
+                    m = new MediaPlayer();
                     try {
                         m.setDataSource(outputFile);
                         m.prepare();
@@ -128,12 +133,13 @@ public class RecordActivity extends ActionBarActivity {
                         e.printStackTrace();
                     }
                     m.start();
-                    Toast.makeText(getApplicationContext(), "Playing audio", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "オーディオをしています", Toast.LENGTH_LONG).show();
                     break;
                 case R.id.bt_cancel_record:
-                    outputFile = "";
-                    File file = new File(outputFile);
-                    file.delete();
+                    if (outputFile != null && !outputFile.isEmpty()){
+                        File file = new File(outputFile);
+                        file.delete();
+                    }
                     finish();
                     break;
                 case R.id.bt_accept_record:
@@ -213,6 +219,10 @@ public class RecordActivity extends ActionBarActivity {
     public void stopRecording(){
         bt_record_stop.setVisibility(View.GONE);
         bt_record_record.setVisibility(View.VISIBLE);
+        if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+            return;
+        }
+        mLastClickTime = SystemClock.elapsedRealtime();
         myAudioRecorder.stop();
         myAudioRecorder.reset();
         tv_showtime.setText(MAX_RECORD_TIME);

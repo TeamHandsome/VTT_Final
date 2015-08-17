@@ -83,7 +83,6 @@ public class AddEditTagActivity extends ActionBarActivity {
                     reloadArrayTagForAutocompleteBox();
                 }
 
-                autoComplete.setText("");
             }
         });
         stacklist = new Stack<String>();

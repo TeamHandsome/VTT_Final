@@ -67,7 +67,7 @@ public class BackgroundFragment extends Fragment {
         fab_addnew.hide(false);
         fab_record.hide(false);
         fab_camera.hide(false);
-        int delay = 100;
+        int delay = 80;
         for (final FloatingActionButton menu : menus) {
             mUiHandler.postDelayed(new Runnable() {
                 @Override
@@ -75,7 +75,7 @@ public class BackgroundFragment extends Fragment {
                     menu.show(true);
                 }
             }, delay);
-            delay += 100;
+            delay += 80;
         }
 
         mDimmerView.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +92,7 @@ public class BackgroundFragment extends Fragment {
         tv_camera.setVisibility(View.INVISIBLE);
         tv_record.setVisibility(View.INVISIBLE);
         tv_addnew.setVisibility(View.INVISIBLE);
-        int delay1 = 100;
+        int delay1 = 80;
         for (final TextView menu : tv_menus) {
             mUiHandler.postDelayed(new Runnable() {
                 @Override
@@ -100,7 +100,7 @@ public class BackgroundFragment extends Fragment {
                     menu.setVisibility(View.VISIBLE);
                 }
             }, delay1);
-            delay1 += 100;
+            delay1 += 80;
         }
 
         view.findViewById(R.id.fab_addnew).setOnClickListener(listener);

@@ -94,6 +94,9 @@ public final class Consts {
 
     //Connect Internet
     public static final String CONNECT_INTERNET = "インターネット接続おねがいします！";
+
+    //Add successful
+    public static final String ADD_SUCCESSFUL = "正常に追加";
     /**
      * Opposite of {@link #FAILS}.
      */

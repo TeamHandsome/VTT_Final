@@ -42,6 +42,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.sentence_adapter.SentencesAdapter;
@@ -137,7 +138,7 @@ public class SuggestFragment extends Fragment implements GoogleApiClient.OnConne
     private void _setNoData(){
         imageView = (ImageView) getActivity().findViewById(R.id.tv_nodata);
         Picasso.with(getActivity())
-                .load(R.drawable.no_data)
+                .load(R.drawable.cannot_find_result)
                 .resize(360, 360)
                 .centerCrop()
                 .into(imageView);
@@ -153,6 +154,7 @@ public class SuggestFragment extends Fragment implements GoogleApiClient.OnConne
 
                 if (placeLikelihood != null && placeLikelihood.getPlace() != null && !TextUtils.isEmpty(placeLikelihood.getPlace().getName()))
                     content = placeLikelihood.getPlace().getPlaceTypes();
+                Log.d("Places_Type : ", content+"");
 
                 getLocationId(content);
 
@@ -179,7 +181,7 @@ public class SuggestFragment extends Fragment implements GoogleApiClient.OnConne
     private int getLocationId(List<Integer> content) {
         List<Integer> list1 = dao.getLocation_id();
         for (Integer id : content) {
-            if (list1.contains(id)) {
+            if (list1.contains(id) && id !=34) {
                 type_id = id;
             }
         }

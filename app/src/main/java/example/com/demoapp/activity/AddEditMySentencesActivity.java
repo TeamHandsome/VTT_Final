@@ -137,6 +137,7 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
 //            Toast.makeText(getApplicationContext(), "Uri record: "+ uri_record, Toast.LENGTH_SHORT).show();
             bt_recordPlay.setEnabled(true);
             bt_recordDelete.setEnabled(true);
+            bt_recordPath.setEnabled(false);
         }
         ;
         //handle  for Float Button Camera from main
@@ -152,10 +153,22 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
         if (action_type == Consts.EDIT_MY_SEN) {
             Bundle extras = getIntent().getExtras();
             if (extras != null) {
+
                 SentenceItem item = extras.getParcelable(Consts.DATA);
                 id_edit = item.getId();
                 uri_record = item.getSound();
+                if (uri_record != null && !uri_record.isEmpty()){
+                    bt_recordPlay.setEnabled(true);
+                    bt_recordDelete.setEnabled(true);
+                    bt_record.setEnabled(false);
+                    bt_recordPath.setEnabled(false);
+                }
                 image_d = item.getImage();
+                if (image_d !=null && !image_d.isEmpty()){
+                    bt_photodelete.setEnabled(true);
+                    bt_takephoto.setEnabled(false);
+                    bt_gallery.setEnabled(false);
+                }
                 vn = item.getNameVn();
                 jp_hiragana = item.getNameJp();
 
@@ -214,7 +227,7 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
                         e.printStackTrace();
                     }
                     m.start();
-                    Toast.makeText(getApplicationContext(), "Playing audio", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "オーディオをしています", Toast.LENGTH_LONG).show();
                     break;
                 case R.id.bt_recordPath:
                     openFolderRecord();
@@ -230,6 +243,7 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
                             bt_recordPlay.setEnabled(false);
                             bt_record.setEnabled(true);
                             bt_recordPath.setEnabled(true);
+                            uri_record = "";
                             Common.showToast(AddEditMySentencesActivity.this, Message.ITEM_IS_DELETED(Consts.AUDIO));
                         }
                     };
@@ -242,7 +256,7 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
                     dispatchPhotoSelectionIntent();
                     break;
                 case R.id.bt_photodelete:
-                    if (takingPhoto != null || selectedImage != null) {
+                    if (takingPhoto != null || selectedImage != null || !image_d.isEmpty()) {
                         ConfirmDeleteDialog confirm1 = new ConfirmDeleteDialog(AddEditMySentencesActivity.this,
                                 Consts.DELETE_PHOTO,Message.CONFIRM_DELETE){
                             @Override
@@ -250,33 +264,56 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
                                 bt_photodelete.setEnabled(false);
                                 bt_takephoto.setEnabled(true);
                                 bt_gallery.setEnabled(true);
-                                file = new File(Environment.getExternalStorageDirectory() + File.separator + folder_main + image_namefile);
-                                file.delete();
+                                if (action_type == Consts.EDIT_MY_SEN){
+                                    file = new File(image_d);
+                                    file.delete();
+                                    image_d ="";
+                                    img_photo.setImageResource(R.drawable.default_image);
+                                }else {
+                                    file = new File(Environment.getExternalStorageDirectory() + File.separator + folder_main + image_namefile);
+                                    file.delete();
+                                    takingPhoto = null;
+                                    selectedImage = null;
+                                    img_photo.setImageResource(R.drawable.default_image);
+                                }
                                 Common.showToast(AddEditMySentencesActivity.this, Message.ITEM_IS_DELETED(Consts.IMAGE));
-                                takingPhoto = null;
-                                selectedImage = null;
-                                img_photo.setImageResource(R.drawable.default_image);
                             }
                         };
                         confirm1.show();
                     }
                     break;
                 case R.id.bt_cancel2:
-                    CancelDialog dialog = new CancelDialog(AddEditMySentencesActivity.this) {
-                        @Override
-                        public void onClickAccept() {
-                            if (uri_record != null) {
-                                file = new File(uri_record);
-                                file.delete();
+                    if (action_type == Consts.EDIT_MY_SEN){
+                        CancelDialog dialog = new CancelDialog(AddEditMySentencesActivity.this) {
+                            @Override
+                            public void onClickAccept() {
+                                finish();
                             }
-                            if (takingPhoto != null) {
-                                file = new File(Environment.getExternalStorageDirectory() + File.separator + folder_main + image_namefile);
-                                file.delete();
-                            }
+                        };
+                        dialog.show();
+                    }else {
+                        if ( (ed_vietnamese.getText().toString()).isEmpty() && (ed_japanese.getText().toString()).isEmpty() &&
+                                takingPhoto == null && selectedImage == null){
                             finish();
+                        }else {
+                            CancelDialog dialog = new CancelDialog(AddEditMySentencesActivity.this) {
+                                @Override
+                                public void onClickAccept() {
+                                    if (uri_record != null) {
+                                        file = new File(uri_record);
+                                        file.delete();
+                                    }
+                                    if (takingPhoto != null) {
+                                        file = new File(Environment.getExternalStorageDirectory() + File.separator + folder_main + image_namefile);
+                                        file.delete();
+                                    }
+                                    finish();
+                                }
+                            };
+                            dialog.show();
                         }
-                    };
-                    dialog.show();
+                    }
+
                     break;
                 case R.id.bt_accept2:
                     saveData();
@@ -292,9 +329,13 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
                             addtagMySenDAO.addTagToTags(id, resultTag);
                         }
                         finish();
+                        String mess = Consts.ADD_SUCCESSFUL;
+                        Common.showToast(AddEditMySentencesActivity.this, mess, CustomToast.SUCCESS);
+                        takingPhoto = null;
+                        selectedImage = null;
                     }
-                    takingPhoto = null;
-                    selectedImage = null;
+
+
                     break;
             }
         }
@@ -366,6 +407,7 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
             if (extras != null) {
                 bt_photodelete.setEnabled(true);
                 bt_gallery.setEnabled(false);
+                bt_takephoto.setEnabled(false);
                 Bitmap bitmap = extras.getParcelable("data");
                 saveBitmap(bitmap);
                 takingPhoto = getImageUri(this, bitmap);
@@ -479,7 +521,13 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
+                CancelDialog dialog = new CancelDialog(AddEditMySentencesActivity.this){
+                    @Override
+                    public void onClickAccept() {
+                        finish();
+                    }
+                };
+                dialog.show();
                 return true;
             case R.id.action_addNew:
                 Intent intent = new Intent(getApplicationContext(), AddEditMySentencesActivity.class);
