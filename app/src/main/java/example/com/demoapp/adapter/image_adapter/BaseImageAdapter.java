@@ -58,7 +58,7 @@ public abstract class BaseImageAdapter extends BaseListAdapter {
     //Setting up data to show on Grid view
     private void setUpGridView(final ViewHolder holder, View convertView, final int position) {
         String pathImage = listSentences.get(position).getImage();
-        if (!pathImage.isEmpty() && pathImage != null) {
+
             if (listSentences.get(position).getId().contains("s")) {
                 Picasso.with(context)
                         .load(pathImage)
@@ -70,11 +70,11 @@ public abstract class BaseImageAdapter extends BaseListAdapter {
                 Uri uri = StringUtils.buildDrawableUri(context.getPackageName(), pathImage);
                 Picasso.with(context)
                         .load(uri)
-                        .resize(360, 360)
+                        .resize(360,360)
                         .centerCrop()
                         .into(holder.imageView);
             }
-        }
+
 
 
 //        holder.imageView.setImageResource(context.getResources().getIdentifier(pathImage, "drawable", context.getPackageName()));

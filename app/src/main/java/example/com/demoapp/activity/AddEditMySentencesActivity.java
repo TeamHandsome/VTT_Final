@@ -62,7 +62,7 @@ public class AddEditMySentencesActivity extends ActionBarActivity {
     SentencesDAO addNewSenDAO;
     TagDAO addtagMySenDAO;
 
-    public static String folder_main = "NewFolder/";
+    public static String folder_main = "tachikon/";
     String image_namefile = System.currentTimeMillis() + ".jpg";     //save random name Image
     private String db_path = "/sdcard/Android/data/com.demoapp.app/";
 

@@ -10,6 +10,8 @@ import android.widget.GridView;
 
 import com.daimajia.swipe.util.Attributes;
 
+import java.util.ArrayList;
+
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.image_adapter.BaseImageAdapter;
 import example.com.demoapp.adapter.image_adapter.FavoriteImageAdapter;
@@ -17,6 +19,7 @@ import example.com.demoapp.adapter.image_adapter.HistoryImageAdapter;
 import example.com.demoapp.adapter.image_adapter.ImageAdapter;
 import example.com.demoapp.adapter.image_adapter.MyImageAdapter;
 import example.com.demoapp.adapter.image_adapter.TagImageAdapter;
+import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.utility.Consts;
 import example.com.demoapp.utility.MySingleton;
 
@@ -26,6 +29,7 @@ import example.com.demoapp.utility.MySingleton;
 public class ImageListFragment extends BaseListFragment {
     private GridView gridView;
     public static BaseImageAdapter imageAdapter;
+    ArrayList<SentenceItem> list;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,6 +60,15 @@ public class ImageListFragment extends BaseListFragment {
         imageAdapter = new ImageAdapter(getActivity(), R.layout.custom_row_img_f_t, listSentences);
     }
 
+    private void rebuildListSentence(){
+        ArrayList<SentenceItem> list = new ArrayList<>();
+        for (SentenceItem item: listSentences ){
+            if (item.getImage()!=null && !item.getImage().isEmpty()){
+                list.add(item);
+            }
+        }
+        listSentences = list;
+    }
     @Override
     protected void initHistoryView(){
         imageAdapter = new HistoryImageAdapter(getActivity(), R.layout.custom_row_img_d, listSentences);
@@ -103,7 +116,8 @@ public class ImageListFragment extends BaseListFragment {
         if (this.isVisible() && isVisibleToUser) {
             // If we are becoming invisible, then...
             if (listSentences!=null) {
-                listSentences = MySingleton.getInstance().getSentenceList();;
+                listSentences = MySingleton.getInstance().getSentenceList();
+                this.rebuildListSentence();
                 imageAdapter.setListSentences(listSentences);
                 imageAdapter.notifyDataSetChanged();
             }

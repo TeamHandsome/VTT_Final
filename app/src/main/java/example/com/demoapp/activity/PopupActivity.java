@@ -149,6 +149,7 @@ public class PopupActivity extends Activity {
         if (id.contains("s")) {
             this.setImageViewURI(img);
         } else {
+
             Uri uri = StringUtils.buildDrawableUri(this.getPackageName(), img);
             this.setImageViewURI(uri);
         }
@@ -178,7 +179,7 @@ public class PopupActivity extends Activity {
         Point size = Common.getScreenSizeInPixels(PopupActivity.this);
         int width = size.x;
         int y = width / 2;
-
+        if (img.isEmpty()) y = y/3;
         img_body = (ImageView) findViewById(R.id.img_body);
         img_body.setMaxHeight(y);
         img_body.setMaxWidth(y);
