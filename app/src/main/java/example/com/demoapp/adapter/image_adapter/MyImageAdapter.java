@@ -6,11 +6,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import example.com.demoapp.adapter.image_adapter.BaseImageAdapter;
 import example.com.demoapp.model.DAO.SentencesDAO;
 import example.com.demoapp.model.SentenceItem;
-import example.com.demoapp.utility.Common;
-import example.com.demoapp.utility.Message;
 
 /**
  * Created by dmonkey on 7/24/2015.

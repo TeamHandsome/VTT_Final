@@ -1,17 +1,13 @@
 package example.com.demoapp.model.DAO;
 
 import android.content.ContentValues;
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import example.com.demoapp.utility.DbHelper;
 import example.com.demoapp.model.TagItem;
-import example.com.demoapp.utility.StringUtils;
+import example.com.demoapp.utility.DbHelper;
 
 /**
  * Created by Long on 7/8/2015.

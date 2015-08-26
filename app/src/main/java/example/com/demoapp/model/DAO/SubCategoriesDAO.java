@@ -2,8 +2,8 @@ package example.com.demoapp.model.DAO;
 
 import java.util.ArrayList;
 
-import example.com.demoapp.utility.DbHelper;
 import example.com.demoapp.model.SubCategoriesItem;
+import example.com.demoapp.utility.DbHelper;
 
 /**
  * Created by Tony on 6/7/2015.

@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.Menu;
@@ -24,9 +24,9 @@ import java.util.ArrayList;
 
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.SubCategoriesAdapter;
-import example.com.demoapp.utility.Consts;
 import example.com.demoapp.model.DAO.SubCategoriesDAO;
 import example.com.demoapp.model.SubCategoriesItem;
+import example.com.demoapp.utility.Consts;
 import example.com.demoapp.utility.StringUtils;
 
 public class DisplaySubActivity extends ActionBarActivity {

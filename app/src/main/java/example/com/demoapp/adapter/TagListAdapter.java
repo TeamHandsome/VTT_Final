@@ -1,18 +1,13 @@
 package example.com.demoapp.adapter;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Filter;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
@@ -25,12 +20,9 @@ import example.com.demoapp.activity.TagPagerActivity;
 import example.com.demoapp.extend.ConfirmDeleteDialog;
 import example.com.demoapp.extend.EditTagDialog;
 import example.com.demoapp.model.DAO.TagDAO;
-import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.model.TagItem;
-import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Consts;
 import example.com.demoapp.utility.Message;
-import example.com.demoapp.utility.StringUtils;
 
 /**
  * Created by Long on 7/21/2015.

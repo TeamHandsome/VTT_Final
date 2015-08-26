@@ -1,7 +1,6 @@
 package example.com.demoapp.adapter;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -11,9 +10,9 @@ import java.util.ArrayList;
 
 import example.com.demoapp.fragment.BaseListFragment;
 import example.com.demoapp.fragment.CategoryFragment;
-import example.com.demoapp.fragment.SuggestFragment;
 import example.com.demoapp.fragment.ImageListFragment;
 import example.com.demoapp.fragment.SentenceListFragment;
+import example.com.demoapp.fragment.SuggestFragment;
 import example.com.demoapp.model.SentenceItem;
 import example.com.demoapp.utility.Consts;
 import example.com.demoapp.utility.MySingleton;

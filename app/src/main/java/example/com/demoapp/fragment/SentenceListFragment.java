@@ -1,8 +1,6 @@
 package example.com.demoapp.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +10,10 @@ import com.daimajia.swipe.util.Attributes;
 
 import example.com.demoapp.R;
 import example.com.demoapp.adapter.sentence_adapter.BaseSentencesAdapter;
+import example.com.demoapp.adapter.sentence_adapter.FavoriteSentencesAdapter;
 import example.com.demoapp.adapter.sentence_adapter.HistorySentencesAdapter;
 import example.com.demoapp.adapter.sentence_adapter.MySentencesAdapter;
 import example.com.demoapp.adapter.sentence_adapter.SentencesAdapter;
-import example.com.demoapp.adapter.sentence_adapter.FavoriteSentencesAdapter;
 import example.com.demoapp.adapter.sentence_adapter.TagSentenceAdapter;
 import example.com.demoapp.utility.Consts;
 import example.com.demoapp.utility.MySingleton;

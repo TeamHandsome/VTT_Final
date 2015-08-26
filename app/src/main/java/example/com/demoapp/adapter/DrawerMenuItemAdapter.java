@@ -3,11 +3,9 @@ package example.com.demoapp.adapter;
 /**
  * Created by Long on 6/3/2015.
  */
+
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.AvoidXfermode;
-import android.graphics.PorterDuff;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

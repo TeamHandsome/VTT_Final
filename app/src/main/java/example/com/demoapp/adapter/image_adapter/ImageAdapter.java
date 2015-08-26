@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import example.com.demoapp.adapter.image_adapter.BaseImageAdapter;
 import example.com.demoapp.model.SentenceItem;
 
 /**

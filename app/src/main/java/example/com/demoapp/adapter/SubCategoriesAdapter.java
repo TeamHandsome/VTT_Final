@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import example.com.demoapp.R;
 import example.com.demoapp.model.SubCategoriesItem;

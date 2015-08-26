@@ -1,7 +1,6 @@
 package example.com.demoapp.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,9 +15,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import example.com.demoapp.R;
-import example.com.demoapp.activity.SubPagerActivity;
-import example.com.demoapp.activity.TagPagerActivity;
-import example.com.demoapp.adapter.BaseListAdapter;
 import example.com.demoapp.model.DAO.FavoriteDAO;
 import example.com.demoapp.model.DAO.HistoryDAO;
 import example.com.demoapp.model.DAO.SentencesDAO;

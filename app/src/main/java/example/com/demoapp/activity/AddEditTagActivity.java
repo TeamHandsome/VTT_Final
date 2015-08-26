@@ -1,7 +1,6 @@
 package example.com.demoapp.activity;
 
 import android.app.Activity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -9,14 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.tony.taglibrary.OnTagClickListener;
+import com.example.tony.taglibrary.Tag;
 import com.example.tony.taglibrary.TagView;
 
 import java.util.ArrayList;
@@ -27,14 +24,11 @@ import example.com.demoapp.R;
 import example.com.demoapp.adapter.CompleteTagAdapter;
 import example.com.demoapp.extend.CancelDialog;
 import example.com.demoapp.extend.CustomToast;
-import example.com.demoapp.utility.Common;
-import example.com.demoapp.utility.Consts;
 import example.com.demoapp.model.DAO.TagDAO;
 import example.com.demoapp.model.TagItem;
+import example.com.demoapp.utility.Common;
+import example.com.demoapp.utility.Consts;
 import example.com.demoapp.utility.Message;
-
-import com.example.tony.taglibrary.OnTagDeleteListener;
-import com.example.tony.taglibrary.Tag;
 
 public class AddEditTagActivity extends ActionBarActivity {
 
@@ -81,6 +75,7 @@ public class AddEditTagActivity extends ActionBarActivity {
                     listTag = tagView.getTags();
                     tag_list.add(textTag);
                     reloadArrayTagForAutocompleteBox();
+                    autoComplete.setText("");
                 }
 
             }

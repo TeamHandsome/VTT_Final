@@ -1,11 +1,5 @@
 package example.com.demoapp.utility;
 
-import android.app.Activity;
-import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
-
-import example.com.demoapp.activity.AddEditMySentencesActivity;
-
 /**
  * Created by Tony on 8/7/2015.
  */

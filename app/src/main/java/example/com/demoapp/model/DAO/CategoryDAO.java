@@ -3,7 +3,6 @@ package example.com.demoapp.model.DAO;
 import java.util.ArrayList;
 
 import example.com.demoapp.model.CategoryItem;
-import example.com.demoapp.model.SubCategoriesItem;
 import example.com.demoapp.utility.DbHelper;
 
 /**

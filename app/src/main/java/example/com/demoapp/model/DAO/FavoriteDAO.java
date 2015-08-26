@@ -1,11 +1,7 @@
 package example.com.demoapp.model.DAO;
 
 import android.content.ContentValues;
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import example.com.demoapp.model.SentenceItem;

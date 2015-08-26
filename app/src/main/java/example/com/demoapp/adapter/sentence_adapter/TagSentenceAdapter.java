@@ -8,9 +8,7 @@ import java.util.ArrayList;
 
 import example.com.demoapp.model.DAO.TagDAO;
 import example.com.demoapp.model.SentenceItem;
-import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Consts;
-import example.com.demoapp.utility.Message;
 
 /**
  * Created by Tony on 26/7/2015.

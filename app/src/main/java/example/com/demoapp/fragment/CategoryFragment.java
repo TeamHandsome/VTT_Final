@@ -1,12 +1,7 @@
 package example.com.demoapp.fragment;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -14,21 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import example.com.demoapp.R;
-import example.com.demoapp.activity.AddEditMySentencesActivity;
 import example.com.demoapp.activity.DisplaySubActivity;
-import example.com.demoapp.activity.LocationActivity;
-import example.com.demoapp.activity.RecordActivity;
 import example.com.demoapp.adapter.CategoriesAdapter;
 import example.com.demoapp.model.CategoryItem;
 import example.com.demoapp.model.DAO.CategoryDAO;

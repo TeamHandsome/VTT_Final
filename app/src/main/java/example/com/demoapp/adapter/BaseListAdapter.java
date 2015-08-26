@@ -2,8 +2,6 @@ package example.com.demoapp.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Point;
-import android.os.Parcelable;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +23,6 @@ import example.com.demoapp.extend.ConfirmDeleteDialog;
 import example.com.demoapp.model.DAO.FavoriteDAO;
 import example.com.demoapp.model.DAO.HistoryDAO;
 import example.com.demoapp.model.SentenceItem;
-import example.com.demoapp.utility.Common;
 import example.com.demoapp.utility.Consts;
 import example.com.demoapp.utility.Message;
 import example.com.demoapp.utility.MySingleton;

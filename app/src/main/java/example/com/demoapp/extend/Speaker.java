@@ -1,7 +1,5 @@
 package example.com.demoapp.extend;
 
-import android.content.Context;
-
 import example.com.demoapp.model.SentenceItem;
 
 /**

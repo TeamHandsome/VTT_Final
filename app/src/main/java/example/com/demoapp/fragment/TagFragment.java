@@ -3,11 +3,10 @@ package example.com.demoapp.fragment;
 import android.annotation.TargetApi;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -28,13 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import example.com.demoapp.R;
-import example.com.demoapp.activity.AddEditMySentencesActivity;
-import example.com.demoapp.activity.TagPagerActivity;
 import example.com.demoapp.adapter.TagListAdapter;
 import example.com.demoapp.model.DAO.TagDAO;
 import example.com.demoapp.model.TagItem;
-import example.com.demoapp.utility.Consts;
-import example.com.demoapp.utility.StringUtils;
 
 public class TagFragment extends Fragment {
     public TagFragment() {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Tachikon</string>
+    <string name="app_name">タチコン</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="search">Search</string>
@@ -39,13 +39,13 @@
     <string name="title_activity_mysentences">私の文書</string>
 
     <string name="title_activity_conversation_sub">会話</string>
-    <string name="title_activity_shopping">ショッピング</string>
-    <string name="title_activity_display">リスト</string>
-    <string name="title_activity_popup">PopupActivity</string>
+    <string name="title_activity_sub">サブカテゴリー</string>
+    <string name="title_activity_display">会話文</string>
+    <string name="title_activity_popup">サブカテゴリー</string>
     <string name="PopUp_title">ベトナム語に訳す</string>
     <string name="title_activity_add_edit_tag">タグを変更</string>
 
-    <string name="title_activity_add_new_my_sentences">Add New</string>
+    <string name="title_activity_add_new_my_sentences"></string>
     <string name="record">レコーダー</string>
     <string name="tag">タグ</string>
     <string name="vietnamese">ベトナムー語</string>
@@ -53,10 +53,11 @@
     <string name="photo">写真</string>
     <string name="Add_Tag">加算</string>
     <string name="title_activity_add_tag_my_sentences">AddTagMySentencesActivity</string>
-    <string name="title_activity_record">RecordActivity</string>
+    <string name="title_activity_record">レコーダー</string>
+    <string name="taglist_itemsentences">会話文</string>
 
     <string name="search_hint_tag">タグ名</string>
-    <string name="search_hint">Search...</string>
+    <string name="search_hint">検察</string>
     <string name="title_activity_pop_up_my_sen">ベトナム語に訳す</string>
     <string name="record_max_time">00:05</string>
     <string name="audio_name_hint">オーディオ名</string>
